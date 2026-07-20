@@ -35,7 +35,7 @@ const APP_SECRET = process.env.APP_SECRET || '';
 // cheaper/steadier first, newest/busiest last as a guaranteed fallback.
 const MODELS = process.env.GEMINI_MODEL
     ? [process.env.GEMINI_MODEL]
-    : ['gemini-flash-latest', 'gemini-3.5-flash-lite', 'gemini-3.5-flash'];
+    : ['gemini-3.1-flash-lite', 'gemini-flash-latest', 'gemini-3.5-flash'];
 
 if (!API_KEY) {
     console.error('Missing GEMINI_API_KEY.\nRun:  export GEMINI_API_KEY=your-key   then start again.');
@@ -91,6 +91,22 @@ async function callGemini(payload) {
 }
 
 app.get('/health', (req, res) => res.json({ ok: true, models: MODELS, preferred: preferredModel }));
+
+// Diagnostic: lists the models THIS key is actually allowed to use for
+// generateContent. Open in a browser to see real, valid model names.
+app.get('/models', async (req, res) => {
+    try {
+        const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models?key=' + encodeURIComponent(API_KEY) + '&pageSize=200');
+        const data = await r.json();
+        if (!r.ok) return res.status(r.status).json(data);
+        const usable = (data.models || [])
+            .filter(m => (m.supportedGenerationMethods || []).includes('generateContent'))
+            .map(m => (m.name || '').replace('models/', ''));
+        res.json({ count: usable.length, models: usable });
+    } catch (e) {
+        res.status(500).json({ message: e.message });
+    }
+});
 
 app.post('/api/ielts-evaluator', async (req, res) => {
     if (APP_SECRET && req.headers['x-app-secret'] !== APP_SECRET) {
