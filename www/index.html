@@ -1535,7 +1535,7 @@
     // server/server.js) so the Capacitor app — which loads this file locally,
     // not from that domain — can still reach it. e.g.:
     //   const BACKEND_URL = 'https://ielts-api.onrender.com';
-    const BACKEND_URL = '';
+    const BACKEND_URL = 'https://ielts-planning-app.onrender.com';
     async function aiCall(system, messages, maxTokens) {
         const response = await fetch(BACKEND_URL + '/api/ielts-evaluator', {
             method: 'POST',
