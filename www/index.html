@@ -62,7 +62,7 @@
             padding: 0 30px 32px 30px;
             border: none;
             border-radius: 26px; display: flex; flex-direction: column; position: relative;
-            min-height: 740px; overflow: hidden;
+            flex: 1; min-height: 740px; overflow: hidden;
             box-shadow: 0 2px 6px rgba(23,21,18,0.03), 0 28px 80px -28px rgba(23,21,18,0.16);
             animation: cardIntro 0.7s var(--glide) both;
         }
@@ -70,7 +70,7 @@
 
         /* ---------- Brand row ---------- */
         .brand-row { display: flex; align-items: center; gap: 10px; padding: 24px 44px 18px 0; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
-        .brand-square { width: 38px; height: 38px; background: var(--brand-orange); border-radius: 6px; flex-shrink: 0; animation: squareMorph 7s ease-in-out infinite; box-shadow: 0 5px 14px -5px rgba(240,146,59,0.65); }
+        .brand-square { width: 38px; height: 38px; background: var(--brand-orange); border-radius: 6px; flex-shrink: 0; animation: squareMorph 7s ease-in-out infinite; box-shadow: 0 5px 14px -5px rgba(240,146,59,0.65); will-change: clip-path, border-radius, transform; }
         .brand-name { font-family: var(--font-serif); font-size: 0.8rem; font-weight: 500; color: var(--text-main); text-align: left; line-height: 1.12; letter-spacing: -0.02em; }
         .brand-name b { font-weight: 700; }
         .brand-tag { margin-left: auto; font-family: var(--font-display); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-muted); }
@@ -433,7 +433,7 @@
         /* ---------- Splash / opening page ---------- */
         .splash-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center; padding: 30px 0 10px 0; }
         .splash-logo { display: flex; align-items: center; gap: 22px; animation: zoomFocus 0.9s var(--glide) both; }
-        .splash-square { width: 92px; height: 92px; background: var(--brand-orange); border-radius: 6px; flex-shrink: 0; animation: squareMorph 7s ease-in-out infinite; box-shadow: 0 16px 40px -14px rgba(240,146,59,0.6); }
+        .splash-square { width: 92px; height: 92px; background: var(--brand-orange); border-radius: 6px; flex-shrink: 0; animation: squareMorph 7s ease-in-out infinite; box-shadow: 0 16px 40px -14px rgba(240,146,59,0.6); will-change: clip-path, border-radius, transform; }
         .splash-name { font-family: var(--font-serif); font-size: 1.9rem; font-weight: 500; color: var(--text-main); text-align: left; line-height: 1.12; letter-spacing: -0.02em; }
         .splash-name b { font-weight: 700; }
         .splash-tagline { display: flex; align-items: center; gap: 8px; margin-top: 22px; font-family: var(--font-display); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.22em; color: var(--text-secondary); animation: zoomFocus 0.8s var(--glide) 0.25s both; }
