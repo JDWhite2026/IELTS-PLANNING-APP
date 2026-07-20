@@ -5,13 +5,16 @@
         { systemInstruction, contents, maxTokens }  ->  { reply }
 
     Calls Google's Gemini REST API directly with fetch — no Google SDK.
-    (The old @google/generative-ai@0.1.1 package was from 2023 and could not
-    use systemInstruction or the gemini-2.5 models, so every call failed.)
+
+    Model handling is self-healing: it tries a list of models in order and
+    uses the first that responds. If the newest model is unavailable to this
+    account (404) or overloaded (503/429), it automatically falls back to the
+    next. Set GEMINI_MODEL to pin one specific model and skip the fallback.
 
     Run locally:
         cd server
         npm install
-        export GEMINI_API_KEY=AIza...        (never commit this)
+        export GEMINI_API_KEY=your-key        (never commit this)
         npm start
 
     On Render: root dir "server", build "npm install", start "npm start",
@@ -26,15 +29,68 @@ app.use(cors()); // You can restrict this to your app's domain later
 app.use(express.json({ limit: '1mb' }));
 
 const API_KEY = process.env.GEMINI_API_KEY;
-const MODEL_NAME = process.env.GEMINI_MODEL || 'gemini-3.5-flash';
 const APP_SECRET = process.env.APP_SECRET || '';
+
+// If GEMINI_MODEL is set, use only that. Otherwise try these in order —
+// cheaper/steadier first, newest/busiest last as a guaranteed fallback.
+const MODELS = process.env.GEMINI_MODEL
+    ? [process.env.GEMINI_MODEL]
+    : ['gemini-flash-latest', 'gemini-3.5-flash-lite', 'gemini-3.5-flash'];
 
 if (!API_KEY) {
     console.error('Missing GEMINI_API_KEY.\nRun:  export GEMINI_API_KEY=your-key   then start again.');
     process.exit(1);
 }
 
-app.get('/health', (req, res) => res.json({ ok: true, model: MODEL_NAME }));
+const RETRYABLE = [429, 500, 503, 504];
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+// Remember which model last worked so we try it first next time.
+let preferredModel = MODELS[0];
+
+async function callGemini(payload) {
+    // Try the last-known-good model first, then the rest.
+    const order = [preferredModel, ...MODELS.filter(m => m !== preferredModel)];
+    let lastErr = { status: 502, message: 'No model responded' };
+
+    for (const model of order) {
+        const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + model +
+            ':generateContent?key=' + encodeURIComponent(API_KEY);
+
+        // One model: retry a couple of times on transient overload before moving on.
+        for (let attempt = 0; attempt < 3; attempt++) {
+            let r, data;
+            try {
+                r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload });
+                data = await r.json().catch(() => ({}));
+            } catch (e) {
+                lastErr = { status: 502, message: 'Network error reaching Gemini' };
+                break;
+            }
+
+            if (r.ok) {
+                preferredModel = model;
+                const reply = (((data.candidates || [])[0] || {}).content || { parts: [] }).parts
+                    .map(p => p.text || '').join('');
+                return { ok: true, reply, model };
+            }
+
+            lastErr = { status: r.status, message: (data.error && data.error.message) || 'Upstream error' };
+
+            if (RETRYABLE.includes(r.status)) {
+                console.warn(model + ' busy (' + r.status + '), retry ' + (attempt + 1));
+                await sleep(600 * (attempt + 1));
+                continue; // try same model again
+            }
+            // Not retryable (e.g. 404 model unavailable, 400 bad key) — move to next model.
+            console.warn(model + ' unusable (' + r.status + '): ' + lastErr.message);
+            break;
+        }
+    }
+    return { ok: false, ...lastErr };
+}
+
+app.get('/health', (req, res) => res.json({ ok: true, models: MODELS, preferred: preferredModel }));
 
 app.post('/api/ielts-evaluator', async (req, res) => {
     if (APP_SECRET && req.headers['x-app-secret'] !== APP_SECRET) {
@@ -52,33 +108,14 @@ app.post('/api/ielts-evaluator', async (req, res) => {
             generationConfig: { maxOutputTokens: Math.min(Number(maxTokens) || 400, 2000) }
         });
 
-        const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + MODEL_NAME +
-            ':generateContent?key=' + encodeURIComponent(API_KEY);
+        const result = await callGemini(payload);
+        if (result.ok) return res.json({ reply: result.reply });
 
-        // Gemini can return a transient 503/429 when the model is busy.
-        // Retry a few times with a short backoff before giving up.
-        let r, data;
-        const RETRYABLE = [429, 500, 503, 504];
-        for (let attempt = 0; attempt < 4; attempt++) {
-            r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload });
-            data = await r.json().catch(() => ({}));
-            if (r.ok || !RETRYABLE.includes(r.status)) break;
-            console.warn('Gemini busy (' + r.status + '), retry ' + (attempt + 1));
-            await new Promise(res => setTimeout(res, 700 * (attempt + 1)));
-        }
-
-        if (!r.ok) {
-            const raw = (data.error && data.error.message) || 'Upstream error';
-            console.error('Gemini error', r.status, raw);
-            const friendly = RETRYABLE.includes(r.status)
-                ? 'The AI is very busy right now. Please try again in a moment.'
-                : raw;
-            return res.status(r.status).json({ message: friendly });
-        }
-
-        const reply = (((data.candidates || [])[0] || {}).content || { parts: [] }).parts
-            .map(p => p.text || '').join('');
-        res.json({ reply });
+        console.error('Gemini failed', result.status, result.message);
+        const friendly = RETRYABLE.includes(result.status)
+            ? 'The AI is very busy right now. Please try again in a moment.'
+            : result.message;
+        res.status(result.status).json({ message: friendly });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Failed to connect to AI' });
@@ -87,4 +124,4 @@ app.post('/api/ielts-evaluator', async (req, res) => {
 
 // Render provides the PORT automatically
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`ielts-api running on port ${port} (model: ${MODEL_NAME})`));
+app.listen(port, () => console.log(`ielts-api running on port ${port} (models: ${MODELS.join(', ')})`));
