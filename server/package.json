@@ -1,0 +1,14 @@
+{
+  "name": "ielts-api",
+  "version": "1.0.0",
+  "description": "AI backend for The Exam Academy IELTS planner — proxies the app's aiCall() to Gemini.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "@google/generative-ai": "^0.1.1"
+  }
+}
