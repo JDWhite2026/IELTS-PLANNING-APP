@@ -43,27 +43,37 @@ app.post('/api/ielts-evaluator', async (req, res) => {
     try {
         const { systemInstruction, contents, maxTokens } = req.body || {};
 
-        const r = await fetch(
-            'https://generativelanguage.googleapis.com/v1beta/models/' + MODEL_NAME + ':generateContent?key=' + encodeURIComponent(API_KEY),
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    systemInstruction: { parts: [{ text: String(systemInstruction || '') }] },
-                    contents: (Array.isArray(contents) ? contents : []).map(m => ({
-                        role: m.role === 'assistant' ? 'model' : 'user',
-                        parts: [{ text: String(m.text || '') }]
-                    })),
-                    generationConfig: { maxOutputTokens: Math.min(Number(maxTokens) || 400, 2000) }
-                })
-            }
-        );
+        const payload = JSON.stringify({
+            systemInstruction: { parts: [{ text: String(systemInstruction || '') }] },
+            contents: (Array.isArray(contents) ? contents : []).map(m => ({
+                role: m.role === 'assistant' ? 'model' : 'user',
+                parts: [{ text: String(m.text || '') }]
+            })),
+            generationConfig: { maxOutputTokens: Math.min(Number(maxTokens) || 400, 2000) }
+        });
 
-        const data = await r.json();
+        const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + MODEL_NAME +
+            ':generateContent?key=' + encodeURIComponent(API_KEY);
+
+        // Gemini can return a transient 503/429 when the model is busy.
+        // Retry a few times with a short backoff before giving up.
+        let r, data;
+        const RETRYABLE = [429, 500, 503, 504];
+        for (let attempt = 0; attempt < 4; attempt++) {
+            r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload });
+            data = await r.json().catch(() => ({}));
+            if (r.ok || !RETRYABLE.includes(r.status)) break;
+            console.warn('Gemini busy (' + r.status + '), retry ' + (attempt + 1));
+            await new Promise(res => setTimeout(res, 700 * (attempt + 1)));
+        }
+
         if (!r.ok) {
-            const msg = (data.error && data.error.message) || 'Upstream error';
-            console.error('Gemini error', r.status, msg);
-            return res.status(r.status).json({ message: msg });
+            const raw = (data.error && data.error.message) || 'Upstream error';
+            console.error('Gemini error', r.status, raw);
+            const friendly = RETRYABLE.includes(r.status)
+                ? 'The AI is very busy right now. Please try again in a moment.'
+                : raw;
+            return res.status(r.status).json({ message: friendly });
         }
 
         const reply = (((data.candidates || [])[0] || {}).content || { parts: [] }).parts
