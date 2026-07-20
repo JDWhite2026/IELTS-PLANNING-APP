@@ -2288,8 +2288,6 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
                 <span class="pp-tag">${ico('target')} The question <span class="pp-type">${p.qtype}</span></span>
                 <p class="pp-text">${p.prompt}</p>
             </div>
-            <span class="plan-label">Your plan needs all five</span>
-            ${checklistHTML(p)}
             <span class="plan-label">Your notes <span class="pl-hint">— short phrases, arrows and abbreviations are perfect</span></span>
             <div class="plan-scaffold">
                 <div class="ps-row"><span class="ps-label">1 · Boundary <span class="ps-hint">who or what is the essay about?</span></span><textarea class="ps-input" id="ps_boundary" rows="1" placeholder="e.g. ${p.boundary}"></textarea></div>
@@ -2388,6 +2386,11 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         setChk('chk_concl', ['concl', 'conclusion', 'restate', 'stance'].some(w => lower.includes(w)));
         const fb = el('planFeedbackBtn');
         if (wc >= 25) fb.removeAttribute('disabled'); else fb.setAttribute('disabled', 'true');
+        // The compare step unlocks with enough notes — it must not depend on the AI.
+        if (pState === 'plan') {
+            const cont = el('masterContinueActionBtn');
+            if (cont) { if (wc >= 25) cont.removeAttribute('disabled'); else cont.setAttribute('disabled', 'true'); }
+        }
     }
     function setChk(id, met) {
         const n = el(id);

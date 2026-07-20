@@ -1,5 +1,10 @@
 {
   "appId": "com.theexamacademy.app",
   "appName": "IELTS Practice",
-  "webDir": "www"
+  "webDir": "www",
+  "plugins": {
+    "Keyboard": {
+      "accessoryBarVisible": false
+    }
+  }
 }
