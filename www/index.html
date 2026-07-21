@@ -1295,17 +1295,15 @@
                   runTypeShowcase();
                   pauseBtn(btn, 800);
               } },
-            { title: "Half your mark, before you write", sub: "Four marking criteria — look at the orange half.", wm: "01",
+            { title: "Half your mark is decided before you write a word", sub: "Your essay is marked in four parts — two are won while planning.", wm: "01",
               render(b, btn) { focusReveal(b, btn, [
                   `<div class="crit-map">
-                      <div class="crit-block cb-plan"><span class="cb-pct">25%</span><span class="cb-label">Task<br>Response</span></div>
-                      <div class="crit-block cb-plan"><span class="cb-pct">25%</span><span class="cb-label">Coherence &<br>Cohesion</span></div>
-                      <div class="crit-block cb-lang"><span class="cb-pct">25%</span><span class="cb-label">Vocabulary</span></div>
-                      <div class="crit-block cb-lang"><span class="cb-pct">25%</span><span class="cb-label">Grammar</span></div>
-                   </div>
-                   <div class="crit-legend"><span class="cl-plan">← 50% = your plan</span><span class="cl-lang">50% = your language →</span></div>`,
-                  stmt('The point', `<b>Task Response</b> = your ideas. <b>Coherence</b> = their order. Both are decided while you <b>plan</b>, not while you write. Grammar takes years to improve — this takes today.`),
+                      <div class="crit-block cb-plan" style="flex:2;"><span class="cb-pct">50%</span><span class="cb-label">Your plan<br>ideas + order</span></div>
+                      <div class="crit-block cb-lang" style="flex:2;"><span class="cb-pct">50%</span><span class="cb-label">Your language<br>vocabulary + grammar</span></div>
+                   </div>`,
+                  stmt('The point', `Two of the four marks — your <b>ideas</b> and their <b>order</b> — are decided while you plan, not while you write. Grammar takes years to improve. This takes today.`),
                   expander(`Why this works — the examiner's own words`,
+                      stmt('The four parts', `Task Response (your ideas) 25% · Coherence (their order) 25% · Vocabulary 25% · Grammar 25%. The first two are planning decisions.`) +
                       quote('...addresses the task; some parts may be more fully covered than others... ideas may be insufficiently developed', 'Band 6 — Task Response (simplified wording)') +
                       quote('...addresses all parts of the task; presents a clear position throughout; extends and supports main ideas', 'Band 7 — Task Response (simplified wording)') +
                       stmt('The gap', `<b>All parts</b>. <b>Clear position</b>. <b>Supported ideas</b>. Every one is a planning decision — none is a grammar decision.`) +
@@ -1353,10 +1351,11 @@
 
         /* ---------- 02 · DECODE ---------- */
         { steps: [
-            { title: "Every question builds a fence", sub: "One word limits whose essay this is.", wm: "02", showPrompt: true,
+            { title: "One word decides who the essay is about", sub: "Find it before you think of any ideas.", wm: "02", showPrompt: true,
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('The principle', `Every question contains one word that decides <b>who</b> — or <b>what</b> — the essay is about. Find it <b>before</b> thinking of any ideas. It is the fence around everything you write.`),
-                  stmt('The cost of missing it', `Write about schools when the question says <b>universities</b>, and those ideas are marked off-topic — however well written.`)
+                  stmt('The principle', `Every question contains one word that decides <b>who</b> — or <b>what</b> — the essay is about. Find it first. It is the fence around everything you write.`),
+                  expander(`What it costs if you miss it`,
+                      stmt('Off-topic, however well written', `Write about schools when the question says <b>universities</b>, and those ideas are marked off-topic — the examiner cannot reward them, no matter how good the English is.`))
               ]); } },
             { title: "Tap the boundary word", sub: "Find the fence in the example question.", wm: "02", showPrompt: false,
               render(b, btn) {
@@ -1372,8 +1371,9 @@
                   focusReveal(b, btn, [
                       `<div class="laser-prompt-frame">${sc.before}<span class="text-word-token tok-boundary">${sc.correctToken}</span>${sc.mid}<span class="text-word-token tok-decoy">${sc.wrongToken}</span>${sc.after}</div>
                        <div class="crit-legend" style="margin-top:2px;"><span class="cl-plan"><i style="display:inline-block;width:9px;height:9px;background:var(--brand-orange);border-radius:2px;margin-right:4px;"></i>boundary — who it's about</span><span class="cl-lang"><i style="display:inline-block;width:9px;height:9px;background:var(--brand-black);border-radius:2px;margin-right:4px;"></i>decoy — one side of the argument</span></div>`,
-                      stmt(`Why "${sc.wrongToken}" is a decoy`, `It looks important — it's one of the two things being compared. But it is a <b>side of the argument</b>, not a limit. You will write a whole paragraph about it later; it doesn't tell you <b>who</b> the essay is about.`),
-                      stmt('The quick test', `Ask: <b>"who (or what) is this essay about?"</b> → ${sc.correctToken}. Ask: <b>"which side?"</b> → ${sc.wrongToken}. Different questions, different jobs.`)
+                      stmt('The quick test', `Ask <b>"who (or what) is this essay about?"</b> → ${sc.correctToken}. Ask <b>"which side?"</b> → ${sc.wrongToken}. Different questions, different jobs.`),
+                      expander(`Why "${sc.wrongToken}" fools people`,
+                          stmt('It looks important', `It's one of the two things being compared — you will write a whole paragraph about it later. But it is a <b>side of the argument</b>, not a limit. It doesn't tell you <b>who</b> the essay is about.`))
                   ]);
               } },
             { title: "Drill: three real questions", sub: "Find the boundary in each — exam-style prompts, no help.", wm: "02",
@@ -1408,17 +1408,15 @@
 
         /* ---------- 03 · LOOP TEST ---------- */
         { steps: [
-            { title: '"Because I said so"', sub: "You already know what a bad reason sounds like.", wm: "03",
+            { title: '"Because I said so" is not a reason', sub: "You already know what a bad reason sounds like.", wm: "03",
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('A familiar argument', `A child asks: "Why do I have to go to bed?" — "<b>Because I said so.</b>" Everyone knows that's not a real reason. It gives no new information; it just repeats the demand.`),
-                  stmt('The exam version', `Under time pressure, essay writers do the polite version of the same thing: "Job training is vital <b>because it is very important for students</b>." Longer sentence — same trick. Nothing new was said.`),
+                  stmt('You know this one', `A child asks: "Why do I have to go to bed?" — "<b>Because I said so.</b>" Not a real reason: nothing new was said. Under exam pressure, writers do the polite version — "Job training is vital <b>because it is very important</b>." Same trick, longer sentence.`),
                   expander(`What the examiner calls it`,
                       quote('...main ideas may be insufficiently developed or unclear', 'Band 6 — Task Response (simplified wording)') +
                       stmt('In plain words', `"Insufficiently developed" is the examiner's name for a reason that only repeats its claim. It is one of the most common band 6 comments.`))
               ]); } },
             { title: "Watch a loop happen", sub: "See the sentence walk in a circle — slowly this time.", wm: "03",
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('Start with a claim', `<b>"${d.s1} ${d.joiner} ${d.key}."</b> — Fine so far. Now it needs a reason: the sentence must answer <i>why?</i>`),
                   `<div class="laser-prompt-frame">"${d.s1} ${d.joiner} <span class="hl-red">${d.key}</span> ${d.verb} ${d.s2} <span class="hl-red">${d.loopWords}</span>."</div>`,
                   stmt('Look at the red words', `'${d.loopWords}' is just '<b>${d.key}</b>' wearing different clothes. The "reason" travelled in a circle — the sentence ends exactly where it started. That is a <b>loop</b>.`)
               ]); } },
@@ -1485,17 +1483,17 @@
 
         /* ---------- 04 · PARAGRAPH ---------- */
         { steps: [
-            { title: "One idea, fully developed", sub: "The Task 2 rule most people get wrong.", wm: "04",
+            { title: "One idea, fully explained, beats three half-explained", sub: "The Task 2 rule most people get wrong.", wm: "04",
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('The instinct', `Most candidates believe more ideas = a better answer, and squeeze three or four points into each paragraph.`),
-                  stmt('The reality', `Examiners reward the opposite: <b>one idea, fully developed, beats three ideas half-explained</b>. "Extends and supports main ideas" is band 7 wording — extension needs room.`),
-                  stmt('The shape', `So each body paragraph carries exactly one idea, built in three layers: <b>main idea → reason → example</b>. Always this order.`)
+                  stmt('The shape', `Each body paragraph carries exactly <b>one idea</b>, built in three layers: <b>main idea → reason → example</b>. Always this order.`),
+                  expander(`Why not more ideas?`,
+                      stmt('The instinct', `Most candidates believe more ideas = a better answer, and squeeze three or four points into each paragraph.`) +
+                      stmt('The reality', `Examiners reward the opposite. "Extends and supports main ideas" is band 7 wording — and extension needs room. One idea with a reason and an example scores higher than a list.`))
               ]); } },
-            { title: "The generator: ask why twice", sub: "Where ideas come from when your mind goes blank.", wm: "04",
+            { title: "Blank mind? Ask two questions", sub: "You don't wait for ideas — you pull them out.", wm: "04",
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('The problem', `"I can't think of ideas" is the most common planning panic. The fix is simple — you don't wait for ideas, you <b>pull them out</b> with two questions.`),
-                  stmt('Question 1 — WHY?', `Take your position and ask <b>why is it true?</b> The answer is your reason.`),
-                  stmt('Question 2 — HOW DO I KNOW?', `Ask <b>how do I know?</b> The answer is your example. Two questions → a complete paragraph.`)
+                  stmt('Question 1 — WHY is it true?', `Take your position and ask why. The answer is your <b>reason</b>.`),
+                  stmt('Question 2 — HOW do I know?', `Then ask how you know. The answer is your <b>example</b>. Two questions → a complete paragraph.`)
               ]); } },
             { title: "Ask: WHY is it true?", sub: "Position: \"Universities should prioritize practical job training.\" Tap the real reason.", wm: "04",
               render(b, btn) {
@@ -1513,10 +1511,9 @@
                       <div class="tap-card" onclick="tapAnswer(this, true)">${p.howRight}</div>
                       <div class="tap-card" style="animation-delay:0.15s;" data-hint="'Many people agree' is an opinion, not a case — it can't be checked." onclick="tapAnswer(this, false)">${p.howWrong}</div>`;
               } },
-            { title: "You don't need statistics", sub: "The example anxiety — solved.", wm: "04",
+            { title: "You don't need statistics", sub: "The example worry — solved.", wm: "04",
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('The fear', `"But I don't know any facts or figures!" — the most common reason candidates freeze at the example layer.`),
-                  stmt('The truth', `Examiners never verify examples. They reward a <b>specific, believable case</b> — "computing graduates with coding experience are hired faster" — not data. A specific, believable case beats invented numbers.`)
+                  stmt('The truth', `"But I don't know any facts or figures!" — you don't need them. Examiners never check examples. They reward a <b>specific, believable case</b> — "computing graduates with coding experience are hired faster" — not data.`)
               ]); } },
             { title: "Now compress it", sub: "Full thoughts → plan notes. Watch the whole paragraph shrink.", wm: "04",
               render(b, btn) { compressStep(b, btn,
@@ -1576,11 +1573,12 @@
 
         /* ---------- 05 · THESIS & STANCE ---------- */
         { steps: [
-            { title: "A position throughout", sub: "The band 7 requirement most 6.5 essays miss.", wm: "05",
+            { title: "The examiner must never wonder where you stand", sub: "Your opinion appears three times — not once at the end.", wm: "05",
               render(b, btn) { focusReveal(b, btn, [
-                  quote('...presents a clear position throughout the response', 'Band 7 — Task Response (simplified wording)'),
-                  stmt('The common failure', `Many candidates discuss both views well — and reveal their own opinion only in the conclusion. "Throughout" means the examiner must never wonder where you stand.`),
-                  stmt('Where your opinion lives', `It appears <b>three times</b>: announced in the introduction (the thesis), argued by one body paragraph (usually the second), and restated in the conclusion.`)
+                  stmt('Where your opinion lives', `It appears <b>three times</b>: announced in the introduction, argued by one body paragraph, and restated in the conclusion. Saving it for the end — the most common 6.5 habit — fails the test.`),
+                  expander(`The examiner's wording`,
+                      quote('...presents a clear position throughout the response', 'Band 7 — Task Response (simplified wording)') +
+                      stmt('What "throughout" means', `Many candidates discuss both views well — and reveal their own opinion only in the conclusion. "Throughout" means the reader knows your side from the first paragraph.`))
               ]); } },
             { title: "Name both sides", sub: "Your thesis previews both paragraphs — in the same words.", wm: "05",
               render(b, btn) {
@@ -1607,8 +1605,7 @@
             { title: "The final two lines", sub: "Thesis noted — and the conclusion decided in five words.", wm: "05",
               render(b, btn) { focusReveal(b, btn, [
                   modelCard(5, 3),
-                  stmt('The two jobs of a conclusion', `A conclusion does exactly two things: it <b>returns to your stance</b>, and it <b>echoes your strongest reason</b>. Your plan decides which reason that is — so note it now.`),
-                  stmt('The one rule', `A conclusion must contain <b>nothing new</b>. A fresh idea or example in the final paragraph is a classic band 6 error — the examiner sees an unfinished idea, not a bonus.`),
+                  stmt('The two jobs of a conclusion', `Return to your stance, and echo your strongest reason — <b>nothing new</b>. A fresh idea in the final paragraph reads as unfinished, not as a bonus. Decide the echoed reason now, in the plan.`),
                   expander(`Why five words in the plan matter`,
                       stmt('The evidence', `The band 6 marking guide says it directly: "conclusions may be unclear". No conclusion = band 6, whatever the rest looks like. Five planned words prevent it completely.`))
               ]); } },
@@ -2831,6 +2828,13 @@ STRICT RULES for every reply:
     loadProgress();
     renderClock();
     renderSplash();
+
+    // On iOS, hide the grey keyboard toolbar (the "Done" / "<" "X" bar) that
+    // WKWebView shows above the keyboard. Harmless/no-op in a normal browser.
+    try {
+        const kb = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Keyboard;
+        if (kb && kb.setAccessoryBarVisible) kb.setAccessoryBarVisible({ isVisible: false });
+    } catch (e) {}
 </script>
 </body>
 </html>

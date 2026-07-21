@@ -4,7 +4,7 @@
   "webDir": "www",
   "plugins": {
     "Keyboard": {
-      "accessoryBarVisible": false
+      "resize": "native"
     }
   }
 }
