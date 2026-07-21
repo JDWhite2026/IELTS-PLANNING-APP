@@ -2640,32 +2640,45 @@
         el('globalPromptBoxNode').style.display = 'none';
         el('headerWatermark').innerHTML = ico('cards');
         el('appStepBadge').innerText = 'New question type';
-        el('appStepTitle').innerText = q.name;
-        el('appStepSubtitle').innerText = 'Same method, same five lines - only the paragraph labels change. Sixty seconds and you know this type.';
+        el('appStepTitle').innerText = 'A new type: ' + q.name;
+        el('appStepSubtitle').innerText = "You've not planned this type before. Here's the one thing that changes - it takes about a minute.";
         restartAnimation(el('stageHeaderBlock'));
 
+        const board = el('visualDisplayBoard');
+        board.innerHTML = `
+            <div class="focus-card"><span class="focus-tag">Don't worry - the method is the same</span><p>Your plan is still the same five lines you already know. The <b>only</b> thing that changes for a "${q.name}" question is what your <b>two body paragraphs</b> are about.</p></div>
+            <div class="side-chip-row" style="animation-delay:0.15s;">
+                <div class="side-chip sc-a"><span class="sc-tag">Paragraph 1 becomes</span>${q.p1}</div>
+                <div class="side-chip sc-b"><span class="sc-tag">Paragraph 2 becomes</span>${q.p2}</div>
+            </div>
+            <div class="theory-quote" style="animation-delay:0.3s;">${q.cue.replace(/^"|"$/g, '')}<span class="q-source">how you spot a ${q.name} question</span></div>`;
+        playEntrance(board);
+
+        const btn = el('masterContinueActionBtn');
+        btn.removeAttribute('disabled');
+        btn.innerText = 'One quick check ▸';
+        btn.onclick = () => renderTypeCheck(q);
+    }
+    function renderTypeCheck(q) {
+        pState = 'primer';
+        el('appStepTitle').innerText = 'Quick check';
+        el('appStepSubtitle').innerText = 'Tap the phrase that signals a ' + q.name + ' question - then you\'re planning.';
+        restartAnimation(el('stageHeaderBlock'));
         const others = QTYPES.filter(t => t.name !== q.name);
         const wrong1 = others[0], wrong2 = others[1];
         const board = el('visualDisplayBoard');
         board.innerHTML = `
-            <div class="theory-quote" style="animation-delay:0s;">${q.cue.replace(/^"|"$/g, '')}<span class="q-source">the cue - how you recognise ${q.name} in ten seconds</span></div>
-            <div class="side-chip-row" style="animation-delay:0.15s;">
-                <div class="side-chip sc-a"><span class="sc-tag">P1 becomes</span>${q.p1}</div>
-                <div class="side-chip sc-b"><span class="sc-tag">P2 becomes</span>${q.p2}</div>
-            </div>
-            <div class="focus-card" style="animation-delay:0.3s;"><span class="focus-tag">What matters on this type</span><p>${q.body}</p></div>
-            <div class="tap-instruction" style="animation-delay:0.45s;">Quick check - which cue signals a <b>${q.name}</b> question?</div>
-            <div class="tap-card" style="animation-delay:0.5s;" onclick="tapAnswer(this, true)">${q.cue}</div>
-            <div class="tap-card" style="animation-delay:0.6s;" data-hint="That cue belongs to ${wrong1.name}." onclick="tapAnswer(this, false)">${wrong1.cue}</div>
-            <div class="tap-card" style="animation-delay:0.7s;" data-hint="That cue belongs to ${wrong2.name}." onclick="tapAnswer(this, false)">${wrong2.cue}</div>`;
+            <div class="tap-instruction">Which cue means "${q.name}"?</div>
+            <div class="tap-card" onclick="tapAnswer(this, true)">${q.cue}</div>
+            <div class="tap-card" style="animation-delay:0.12s;" data-hint="That cue belongs to ${wrong1.name}." onclick="tapAnswer(this, false)">${wrong1.cue}</div>
+            <div class="tap-card" style="animation-delay:0.24s;" data-hint="That cue belongs to ${wrong2.name}." onclick="tapAnswer(this, false)">${wrong2.cue}</div>`;
         playEntrance(board);
-
         const btn = el('masterContinueActionBtn');
-        gateBtn(btn, 'Answer the quick check to continue');
+        gateBtn(btn, 'Tap your answer to continue');
         btn.onclick = () => {
             if (!typesPrimed.includes(q.name)) typesPrimed.push(q.name);
             saveProgress();
-            showToast(q.name + ' unlocked ✓');
+            showToast(q.name + ' - got it ✓');
             renderPlanScreen(false);
         };
     }
@@ -2880,7 +2893,7 @@ Reply with ONLY a valid JSON object - no markdown, no code fences. Keys:
             </div>
             <span class="plan-label">Your notes <span class="pl-hint">- short phrases, arrows and abbreviations are perfect</span></span>
             <div class="plan-scaffold">
-                <div class="ps-row"><span class="ps-label">1 · Boundary <span class="ps-hint">who or what is the essay about?</span></span><textarea class="ps-input" id="ps_boundary" rows="1" placeholder="e.g. ${p.boundary}"></textarea></div>
+                <div class="ps-row"><span class="ps-label">1 · Boundary <span class="ps-hint">who or what is the essay about?</span></span><textarea class="ps-input" id="ps_boundary" rows="1" placeholder="the word(s) that limit the topic..."></textarea></div>
                 <div class="ps-row"><span class="ps-label">2 · Paragraph 1 - ${p.pillarA.label} <span class="ps-hint">idea / reason / example</span></span><textarea class="ps-input" id="ps_p1" rows="2" placeholder="idea → because... → e.g. ..."></textarea></div>
                 <div class="ps-row"><span class="ps-label">3 · Paragraph 2 - ${p.pillarB.label} <span class="ps-hint">idea / reason / example</span></span><textarea class="ps-input" id="ps_p2" rows="2" placeholder="idea → because... → e.g. ..."></textarea></div>
                 <div class="ps-row"><span class="ps-label">4 · Your position <span class="ps-hint">both sides + where you stand</span></span><textarea class="ps-input" id="ps_thesis" rows="1" placeholder="while ..., I think ..."></textarea></div>
