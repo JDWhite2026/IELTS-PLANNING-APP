@@ -1337,7 +1337,7 @@
                           `<div class="rail-item" style="--rd:${(i * 1.05).toFixed(2)}s"><span class="rail-dot">${ico(s[0])}</span><span class="rail-name">${s[1]}</span><span class="rail-min">${s[2]}</span></div>`
                       ).join('') +
                       `</div><div class="rail-total" style="--rd:5.4s">= 7 minutes · ~45 words of notes · half your mark decided</div>
-                       <div class="rail-total" style="--rd:5.9s; font-weight:500; color:var(--text-muted);">That leaves 27 minutes to write and 3 to check — you'll practise those here too.</div>`;
+                       <div class="rail-total" style="--rd:5.9s; color:var(--text-secondary); background:var(--brand-orange-wash); border:1px solid rgba(240,146,59,0.3); border-radius:10px; padding:10px 14px; margin-top:10px;">You'll still have <b>27 minutes for the writing itself</b>, and <b>3 to check it over</b> — don't worry, we'll practise both later.</div>`;
                   runRailClock();
                   pauseBtn(btn, 5600);
               } },
@@ -1913,7 +1913,7 @@
 
         let hPractice = '';
         if (!attempts.length) {
-            hPractice = `<div class="focus-card"><span class="focus-tag">Practice history</span><p>No plans yet. Your practice record — times, checklist scores and trends — will appear here after your first 7-minute plan.</p></div>`;
+            hPractice = `<div class="focus-card"><span class="focus-tag">Practice history</span><p>Nothing here yet — your first plan starts your record. Times, checklist scores and trends will all build up on this page as you go.</p></div>`;
         } else {
             const best = Math.max(...attempts.map(a => a.checks));
             const withSecs = attempts.filter(a => typeof a.secs === 'number');
@@ -2002,7 +2002,7 @@
                 <div class="splash-tagline"><span class="tag-dash"></span> Quality English Exam Preparation</div>
                 <h1 class="splash-title">IELTS Task 2 Writing</h1>
                 <div class="splash-sub">7-Minute Planner</div>
-                <p class="splash-desc">Half your writing mark is decided before you write a sentence. Learn the planning method — then practise it, prompt after prompt.</p>
+                <p class="splash-desc">Half your writing mark is decided before you write a sentence. Learn the planning method — then practise it, question after question.</p>
             </div>`;
         const btn = el('masterContinueActionBtn');
         btn.removeAttribute('disabled');
@@ -2098,8 +2098,8 @@
         el('appStepBadge').innerText = 'Practise · Plan ' + (attempts.length + 1);
         el('appStepTitle').innerText = currentPrompt.custom ? 'Your question is ready' : 'Draw a question';
         el('appStepSubtitle').innerText = currentPrompt.custom
-            ? 'The AI has decoded it — type identified, checklist built, model plan waiting for the compare step. 7 minutes on the clock once you start.'
-            : 'A fresh question each time — like the real exam. You get 7 minutes on the clock once you start.';
+            ? "All decoded — type spotted, checklist built, and a model plan ready to compare with later. Start whenever you're ready."
+            : 'A fresh question each time, just like the real exam. Pick how you want to practise, then off you go.';
         restartAnimation(el('stageHeaderBlock'));
 
         const board = el('visualDisplayBoard');
@@ -2216,7 +2216,7 @@
         const board = el('visualDisplayBoard');
         board.innerHTML = `
             <textarea class="console-editor-box" id="customQInput" style="min-height:130px; font-size:1rem;" placeholder="Paste the full question here — e.g. 'Some people believe that..., while others think... Discuss both views and give your own opinion.'"></textarea>
-            <div class="console-meta-row"><span id="customQCount">0 words</span><button class="peek-btn" onclick="renderDrawScreen()">← Back to the prompt bank</button></div>
+            <div class="console-meta-row"><span id="customQCount">0 words</span><button class="peek-btn" onclick="renderDrawScreen()">← Back to the question bank</button></div>
             <div id="customQPanel"></div>`;
         playEntrance(board);
         const btn = el('masterContinueActionBtn');
@@ -2372,7 +2372,7 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         } catch (err) {
             if (err.code === 'nokey') showAISetup(panel, 'Personalised questions need an AI connection.', () => generatePersonalPrompt());
             else if (err.code === 'auth') { clearAIKey(); showAISetup(panel, '⚠️ That key was rejected. Paste it again.', () => generatePersonalPrompt()); }
-            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Couldn't generate a question — check the backend is running, then try again.</div>`;
+            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Couldn't build your question just now — give it a moment and try again.</div>`;
         }
     };
 
@@ -2401,8 +2401,8 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         el('appStepBadge').innerText = 'Practise · Plan ' + (attempts.length + 1);
         el('appStepTitle').innerText = resuming ? 'Back to your plan' : 'Build your plan';
         el('appStepSubtitle').innerText = practiceMode === 'exam'
-            ? 'Seven minutes. Notes only — turn the question into the five-line plan below.'
-            : 'No clock — take your time. Notes only: turn the question into the five-line plan below.';
+            ? "Seven minutes on the clock. Notes only — five short lines and you're there."
+            : "No clock today — take all the time you need. Five short lines is all it takes.";
         restartAnimation(el('stageHeaderBlock'));
 
         const board = el('visualDisplayBoard');
@@ -2591,7 +2591,7 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         el('headerWatermark').innerText = '⇄';
         el('appStepBadge').innerText = 'Practise · Plan ' + attempts.length + ' complete';
         el('appStepTitle').innerText = 'Compare with a model';
-        el('appStepSubtitle').innerText = 'Same prompt, planned by the method. Look for what the model includes that yours misses — and what you did just as well.';
+        el('appStepSubtitle').innerText = 'Same question, planned with the method. Spot what the model has that yours misses — and notice what you did just as well.';
         restartAnimation(el('stageHeaderBlock'));
 
         const board = el('visualDisplayBoard');
@@ -2916,7 +2916,7 @@ Be direct and specific, referencing their actual notes. No numeric band scores.`
         } catch (err) {
             if (err.code === 'nokey') { showAISetup(panel, null, () => requestPlanFeedback()); }
             else if (err.code === 'auth') { clearAIKey(); showAISetup(panel, '⚠️ That key was rejected by the provider. Please check it and paste it again.', () => requestPlanFeedback()); }
-            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ The feedback engine returned an error: ${err.message}. Please try again.</div>`;
+            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Something went wrong getting your feedback — give it a moment and try again.</div>`;
         } finally {
             btn.removeAttribute('disabled');
             btn.innerHTML = ico('redo') + ' Get updated feedback';
@@ -2949,7 +2949,7 @@ Be direct and specific, referencing their actual notes. No numeric band scores.`
         if (!p || !panel || !btn) return;
         pauseTimer();
         btn.setAttribute('disabled', 'true');
-        panel.innerHTML = `<div class="ai-feedback-panel"><span class="spinner-dot"></span><span class="spinner-dot"></span><span class="spinner-dot"></span> Marking against the four criteria...</div>`;
+        panel.innerHTML = `<div class="ai-feedback-panel"><span class="spinner-dot"></span><span class="spinner-dot"></span><span class="spinner-dot"></span> Reading your essay like an examiner...</div>`;
         const sys = `You are an experienced IELTS Writing examiner marking a Task 2 essay for a student aiming for band 7.
 
 The exam question: "${p.prompt}" (type: ${p.qtype}).
@@ -2970,7 +2970,7 @@ Use clear English for a band 6.5 student. Be honest but kind. If the essay is un
         } catch (err) {
             if (err.code === 'nokey') showAISetup(panel, 'Connect your AI to have essays marked.', () => requestEssayFeedback());
             else if (err.code === 'auth') { clearAIKey(); showAISetup(panel, '⚠️ That key was rejected. Paste it again.', () => requestEssayFeedback()); }
-            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Couldn't reach the marker — check the backend is running, then try again.</div>`;
+            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Couldn't reach the AI just now — give it a moment and try again.</div>`;
         } finally {
             btn.removeAttribute('disabled');
             btn.innerHTML = ico('redo') + ' Mark it again';
