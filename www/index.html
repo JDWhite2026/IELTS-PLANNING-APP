@@ -416,11 +416,16 @@
         .chapter-intro { animation: zoomFocus 0.6s var(--glide) both; }
         .ci-kicker { font-family: var(--font-display); font-size: 0.64rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand-orange-deep); display: block; margin-bottom: 12px; }
         .ci-goal { font-family: var(--font-serif); font-size: 1.28rem; font-weight: 700; line-height: 1.4; color: var(--text-main); letter-spacing: -0.01em; margin-bottom: 22px; }
-        .ci-mark { background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--brand-orange); border-radius: 0 14px 14px 0; padding: 16px 18px; animation: springIn 0.6s var(--spring) 0.15s both; }
-        .ci-mark-tag { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-display); font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand-orange-deep); margin-bottom: 6px; }
+        .ci-mark { background: var(--brand-orange-wash); border: 1px solid rgba(240,146,59,0.35); border-radius: 14px; padding: 15px 17px; margin-bottom: 20px; animation: springIn 0.6s var(--spring) both; }
+        .ci-mark-tag { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-display); font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand-orange-deep); margin-bottom: 8px; }
         .ci-mark-tag .ico { color: var(--brand-orange); }
-        .ci-mark-name { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
-        .ci-mark p { margin: 0; font-size: 0.92rem; line-height: 1.6; color: var(--text-secondary); }
+        .ci-purpose { margin: 0 0 10px 0; font-size: 1rem; line-height: 1.55; color: var(--text-main); font-weight: 500; }
+        .ci-mark-pill { display: inline-block; font-family: var(--font-display); font-size: 0.66rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #fff; background: var(--brand-orange); padding: 5px 12px; border-radius: 999px; }
+        .ci-label { font-family: var(--font-display); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); display: block; margin-bottom: 12px; }
+        .ci-list { list-style: none; margin: 0; padding: 0; }
+        .ci-list li { display: flex; align-items: flex-start; gap: 11px; padding: 11px 14px; background: #fff; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5; color: var(--text-main); animation: springIn 0.5s var(--spring) both; }
+        .ci-list li:nth-child(2) { animation-delay: 0.08s; } .ci-list li:nth-child(3) { animation-delay: 0.16s; }
+        .ci-list li .ico { color: var(--brand-orange); flex-shrink: 0; margin-top: 2px; font-size: 1rem; }
         /* Locked */
         .skip-card.locked { background: var(--paper-warm); border: 1px dashed var(--line-strong); }
         .skip-card.locked .sk-ico { background: #fff; border: 1px solid var(--line-strong); color: var(--text-muted); }
@@ -2152,36 +2157,43 @@
         { desc: 'Turn the plan into an introduction', min: 4 }
     ];
 
-    /* Each chapter opens with a short "here's the goal, and the mark it wins" screen.
-       No preview list - that only repeats the activities that follow. */
+    /* Each chapter opens with: the goal (in the header), a "what this does for your
+       writing" box, and the learning aims. The goal sentence lives only in the
+       header subtitle - it is not repeated in the body. */
     const CH_INTRO = [
         { goal: 'See why planning wins you marks - then meet the whole method once.',
-          mark: 'Half your mark', why: 'Two of the four marks - Task Response and Coherence - are decided while you plan, before you write a word.' },
+          purpose: 'You see how a good plan wins marks - and why seven minutes is the best investment in the whole exam.', mark: 'Task Response + Coherence',
+          points: ['Why half your score is decided before you write', 'What really keeps essays stuck at 6.5', 'The five-move plan, from start to finish'] },
         { goal: 'Find the one word that fixes what your essay must be about.',
-          mark: 'Task Response', why: 'Answer a slightly different question and your ideas are marked off-topic - capping Task Response, however good your English.' },
+          purpose: 'You understand exactly what the question is asking - so every idea you write actually counts.', mark: 'Task Response',
+          points: ['Find the "boundary" - who or what the essay is about', 'Dodge the "decoy" word that only looks important', 'Practise until you can decode any question fast'] },
         { goal: 'Make every reason and example dig a little deeper.',
-          mark: 'Task Response + Coherence', why: 'Reasons that develop an idea, instead of repeating it, are exactly what lift a 6 to a 7.' },
+          purpose: 'You build fewer, stronger arguments that go deeper - instead of piling on shallow ideas.', mark: 'Task Response + Coherence',
+          points: ['Hear a "loop" - a reason going in a circle', 'Use one quick two-question test', 'Turn loops into reasons that add something real'] },
         { goal: 'Build one strong body paragraph, three layers deep.',
-          mark: 'Coherence', why: 'One clear idea per paragraph, in order (idea → reason → example), is what makes an essay easy to follow. We\'ll call your two paragraphs P1 and P2 for short.' },
+          purpose: 'You turn one idea into a full, well-ordered paragraph the examiner can follow easily.', mark: 'Coherence',
+          points: ['Idea → reason → example, always in that order', 'Pull ideas out when your mind goes blank', 'We\'ll call your two body paragraphs P1 and P2 for short'] },
         { goal: 'Make your opinion clear from the very first paragraph.',
-          mark: 'Task Response', why: '"A clear position throughout" is band 7 wording - and it starts in your thesis line.' },
+          purpose: 'You make your opinion impossible to miss, from the first paragraph to the last.', mark: 'Task Response',
+          points: ['Name both sides in one thesis line', 'Take a side the reader can\'t miss', 'Finish with a conclusion that adds nothing new'] },
         { goal: 'Turn the finished plan into a real introduction.',
-          mark: 'Vocabulary', why: 'Saying the question in your own words is your first evidence of vocabulary range - copied words earn nothing.' }
+          purpose: 'You put the question in your own words - showing range and setting the essay up cleanly.', mark: 'Vocabulary',
+          points: ['Two sentences: the question in your words, then your position', 'Paraphrase without copying the question', 'Then, when you\'re ready, get a whole essay marked'] }
     ];
     function makeIntroStep(i) {
-        const it = CH_INTRO[i] || { goal: '', mark: '', why: '' };
+        const it = CH_INTRO[i] || { goal: '', purpose: '', mark: '', points: [] };
         return {
             title: NAV[i].name.replace(/\?$/, ''), sub: it.goal, wm: NAV[i].num, isIntro: true,
             render(b, btn) {
                 b.innerHTML = `
                     <div class="chapter-intro">
-                        <span class="ci-kicker">Chapter ${NAV[i].num} · about ${CH_META[i].min} min</span>
-                        <div class="ci-goal">${it.goal}</div>
                         <div class="ci-mark">
-                            <span class="ci-mark-tag">${ico('target')} The mark this wins</span>
-                            <div class="ci-mark-name">${it.mark}</div>
-                            <p>${it.why}</p>
+                            <span class="ci-mark-tag">${ico('target')} What this does for your writing</span>
+                            <p class="ci-purpose">${it.purpose}</p>
+                            <span class="ci-mark-pill">Builds your ${it.mark} mark</span>
                         </div>
+                        <span class="ci-label">By the end you'll be able to</span>
+                        <ul class="ci-list">${it.points.map(p => `<li>${ico('check')}<span>${p}</span></li>`).join('')}</ul>
                     </div>`;
                 btn.removeAttribute('disabled');
                 btn.innerText = "Let's go ▸";
