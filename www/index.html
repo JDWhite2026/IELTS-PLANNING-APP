@@ -387,6 +387,8 @@
         .draw-card p { margin: 0; font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-main); line-height: 1.6; }
         .redraw-btn { font-family: var(--font-display); background: transparent; border: 1px solid var(--line-strong); color: var(--text-secondary); font-size: 0.82rem; font-weight: 700; padding: 12px 10px; border-radius: 12px; cursor: pointer; transition: all 0.2s var(--spring); width: 100%; margin-bottom: 8px; }
         .redraw-row { display: flex; gap: 8px; }
+        .skip-locked { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-display); font-size: 0.76rem; font-weight: 600; color: var(--text-muted); line-height: 1.4; max-width: 300px; }
+        .skip-locked .ico { color: var(--brand-orange); flex-shrink: 0; }
 
         /* ---------- Relaxed / exam mode toggle ---------- */
         .mode-wrap { background: var(--paper-warm); border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin: 14px 0 4px 0; }
@@ -654,8 +656,8 @@
         /* ---------- Desktop / wide screens: use the space, keep it calm ---------- */
         @media (min-width: 860px) {
             body { padding: 34px 0 60px 0; }
-            .app-container { max-width: 720px; }
-            .workspace-card { padding: 0 48px 40px 48px; }
+            .app-container { max-width: 900px; }
+            .workspace-card { padding: 0 60px 44px 60px; }
             /* The two home cards sit side by side */
             .home-doors-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: stretch; }
             .home-doors-grid .home-door { margin-bottom: 0; display: flex; flex-direction: column; }
@@ -2172,6 +2174,11 @@
             <div class="timer-hero" style="padding:8px 0 0 0;">
                 <div class="big-clock" style="font-size:3rem;">${practiceMode === 'exam' ? '7:00' : '–:–'}</div>
                 <div class="clock-sub" style="margin-top:8px; font-size:0.88rem;">${practiceMode === 'exam' ? 'Short notes only - no full sentences. The clock starts when you press the button.' : 'Short notes only - no full sentences. No clock in relaxed mode - learn the moves at your own pace.'}</div>
+            </div>
+            <div style="text-align:center; margin-top:14px;">
+                ${attempts.some(a => a.checks >= 5)
+                    ? `<button class="peek-btn" onclick="skipToWrite()">Skip straight to writing this one →</button>`
+                    : `<span class="skip-locked">${ico('eye')} Make one full plan (all five parts) to unlock a straight-to-writing shortcut.</span>`}
             </div>`;
         playEntrance(board);
 
@@ -2184,6 +2191,14 @@
     window.redraw = function () {
         currentPrompt = drawPrompt();
         renderDrawScreen();
+    };
+    // Straight to writing this question, no plan step — for students who know the method.
+    window.skipToWrite = function () {
+        studentPlanNotes = '';
+        studentIntroText = '';
+        studentEssayText = '';
+        feedbackReceived = false;
+        renderWriteScreen();
     };
     window.setTypeFilter = function (t) {
         typeFilter = t;
