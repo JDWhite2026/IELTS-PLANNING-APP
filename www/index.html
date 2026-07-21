@@ -700,19 +700,19 @@
        ================================================================ */
     const LEARN_P = {
         topic: 'Education',
-        prompt: "Some people believe universities should focus on teaching practical job skills, while others think they should prioritize pure theoretical research. Discuss both views and give your opinion.",
-        scope: { before: "Should ", correctToken: "universities", mid: " focus on practical job skills, or should they prioritize ", wrongToken: "theoretical research", after: "?" },
+        prompt: "Some people believe universities should focus on teaching practical job skills, while others think they should prioritise pure theoretical research. Discuss both views and give your opinion.",
+        scope: { before: "Should ", correctToken: "universities", mid: " focus on practical job skills, or should they prioritise ", wrongToken: "theoretical research", after: "?" },
         demo: { s1: "Job training", joiner: "is", key: "vital", verb: "because it makes", s2: "graduates", loopWords: "useful and highly capable" },
         loopTrap: "Practical job training helps students learn practical, job-ready skills for the workplace.",
         halfLoop: "Practical job training is valuable because most students find it a very valuable part of their studies.",
         bridgeFull: "Practical job skills training at university is valuable because it directly reduces graduate unemployment by aligning coursework with the skills employers explicitly require.",
-        position: "Universities should prioritize practical job training.",
+        position: "Universities should prioritise practical job training.",
         whyRight: "Because employers increasingly value job-ready graduates over those with purely theoretical knowledge.",
         whyWrong: "Because practical training is a very important and useful thing for university students.",
         howRight: "Computing graduates with hands-on coding experience are hired faster than those with only abstract theory.",
         howWrong: "Many people agree that practical training is useful for getting jobs.",
         sentences: {
-            idea: "Universities should prioritize practical job training because it directly serves graduates' career outcomes.",
+            idea: "Universities should prioritise practical job training because it directly serves graduates' career outcomes.",
             reason: "This is because employers increasingly value job-ready graduates over those with purely theoretical knowledge.",
             example: "For instance, computing graduates with hands-on coding experience are hired faster than those with only abstract theory."
         },
@@ -725,7 +725,7 @@
         },
         p2notes: { idea: "P2: theory → long-term progress", reason: "core principles → applied fields later", example: "eg computing langs ← abstract maths" },
         sideA: "practical job training", sideB: "theoretical research",
-        thesisSentence: "While some argue that universities should prioritize practical job training, I believe that theoretical research delivers greater long-term societal value."
+        thesisSentence: "While some argue that universities should prioritise practical job training, I believe that theoretical research delivers greater long-term societal value."
     };
 
     /* ================================================================
@@ -1566,7 +1566,7 @@
                   stmt('Question 1 - WHY is it true?', `Take your position and ask why. The answer is your <b>reason</b>.`),
                   stmt('Question 2 - HOW do I know?', `Then ask how you know. The answer is your <b>example</b>. Two questions → a complete paragraph.`)
               ]); } },
-            { title: "Ask: WHY is it true?", sub: "Position: \"Universities should prioritize practical job training.\" Tap the real reason.", wm: "04",
+            { title: "Ask: WHY is it true?", sub: "Position: \"Universities should prioritise practical job training.\" Tap the real reason.", wm: "04",
               render(b, btn) {
                   gateBtn(btn);
                   b.innerHTML = `
