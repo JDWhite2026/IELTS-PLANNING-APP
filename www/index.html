@@ -115,7 +115,9 @@
         .nav-tab.tab-practise.active .t-name { color: var(--brand-orange-deep); }
 
         .clock-badge-pill { font-family: var(--font-display); font-weight: 700; color: var(--brand-orange-deep); font-size: 0.95rem; background: var(--brand-orange-wash); padding: 9px 16px; border-radius: 10px; border: 1px solid rgba(240,146,59,0.4); display: none; align-items: center; gap: 6px; white-space: nowrap; font-variant-numeric: tabular-nums; width: max-content; margin-left: auto; margin-bottom: 12px; }
-        .clock-badge-pill.clock-visible { display: flex; position: fixed; top: calc(10px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); z-index: 60; margin: 0; background: #fdf1e3; box-shadow: 0 10px 26px -10px rgba(23,21,18,0.35); }
+        .clock-badge-pill.clock-visible { display: flex; margin: calc(8px + env(safe-area-inset-top)) auto 8px auto; animation: springIn 0.6s var(--spring) both; background: #fff; border: 1.5px solid var(--brand-orange); font-size: 1.05rem; padding: 9px 20px; }
+        /* Scrolled past its row → dock as a small pill in the corner, out of the reading line. */
+        .clock-badge-pill.clock-visible.clock-docked { position: fixed; top: calc(8px + env(safe-area-inset-top)); right: 10px; z-index: 60; margin: 0; font-size: 0.9rem; padding: 7px 13px; opacity: 0.95; animation: none; box-shadow: 0 10px 26px -10px rgba(23,21,18,0.4); }
         .clock-badge-pill.time-critical { color: var(--color-error); background: var(--color-error-light); border-color: rgba(194,64,47,0.4); animation: pulseSoft 1s infinite ease-in-out; }
 
         /* ---------- Header ---------- */
@@ -640,6 +642,8 @@
 <body>
 <div class="grain-overlay"></div>
 
+<div class="clock-badge-pill" id="clockBadgeNode"><span class="ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="5.6"/><path d="M8 4.8V8l2.2 1.6"/></svg></span> <span id="masterClockTimer">7:00</span></div>
+
 <div class="app-container">
     <div class="workspace-card">
         <div class="phase-ribbon"></div>
@@ -651,8 +655,6 @@
         </div>
 
         <div class="nav-rail" id="navRail"></div>
-
-        <div class="clock-badge-pill" id="clockBadgeNode"><span class="ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="5.6"/><path d="M8 4.8V8l2.2 1.6"/></svg></span> <span id="masterClockTimer">7:00</span></div>
 
         <div class="persistent-prompt-anchor-box" id="globalPromptBoxNode" style="display:none;"></div>
 
@@ -1334,7 +1336,8 @@
                           (i ? `<div class="rail-link" style="--rd:${(i * 1.05 - 0.3).toFixed(2)}s"></div>` : '') +
                           `<div class="rail-item" style="--rd:${(i * 1.05).toFixed(2)}s"><span class="rail-dot">${ico(s[0])}</span><span class="rail-name">${s[1]}</span><span class="rail-min">${s[2]}</span></div>`
                       ).join('') +
-                      `</div><div class="rail-total" style="--rd:5.4s">= 7 minutes · ~45 words of notes · half your mark decided</div>`;
+                      `</div><div class="rail-total" style="--rd:5.4s">= 7 minutes · ~45 words of notes · half your mark decided</div>
+                       <div class="rail-total" style="--rd:5.9s; font-weight:500; color:var(--text-muted);">That leaves 27 minutes to write and 3 to check — you'll practise those here too.</div>`;
                   runRailClock();
                   pauseBtn(btn, 5600);
               } },
@@ -3090,6 +3093,12 @@ STRICT RULES for every reply:
     loadProgress();
     renderClock();
     renderSplash();
+
+    // Dock the exam clock into the corner once its own row scrolls away.
+    window.addEventListener('scroll', function () {
+        const n = el('clockBadgeNode');
+        if (n) n.classList.toggle('clock-docked', window.scrollY > 70);
+    }, { passive: true });
 
     // On iOS, hide the grey keyboard toolbar (the "Done" / "<" "X" bar) that
     // WKWebView shows above the keyboard. Harmless/no-op in a normal browser.
