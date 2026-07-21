@@ -412,6 +412,14 @@
         .draw-card p { margin: 0; font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-main); line-height: 1.6; }
         .redraw-btn { font-family: var(--font-display); background: transparent; border: 1px solid var(--line-strong); color: var(--text-secondary); font-size: 0.82rem; font-weight: 700; padding: 12px 10px; border-radius: 12px; cursor: pointer; transition: all 0.2s var(--spring); width: 100%; margin-bottom: 8px; }
         .redraw-row { display: flex; gap: 8px; }
+        .weakspot-card { display: flex; align-items: center; gap: 12px; margin-top: 10px; padding: 13px 15px; border-radius: 14px; background: var(--brand-orange-wash); border: 1.5px solid var(--brand-orange); cursor: pointer; text-align: left; transition: all 0.2s var(--spring); }
+        .weakspot-card:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -16px rgba(240,146,59,0.6); }
+        .weakspot-card:active { transform: scale(0.99); }
+        .weakspot-card .ws-ico { width: 38px; height: 38px; border-radius: 11px; background: var(--brand-orange); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; box-shadow: 0 7px 16px -7px rgba(240,146,59,0.8); }
+        .weakspot-card .ws-body { flex: 1; }
+        .weakspot-card .ws-title { font-family: var(--font-display); font-size: 0.9rem; font-weight: 800; color: var(--brand-orange-deep); }
+        .weakspot-card .ws-sub { font-size: 0.76rem; line-height: 1.45; color: var(--text-secondary); margin-top: 2px; }
+        .weakspot-card .ws-arrow { font-family: var(--font-serif); font-size: 1.3rem; color: var(--brand-orange); flex-shrink: 0; }
 
         /* ---------- Straight-to-writing shortcut card ---------- */
         .skip-write-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 16px; font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; color: var(--brand-orange-deep); background: transparent; border: 1px dashed var(--brand-orange); border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.2s var(--spring); }
@@ -1269,7 +1277,7 @@
     const NAV = [
         { num: '01', name: 'Why Plan?' },
         { num: '02', name: 'Decode' },
-        { num: '03', name: 'Loop Test' },
+        { num: '03', name: 'Real Reasons' },
         { num: '04', name: 'Paragraph' },
         { num: '05', name: 'Thesis' },
         { num: '06', name: 'Write' }
@@ -2180,29 +2188,23 @@
        writing" box, and the learning aims. The goal sentence lives only in the
        header subtitle - it is not repeated in the body. */
     const CH_INTRO = [
-        { goal: 'See why planning wins you marks - then meet the whole method once.',
-          purpose: 'You see how a good plan wins marks - and why seven minutes is the best investment in the whole exam.', mark: 'Task Response + Coherence',
-          points: ['Why half your score is decided before you write', 'What really keeps essays stuck at 6.5', 'The five-move plan, from start to finish'] },
-        { goal: 'Find the one word that fixes what your essay must be about.',
-          purpose: 'You understand exactly what the question is asking - so every idea you write actually counts.', mark: 'Task Response',
-          points: ['Find the "boundary" - who or what the essay is about', 'Dodge the "decoy" word that only looks important', 'Practise until you can decode any question fast'] },
-        { goal: 'Make every reason and example dig a little deeper.',
-          purpose: 'You build fewer, stronger arguments that go deeper - instead of piling on shallow ideas.', mark: 'Task Response + Coherence',
-          points: ['Hear a "loop" - a reason going in a circle', 'Use one quick two-question test', 'Turn loops into reasons that add something real'] },
-        { goal: 'Build one strong body paragraph, three layers deep.',
-          purpose: 'You turn one idea into a full, well-ordered paragraph the examiner can follow easily.', mark: 'Coherence',
-          points: ['Idea → reason → example, always in that order', 'Pull ideas out when your mind goes blank', 'We\'ll call your two body paragraphs P1 and P2 for short'] },
-        { goal: 'Make your opinion clear from the very first paragraph.',
-          purpose: 'You make your opinion impossible to miss, from the first paragraph to the last.', mark: 'Task Response',
-          points: ['Name both sides in one thesis line', 'Take a side the reader can\'t miss', 'Finish with a conclusion that adds nothing new'] },
-        { goal: 'Turn the finished plan into a real introduction.',
-          purpose: 'You write a two-sentence opening: the question in your own words (proving you understood it) and your position (so your side is clear from the first line).', mark: 'Task Response + Coherence',
-          points: ['Restate the question in your own words - not copied', 'State your position so both sides and your side are clear', 'A bonus: fresh wording is also your first mark for vocabulary'] }
+        { purpose: 'You see how a good plan wins marks - and why seven minutes is the best investment in the whole exam.', mark: 'Task Response + Coherence',
+          points: ['explain why half your score is won before you write', 'name what really keeps essays stuck at 6.5', 'walk through the whole five-move plan'] },
+        { purpose: 'You understand exactly what the question is asking - so every idea you write actually counts.', mark: 'Task Response',
+          points: ['find the boundary - who or what the essay is about', 'spot the decoy word that only looks important', 'decode any exam question quickly'] },
+        { purpose: 'You build fewer, stronger arguments that go deeper - instead of piling on shallow ideas.', mark: 'Task Response + Coherence',
+          points: ['hear a "loop" - a reason going in a circle', 'run one quick two-question test on any reason', 'turn weak loops into reasons that add something real'] },
+        { purpose: 'You turn one idea into a full, well-ordered paragraph the examiner can follow easily.', mark: 'Coherence',
+          points: ['build a paragraph in three layers: idea → reason → example', 'pull out ideas when your mind goes blank', 'use P1 and P2 - the short names for your two body paragraphs'] },
+        { purpose: 'You make your opinion impossible to miss, from the first paragraph to the last.', mark: 'Task Response',
+          points: ['name both sides in one thesis line', 'take a side the reader can\'t miss', 'finish with a conclusion that adds nothing new'] },
+        { purpose: 'You write a two-sentence opening: the question in your own words (proving you understood it) and your position (so your side is clear from the first line).', mark: 'Task Response + Coherence',
+          points: ['restate the question in your own words, not copied', 'state your position so your side is clear from line one', 'earn a bonus vocabulary mark with your fresh wording'] }
     ];
     function makeIntroStep(i) {
-        const it = CH_INTRO[i] || { goal: '', purpose: '', mark: '', points: [] };
+        const it = CH_INTRO[i] || { purpose: '', mark: '', points: [] };
         return {
-            title: NAV[i].name.replace(/\?$/, ''), sub: it.goal, wm: NAV[i].num, isIntro: true,
+            title: NAV[i].name.replace(/\?$/, ''), sub: '', wm: NAV[i].num, isIntro: true,
             render(b, btn) {
                 b.innerHTML = `
                     <div class="chapter-intro">
@@ -2305,7 +2307,8 @@
         el('headerWatermark').innerText = step.wm || NAV[chIdx].num;
         el('appStepBadge').innerText = NAV[chIdx].num + " · " + NAV[chIdx].name + "  -  " + (stIdx + 1) + " / " + CHAPTERS[chIdx].steps.length;
         el('appStepTitle').innerText = step.title;
-        el('appStepSubtitle').innerText = step.sub;
+        el('appStepSubtitle').innerText = step.sub || '';
+        el('appStepSubtitle').style.display = step.sub ? '' : 'none';
         restartAnimation(el('stageHeaderBlock'));
         el('footerBackBtn').style.display = 'inline-flex';
 
@@ -2572,9 +2575,16 @@
                 <p>${currentPrompt.prompt}</p>
             </div>
             <button class="redraw-btn" onclick="redraw()">${ico('dice')} Draw a different question</button>
-            <div class="redraw-row">
-                <button class="redraw-btn" onclick="openCustomEntry()">${ico('pen')} Your own question</button>
-                <button class="redraw-btn" onclick="generatePersonalPrompt()">${ico('aim')} Target my weak spot</button>
+            <button class="redraw-btn" onclick="openCustomEntry()">${ico('pen')} Use your own question</button>
+            <div class="weakspot-card" onclick="generatePersonalPrompt()">
+                <span class="ws-ico">${ico('aim')}</span>
+                <div class="ws-body">
+                    <div class="ws-title">Target my weak spot</div>
+                    <div class="ws-sub">${attempts.length >= 2
+                        ? 'Builds a fresh question aimed at the planning step you miss most - great once you\'ve spotted a pattern in your practice.'
+                        : 'Once you\'ve done a few plans, this builds a question aimed at the step you find hardest. Come back to it after some practice.'}</div>
+                </div>
+                <span class="ws-arrow">→</span>
             </div>
             <div id="personalPromptPanel"></div>
             <div class="mode-wrap">
@@ -3017,7 +3027,7 @@ Reply with ONLY a valid JSON object - no markdown, no code fences. Keys:
     const PEEK_SECTIONS = [
         { icon: 'target', name: 'Decode', note: 'Boundary: ____', ch: 1,
           body: `Find the word that tells you <b>who</b> or <b>what</b> the essay is about - before thinking of any ideas. Watch out for the decoy: a <b>position</b> answers "which side?", the boundary answers "who is this about?".` },
-        { icon: 'reason', name: 'Loop Test', note: '(guards every reason)', ch: 2,
+        { icon: 'reason', name: 'Real Reasons', note: 'the loop test', ch: 2,
           body: `Every reason must add a <b>new cause, result, or fact</b> the claim didn't already contain. Same idea in new words = loop = no development marks. Caught one? Cross it out and ask <i>why</i> again.` },
         { icon: 'layers', name: 'Build ×2', note: 'P1: idea / reason / eg', ch: 3,
           body: `One idea per paragraph, three layers: <b>idea → reason → example</b>. Blank mind? Ask <b>why is it true?</b> (→ reason), then <b>how do I know?</b> (→ example). Examples need to be specific and believable - never statistics you don't have.` },
