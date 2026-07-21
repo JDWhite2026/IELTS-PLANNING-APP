@@ -262,6 +262,15 @@
         .crit-block .cb-label { font-size: 0.54rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-top: 3px; line-height: 1.35; }
         .crit-block.cb-plan { background: var(--brand-orange); color: #fff; box-shadow: 0 8px 20px -8px rgba(240,146,59,0.6); }
         .crit-block.cb-lang { background: var(--paper-warm); color: var(--text-secondary); border: 1px solid var(--line); }
+        /* Two focus-criteria cards (chapter 01) */
+        .crit-two { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+        .crit-card { background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--brand-orange); border-radius: 0 14px 14px 0; padding: 15px 17px; animation: springIn 0.55s var(--spring) both; }
+        .crit-card:nth-child(2) { animation-delay: 0.12s; }
+        .crit-card-tag { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-display); font-size: 0.66rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--brand-orange-deep); }
+        .crit-card-tag .ico { color: var(--brand-orange); font-size: 0.95rem; }
+        .crit-card-plain { font-family: var(--font-serif); font-size: 1.08rem; font-weight: 700; color: var(--text-main); margin: 7px 0 5px; }
+        .crit-card p { margin: 0; font-size: 0.9rem; line-height: 1.55; color: var(--text-secondary); }
+        .crit-card p b { color: var(--text-main); }
         .crit-legend { display: flex; gap: 5px; margin-bottom: 12px; font-family: var(--font-display); font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; animation: zoomFocus 0.7s var(--glide) 0.2s both; }
         .crit-legend span { flex: 1; text-align: center; }
         .crit-legend .cl-plan { color: var(--brand-orange-deep); }
@@ -1727,6 +1736,22 @@
                       quote('...addresses all parts of the task; presents a clear position throughout; extends and supports main ideas', 'Band 7 - Task Response (simplified wording)') +
                       stmt('The gap', `<b>All parts</b>. <b>Clear position</b>. <b>Supported ideas</b>. Every one is a planning decision - none is a grammar decision.`))
               ]); } },
+            { title: "So what are those two marks?", sub: "Meet them now - every chapter aims at one of these.", wm: "01",
+              render(b, btn) { focusReveal(b, btn, [
+                  `<div class="crit-two">
+                      <div class="crit-card">
+                          <span class="crit-card-tag">${ico('target')} Task Response</span>
+                          <div class="crit-card-plain">Did you answer the real question?</div>
+                          <p>Clear ideas that stay on topic, developed properly, with an opinion the examiner can see. In short: <b>good ideas, fully answered</b>.</p>
+                      </div>
+                      <div class="crit-card">
+                          <span class="crit-card-tag">${ico('layers')} Coherence &amp; Cohesion</span>
+                          <div class="crit-card-plain">Is it easy to follow?</div>
+                          <p>One idea per paragraph, in a sensible order, joined with linking words so the reader never gets lost. In short: <b>clear, logical structure</b>.</p>
+                      </div>
+                   </div>`,
+                  stmt('Why only these two', `These are the marks you win by <b>planning</b>. The other two - Vocabulary and Grammar - come from your English, which takes months or years to build. So this app starts where you can gain the fastest.`)
+              ]); } },
             { title: "What actually keeps an essay at 6.5?", sub: "Have a guess - tap the biggest score-killer.", wm: "01",
               render(b, btn) {
                   gateBtn(btn);
@@ -2096,9 +2121,10 @@
             { title: "The introduction is two sentences", sub: "Both are already in your plan.", wm: "06",
               render(b, btn) { focusReveal(b, btn, [
                   stmt('The recipe', `<b>Sentence 1</b> - the question, said again in your own words. <b>Sentence 2</b> - your thesis line, written out in full. That's the whole introduction. No examples, no statistics, nothing else.`),
-                  expander(`Why your own words matter`,
+                  stmt('What each sentence wins you', `Sentence 1 proves you <b>understood the question</b> (Task Response). Sentence 2 makes your <b>position clear from line one</b> (Task Response) and sets up the essay's structure (Coherence). Saying it in fresh words is a vocabulary bonus on top.`),
+                  expander(`The vocabulary bonus - the examiner's words`,
                       quote('...uses a sufficient range of vocabulary to allow some flexibility and precision', 'Band 7 - Vocabulary (simplified wording)') +
-                      stmt('Copied words earn nothing', `Words copied from the question cannot show the examiner <b>your</b> vocabulary - they are skipped when your range is judged. Saying the question in new words is the first vocabulary evidence in the essay.`))
+                      stmt('Copied words earn nothing', `Words copied from the question can't show the examiner <b>your</b> vocabulary - they're skipped when your range is judged. So your own words are the first vocabulary evidence in the essay - a helpful bonus, on top of the two planning marks.`))
               ]); } },
             { title: "Same meaning, new words", sub: "Watch one question become an introduction.", wm: "06",
               render(b, btn) { focusReveal(b, btn, [
@@ -2137,6 +2163,9 @@
                       </div>
                       <div class="focus-card" style="animation-delay:0.2s;"><span class="focus-tag">Remember the order</span>
                           <p>The introduction is written <b>from the plan</b> - never before it. Plan first, always. That is the method.</p>
+                      </div>
+                      <div class="focus-card" style="animation-delay:0.35s;"><span class="focus-tag">${ico('idea')} A little help on tap</span>
+                          <p>When you write in Practise, a short <b>"Useful language"</b> list sits right there - openers, ways to swap the question's words, and frames for your position. Open it whenever you're stuck for phrasing.</p>
                       </div>`;
                   pauseBtn(btn, 800, "Start practising ▶");
                   btn.onclick = function () { fireConfetti(20); showToast("Method complete - over to you"); chapterSeen[5] = CHAPTERS[5].steps.length; saveProgress(); setTimeout(enterPractise, 400); };
@@ -2177,8 +2206,8 @@
           purpose: 'You make your opinion impossible to miss, from the first paragraph to the last.', mark: 'Task Response',
           points: ['Name both sides in one thesis line', 'Take a side the reader can\'t miss', 'Finish with a conclusion that adds nothing new'] },
         { goal: 'Turn the finished plan into a real introduction.',
-          purpose: 'You put the question in your own words - showing range and setting the essay up cleanly.', mark: 'Vocabulary',
-          points: ['Two sentences: the question in your words, then your position', 'Paraphrase without copying the question', 'Then, when you\'re ready, get a whole essay marked'] }
+          purpose: 'You write a two-sentence opening: the question in your own words (proving you understood it) and your position (so your side is clear from the first line).', mark: 'Task Response + Coherence',
+          points: ['Restate the question in your own words - not copied', 'State your position so both sides and your side are clear', 'A bonus: fresh wording is also your first mark for vocabulary'] }
     ];
     function makeIntroStep(i) {
         const it = CH_INTRO[i] || { goal: '', purpose: '', mark: '', points: [] };
