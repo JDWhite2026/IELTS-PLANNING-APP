@@ -138,14 +138,22 @@
         .viewport-canvas.canvas-shift { animation: canvasShift 0.6s var(--glide) both; }
 
         /* ---------- Home doors ---------- */
-        .home-door { background: #ffffff; border: 1px solid var(--line); border-radius: 16px; padding: 24px; cursor: pointer; text-align: left; margin-bottom: 12px; transition: all 0.2s var(--spring); box-shadow: 0 2px 8px -4px rgba(23,21,18,0.07); position: relative; overflow: hidden; animation: zoomFocus 0.7s var(--glide) both; }
+        .home-door { border-radius: 18px; padding: 20px 22px; cursor: pointer; text-align: left; margin-bottom: 12px; transition: all 0.2s var(--spring); position: relative; overflow: hidden; animation: zoomFocus 0.7s var(--glide) both; }
         .home-door:nth-child(2) { animation-delay: 0.12s; }
-        .home-door:hover { border-color: var(--brand-orange); transform: translateY(-3px); box-shadow: 0 16px 34px -16px rgba(240,146,59,0.55); }
+        .home-door:hover { transform: translateY(-3px); box-shadow: 0 16px 34px -16px rgba(240,146,59,0.55); }
         .home-door:active { transform: scale(0.99); }
-        .home-door .door-kicker { font-family: var(--font-display); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.13em; color: var(--brand-orange-deep); display: block; margin-bottom: 8px; }
-        .home-door h4 { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700; margin: 0 0 6px 0; letter-spacing: -0.02em; }
-        .home-door p { margin: 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
-        .home-door .door-arrow { position: absolute; right: 22px; top: 50%; transform: translateY(-50%); font-family: var(--font-serif); font-size: 1.5rem; color: var(--brand-orange); }
+        .home-door .hd-top { display: flex; align-items: center; gap: 13px; margin-bottom: 11px; }
+        .home-door .hd-ico { width: 46px; height: 46px; border-radius: 13px; background: var(--brand-orange); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0; box-shadow: 0 8px 18px -8px rgba(240,146,59,0.7); }
+        .home-door .door-kicker { font-family: var(--font-display); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.13em; color: var(--brand-orange-deep); display: block; margin-bottom: 3px; }
+        .home-door h4 { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700; margin: 0; letter-spacing: -0.02em; }
+        .home-door p { margin: 0 0 15px 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+        .home-door .hd-cta { display: inline-block; font-family: var(--font-display); font-size: 0.8rem; font-weight: 800; color: #fff; background: var(--brand-orange); padding: 10px 20px; border-radius: 999px; box-shadow: 0 8px 18px -8px rgba(240,146,59,0.7); transition: background 0.2s ease; }
+        .home-door:hover .hd-cta { background: var(--brand-orange-deep); }
+        .door-learn { background: var(--brand-orange-wash); border: 1px solid rgba(240,146,59,0.45); }
+        .door-practise { background: var(--brand-black); border: 1px solid var(--brand-black); }
+        .door-practise h4 { color: #fff; }
+        .door-practise p { color: rgba(255,255,255,0.72); }
+        .door-practise .door-kicker { color: var(--brand-orange); }
 
         /* ---------- Reveal / theory ---------- */
         .focus-beat { animation: zoomFocus 0.85s var(--glide) both; margin-bottom: 11px; }
@@ -192,6 +200,12 @@
         .tap-card.tap-right { border-color: var(--brand-orange); background: var(--brand-orange-wash); color: var(--brand-orange-deep); font-weight: 700; animation: tapRight 0.5s var(--spring); pointer-events: none; }
         .tap-card.tap-wrong { animation: shakeQuick 0.4s ease; border-color: rgba(194,64,47,0.5); background: var(--color-error-light); color: var(--color-error); }
         .tap-card.tap-dim { opacity: 0.35; pointer-events: none; }
+
+        /* Decode chapter: the boundary and decoy light up in sequence */
+        @keyframes markBoundary { 0% { background: var(--paper-warm); color: var(--text-secondary); transform: scale(1); } 60% { transform: scale(1.14); } 100% { background: var(--brand-orange); color: #fff; transform: scale(1); } }
+        @keyframes markDecoy { 0% { background: var(--paper-warm); color: var(--text-secondary); transform: scale(1); } 60% { transform: scale(1.14); } 100% { background: var(--brand-black); color: #fff; transform: scale(1); } }
+        .tok-anim-boundary { display: inline-block; font-weight: 700; animation: markBoundary 0.7s var(--spring) 1.2s both; }
+        .tok-anim-decoy { display: inline-block; font-weight: 700; animation: markDecoy 0.7s var(--spring) 2.6s both; }
 
         .hl-red { background: #f9ded8; color: #9c3325; padding: 1px 7px; border-radius: 6px; font-weight: 700; }
         .hl-green { background: #ddeee3; color: #14532d; padding: 1px 7px; border-radius: 6px; font-weight: 700; }
@@ -1416,24 +1430,24 @@
                   expander(`What it costs if you miss it`,
                       stmt('Off-topic, however well written', `Write about schools when the question says <b>universities</b>, and those ideas are marked off-topic — the examiner cannot reward them, no matter how good the English is.`))
               ]); } },
-            { title: "Tap the boundary word", sub: "Find the fence in the example question.", wm: "02", showPrompt: false,
+            { title: "Watch the question give itself away", sub: "One word sets the limit. Another one pretends to.", wm: "02",
+              render(b, btn) {
+                  const sc = p.scope;
+                  b.innerHTML = `
+                      <div class="laser-prompt-frame" style="font-size:1.16rem; line-height:1.95;">${sc.before}<span class="text-word-token tok-anim-boundary">${sc.correctToken}</span>${sc.mid}<span class="text-word-token tok-anim-decoy">${sc.wrongToken}</span>${sc.after}</div>
+                      <div class="crit-legend" style="margin-top:2px; animation: zoomFocus 0.6s var(--glide) 3.4s both;"><span class="cl-plan"><i style="display:inline-block;width:9px;height:9px;background:var(--brand-orange);border-radius:2px;margin-right:4px;"></i>boundary — who it's about</span><span class="cl-lang"><i style="display:inline-block;width:9px;height:9px;background:var(--brand-black);border-radius:2px;margin-right:4px;"></i>decoy — one side of the argument</span></div>
+                      <div style="animation: zoomFocus 0.7s var(--glide) 4s both;">${stmt('Look at the two words', `<b>${sc.correctToken}</b> answers <i>"who is this essay about?"</i> — that's the boundary, the fence around everything you write. <b>${sc.wrongToken}</b> answers <i>"which side?"</i> — it's one team in the argument, not the fence. Ideas outside the fence don't count, however well written.`)}</div>
+                      <div style="animation: zoomFocus 0.7s var(--glide) 4.5s both;">${expander(`Why "${sc.wrongToken}" fools people`,
+                          stmt('It looks important', `It's one of the two things being compared — you'll write a whole paragraph about it later. But a paragraph topic is not a limit. The boundary tells you <b>whose essay this is</b>; the decoy just tells you one side of the debate.`))}</div>`;
+                  pauseBtn(btn, 4600);
+              } },
+            { title: "Your turn: tap the boundary", sub: "Same question — now you find the fence.", wm: "02", showPrompt: false,
               render(b, btn) {
                   gateBtn(btn);
                   const sc = p.scope;
                   b.innerHTML = `
                       <div class="tap-instruction">Tap the word that sets the limit</div>
-                      <div class="laser-prompt-frame">${sc.before}<span class="text-word-token tap-token" onclick="tapAnswer(this, true)">${sc.correctToken}</span>${sc.mid}<span class="text-word-token tap-token" data-hint="That names one side of the argument — a position, not a limit." onclick="tapAnswer(this, false)">${sc.wrongToken}</span>${sc.after}</div>`;
-              } },
-            { title: "The decoy", sub: "Look at the same question again — one word pretends to be the boundary.", wm: "02",
-              render(b, btn) {
-                  const sc = p.scope;
-                  focusReveal(b, btn, [
-                      `<div class="laser-prompt-frame">${sc.before}<span class="text-word-token tok-boundary">${sc.correctToken}</span>${sc.mid}<span class="text-word-token tok-decoy">${sc.wrongToken}</span>${sc.after}</div>
-                       <div class="crit-legend" style="margin-top:2px;"><span class="cl-plan"><i style="display:inline-block;width:9px;height:9px;background:var(--brand-orange);border-radius:2px;margin-right:4px;"></i>boundary — who it's about</span><span class="cl-lang"><i style="display:inline-block;width:9px;height:9px;background:var(--brand-black);border-radius:2px;margin-right:4px;"></i>decoy — one side of the argument</span></div>`,
-                      stmt('The quick test', `Ask <b>"who (or what) is this essay about?"</b> → ${sc.correctToken}. Ask <b>"which side?"</b> → ${sc.wrongToken}. Different questions, different jobs.`),
-                      expander(`Why "${sc.wrongToken}" fools people`,
-                          stmt('It looks important', `It's one of the two things being compared — you will write a whole paragraph about it later. But it is a <b>side of the argument</b>, not a limit. It doesn't tell you <b>who</b> the essay is about.`))
-                  ]);
+                      <div class="laser-prompt-frame" style="font-size:1.1rem;">${sc.before}<span class="text-word-token tap-token" onclick="tapAnswer(this, true)">${sc.correctToken}</span>${sc.mid}<span class="text-word-token tap-token" data-hint="That's the decoy — one side of the argument, not the limit." onclick="tapAnswer(this, false)">${sc.wrongToken}</span>${sc.after}</div>`;
               } },
             { title: "Drill: three real questions", sub: "Find the boundary in each — exam-style prompts, no help.", wm: "02",
               render(b, btn) {
@@ -2029,17 +2043,21 @@
         const learnedAll = chapterSeen.every((s, i) => CHAPTERS[i] && s >= CHAPTERS[i].steps.length);
         const board = el('visualDisplayBoard');
         board.innerHTML = `
-            <div class="home-door" onclick="renderChapterMap()">
-                <span class="door-kicker">Step 1 · ~20 minutes</span>
-                <h4>Learn the method</h4>
+            <div class="home-door door-learn" onclick="renderChapterMap()">
+                <div class="hd-top">
+                    <span class="hd-ico">${ico('layers')}</span>
+                    <div><span class="door-kicker">Step 1 · about 20 minutes</span><h4>Learn the method</h4></div>
+                </div>
                 <p>Six short chapters with a micro-drill in each: why planning wins, decoding, the Loop Test, building paragraphs, the thesis — and turning the plan into writing. Revisit any chapter, any time.</p>
-                <span class="door-arrow">→</span>
+                <span class="hd-cta">Start learning</span>
             </div>
-            <div class="home-door" onclick="enterPractise()">
-                <span class="door-kicker">Step 2 · repeat forever</span>
-                <h4>Practise planning</h4>
-                <p>Draw a fresh exam question — any of the five types, or bring your own — plan it in 7 minutes, get feedback, compare with a model plan, then turn it into writing. ${learnedAll ? 'You know the method — go.' : 'Best after finishing the chapters.'}</p>
-                <span class="door-arrow">→</span>
+            <div class="home-door door-practise" onclick="enterPractise()">
+                <div class="hd-top">
+                    <span class="hd-ico">${ico('target')}</span>
+                    <div><span class="door-kicker">Step 2 · repeat forever</span><h4>Practise planning</h4></div>
+                </div>
+                <p>Draw a fresh exam question — any of the five types, or bring your own — plan it, get feedback, compare with a model, then turn it into writing. ${learnedAll ? 'You know the method — go.' : 'Best after finishing the chapters.'}</p>
+                <span class="hd-cta">Practise now</span>
             </div>`;
         playEntrance(board);
 
