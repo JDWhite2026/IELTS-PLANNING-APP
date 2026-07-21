@@ -3595,6 +3595,35 @@ STRICT RULES for every reply:
         coachTurn(t, true);
     };
 
+    /* ---------- Per-field hints on the plan screen ---------- */
+    window.fieldHint = async function (key) {
+        const p = currentPrompt;
+        const panel = el('hint_' + key);
+        if (!p || !panel) return;
+        coachedThisAttempt = true;
+        pauseTimer();
+        panel.innerHTML = `<div class="ps-hint-load"><span class="spinner-dot"></span><span class="spinner-dot"></span><span class="spinner-dot"></span> Thinking of a hint...</div>`;
+        const roles = {
+            boundary: `the BOUNDARY line - the word(s) that say who or what the whole essay must be about. (For your guidance only, the answer here is "${p.boundary}" - never reveal it.)`,
+            p1: `PARAGRAPH 1, which should be about "${p.pillarA.label}". A strong paragraph note has three layers: a main idea, a reason (why is it true?), and one specific, believable example (how do I know?).`,
+            p2: `PARAGRAPH 2, which should be about "${p.pillarB.label}". It needs the same three layers: a main idea, a reason, and one specific example.`,
+            thesis: `their POSITION line. It must name both sides of the question and show which side the student takes. ${p.chk4}.`,
+            concl: `their CONCLUSION note. It should restate their position and echo their strongest reason - and contain nothing new.`
+        };
+        const fieldNode = { boundary: 'ps_boundary', p1: 'ps_p1', p2: 'ps_p2', thesis: 'ps_thesis', concl: 'ps_concl' }[key];
+        const written = el(fieldNode) ? el(fieldNode).value.trim() : '';
+        const sys = `You are a warm, encouraging IELTS Task 2 planning coach. The exam question: "${p.prompt}" (type: ${p.qtype}).
+The student is working on ${roles[key]}
+Give ONE short, targeted hint for THIS part only - a guiding question or a concrete nudge that helps them think of their own answer. If they've written something, react to it briefly. NEVER write the answer for them. At most 2 short sentences. Simple, friendly English for a band 6.5 student. No preamble.`;
+        try {
+            const q = await aiCall(sys, [{ role: 'user', text: written ? ('What I have so far: ' + written) : "(I haven't written anything here yet)" }], 100);
+            panel.innerHTML = `<div class="ps-hint-text">${ico('chat')}<span>${(q || 'Try asking yourself: what is this part really for?').replace(/</g, '&lt;')}</span></div>`;
+        } catch (err) {
+            if (err.code === 'nokey' || err.code === 'auth') panel.innerHTML = `<div class="ps-hint-text">${ico('chat')}<span>Connect your AI to get live hints.</span></div>`;
+            else panel.innerHTML = `<div class="ps-hint-text">${ico('chat')}<span>Couldn't get a hint just now - try again in a moment.</span></div>`;
+        }
+    };
+
     /* ================================================================
        EFFECTS
        ================================================================ */
