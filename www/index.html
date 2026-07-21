@@ -555,6 +555,17 @@
         .ps-label .ps-hint { font-weight: 600; color: var(--text-muted); text-transform: none; letter-spacing: 0; font-size: 0.7rem; text-align: right; }
         .ps-input { width: 100%; border: none; outline: none; resize: none; font-family: var(--font-body); font-size: 0.92rem; line-height: 1.45; color: var(--text-main); background: transparent; padding: 0; display: block; }
         .ps-input::placeholder { color: var(--text-muted); font-family: var(--font-note); font-size: 1.15rem; }
+        .ps-head { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+        .ps-label { flex: 1; display: block; margin-bottom: 0; }
+        .ps-label .ps-hint { display: inline; text-align: left; margin-left: 4px; }
+        .ps-hint-btn { flex-shrink: 0; display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-display); font-size: 0.68rem; font-weight: 700; color: var(--brand-orange-deep); background: var(--brand-orange-wash); border: 1px solid rgba(240,146,59,0.4); border-radius: 999px; padding: 4px 10px; cursor: pointer; transition: all 0.18s var(--spring); }
+        .ps-hint-btn:hover { background: var(--brand-orange); color: #fff; border-color: var(--brand-orange); }
+        .ps-hint-btn .ico { font-size: 0.8rem; }
+        .ps-hint-panel:empty { display: none; }
+        .ps-hint-panel { margin-top: 7px; }
+        .ps-hint-text { display: flex; gap: 7px; font-size: 0.84rem; line-height: 1.5; color: var(--brand-orange-deep); background: var(--brand-orange-wash); border: 1px solid rgba(240,146,59,0.35); border-radius: 10px; padding: 9px 12px; animation: zoomFocus 0.4s var(--glide) both; }
+        .ps-hint-text .ico { color: var(--brand-orange); flex-shrink: 0; margin-top: 1px; }
+        .ps-hint-load { display: flex; align-items: center; gap: 7px; font-size: 0.8rem; color: var(--text-muted); padding: 6px 4px; }
 
         /* ---------- Socratic coach ---------- */
         .coach-panel { background: #ffffff; border: 1px solid var(--line); border-left: 4px solid var(--brand-orange); border-radius: 14px; padding: 14px; margin-top: 10px; animation: zoomFocus 0.6s var(--glide) both; }
@@ -2903,18 +2914,37 @@ Reply with ONLY a valid JSON object - no markdown, no code fences. Keys:
             </div>
             <span class="plan-label">Your notes <span class="pl-hint">- short phrases, arrows and abbreviations are perfect</span></span>
             <div class="plan-scaffold">
-                <div class="ps-row"><span class="ps-label">1 · Boundary <span class="ps-hint">who or what is the essay about?</span></span><textarea class="ps-input" id="ps_boundary" rows="1" placeholder="e.g. teenagers · tourism · public transport"></textarea></div>
-                <div class="ps-row"><span class="ps-label">2 · Paragraph 1 - ${p.pillarA.label} <span class="ps-hint">idea / reason / example</span></span><textarea class="ps-input" id="ps_p1" rows="2" placeholder="idea → because... → e.g. ..."></textarea></div>
-                <div class="ps-row"><span class="ps-label">3 · Paragraph 2 - ${p.pillarB.label} <span class="ps-hint">idea / reason / example</span></span><textarea class="ps-input" id="ps_p2" rows="2" placeholder="idea → because... → e.g. ..."></textarea></div>
-                <div class="ps-row"><span class="ps-label">4 · Your position <span class="ps-hint">both sides + where you stand</span></span><textarea class="ps-input" id="ps_thesis" rows="1" placeholder="while ..., I think ..."></textarea></div>
-                <div class="ps-row"><span class="ps-label">5 · Conclusion <span class="ps-hint">your position again, one line</span></span><textarea class="ps-input" id="ps_concl" rows="1" placeholder="restate + strongest reason"></textarea></div>
+                <div class="ps-row">
+                    <div class="ps-head"><span class="ps-label">1 · Boundary <span class="ps-hint">who or what is the essay about?</span></span><button class="ps-hint-btn" onclick="fieldHint('boundary')">${ico('chat')} Hint</button></div>
+                    <textarea class="ps-input" id="ps_boundary" rows="1" placeholder="e.g. teenagers · tourism · public transport"></textarea>
+                    <div class="ps-hint-panel" id="hint_boundary"></div>
+                </div>
+                <div class="ps-row">
+                    <div class="ps-head"><span class="ps-label">2 · Paragraph 1 - ${p.pillarA.label} <span class="ps-hint">idea / reason / example</span></span><button class="ps-hint-btn" onclick="fieldHint('p1')">${ico('chat')} Hint</button></div>
+                    <textarea class="ps-input" id="ps_p1" rows="2" placeholder="idea → because... → e.g. ..."></textarea>
+                    <div class="ps-hint-panel" id="hint_p1"></div>
+                </div>
+                <div class="ps-row">
+                    <div class="ps-head"><span class="ps-label">3 · Paragraph 2 - ${p.pillarB.label} <span class="ps-hint">idea / reason / example</span></span><button class="ps-hint-btn" onclick="fieldHint('p2')">${ico('chat')} Hint</button></div>
+                    <textarea class="ps-input" id="ps_p2" rows="2" placeholder="idea → because... → e.g. ..."></textarea>
+                    <div class="ps-hint-panel" id="hint_p2"></div>
+                </div>
+                <div class="ps-row">
+                    <div class="ps-head"><span class="ps-label">4 · Your position <span class="ps-hint">both sides + where you stand</span></span><button class="ps-hint-btn" onclick="fieldHint('thesis')">${ico('chat')} Hint</button></div>
+                    <textarea class="ps-input" id="ps_thesis" rows="1" placeholder="while ..., I think ..."></textarea>
+                    <div class="ps-hint-panel" id="hint_thesis"></div>
+                </div>
+                <div class="ps-row">
+                    <div class="ps-head"><span class="ps-label">5 · Conclusion <span class="ps-hint">your position again, one line</span></span><button class="ps-hint-btn" onclick="fieldHint('concl')">${ico('chat')} Hint</button></div>
+                    <textarea class="ps-input" id="ps_concl" rows="1" placeholder="restate + strongest reason"></textarea>
+                    <div class="ps-hint-panel" id="hint_concl"></div>
+                </div>
             </div>
             <div class="console-meta-row">
                 <span id="planWordCount">0 words</span>
                 <span>Aim for 30–45</span>
             </div>
             <div class="help-bar">
-                <button class="help-pill" onclick="askCoach()">${ico('chat')} Need a hint?</button>
                 <button class="peek-btn" onclick="openPeek()">${ico('eye')} Peek at the method</button>
                 ${BACKEND_URL ? '' : '<button class="peek-btn" onclick="openAISetup()">' + ico('gear') + ' AI</button>'}
             </div>
