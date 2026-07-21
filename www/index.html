@@ -154,6 +154,22 @@
         .door-practise { background: #ffffff; border: 1.5px solid var(--brand-black); }
         .door-practise .hd-ico { background: var(--brand-black); box-shadow: 0 8px 18px -8px rgba(23,21,18,0.5); }
 
+        /* ---------- Class-code banner ---------- */
+        .class-banner { margin-top: 14px; background: var(--paper-warm); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+        .class-banner.joined { display: flex; align-items: center; gap: 12px; background: var(--color-success-light); border-color: #c4e0cf; }
+        .cb-collapsed { display: flex; align-items: center; gap: 12px; }
+        .class-banner .cb-ico { width: 34px; height: 34px; border-radius: 9px; background: var(--brand-orange); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+        .class-banner.joined .cb-ico { background: var(--color-success); }
+        .cb-body { flex: 1; line-height: 1.35; }
+        .cb-body b { font-family: var(--font-display); font-size: 0.86rem; font-weight: 800; display: block; }
+        .cb-body span { font-size: 0.76rem; color: var(--text-secondary); }
+        .cb-open { font-family: var(--font-display); font-size: 0.78rem; font-weight: 800; color: #fff; background: var(--brand-orange); border: none; border-radius: 999px; padding: 9px 16px; cursor: pointer; flex-shrink: 0; }
+        .cb-x { background: none; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; line-height: 1; padding: 0 4px; flex-shrink: 0; }
+        .cb-form { display: flex; gap: 8px; flex-wrap: wrap; }
+        .cb-form input { flex: 1; min-width: 120px; padding: 10px 12px; border: 1.5px solid var(--line-strong); border-radius: 10px; font-family: var(--font-body); font-size: 0.9rem; outline: none; }
+        .cb-form input:focus { border-color: var(--brand-orange); }
+        .cb-form button { font-family: var(--font-display); font-weight: 800; color: #fff; background: var(--brand-orange); border: none; border-radius: 10px; padding: 10px 20px; cursor: pointer; }
+
         /* ---------- Reveal / theory ---------- */
         .focus-beat { animation: zoomFocus 0.85s var(--glide) both; margin-bottom: 11px; }
         .focus-beat.beat-rest { opacity: 0.45; transform: scale(0.97); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -2407,7 +2423,8 @@
                 <p>Draw a fresh exam question - any of the five types, or bring your own - plan it, get feedback, compare with a model, then turn it into writing. ${learnedAll ? 'You know the method - go.' : 'Best after finishing the chapters.'}</p>
                 <span class="hd-cta">Practise now</span>
             </div>
-            </div>`;
+            </div>
+            ${classBanner()}`;
         playEntrance(board);
 
         const btn = el('masterContinueActionBtn');
@@ -2415,6 +2432,43 @@
         btn.removeAttribute('disabled');
         btn.onclick = () => learnedAll ? enterPractise() : renderChapterMap();
     }
+
+    /* ---------- Class-code banner (opt-in) ---------- */
+    function classBanner() {
+        const c = getClassInfo();
+        if (c.code) {
+            return `<div class="class-banner joined">
+                <span class="cb-ico">${ico('check')}</span>
+                <div class="cb-body"><b>Connected to class ${c.code.replace(/</g, '')}</b><span>Your progress is shared with your teacher as ${(c.name || 'Anon').replace(/</g, '')}.</span></div>
+                <button class="cb-x" onclick="leaveClass()" title="Leave class">×</button>
+            </div>`;
+        }
+        return `<div class="class-banner" id="classBanner">
+            <div class="cb-collapsed" id="cbCollapsed">
+                <span class="cb-ico">${ico('layers')}</span>
+                <div class="cb-body"><b>Using this with a class?</b><span>Enter your class code so your teacher can see your practice.</span></div>
+                <button class="cb-open" onclick="el('cbCollapsed').style.display='none';el('cbForm').style.display='flex';el('cbCodeInput').focus();">Enter code</button>
+            </div>
+            <div class="cb-form" id="cbForm" style="display:none;">
+                <input id="cbCodeInput" placeholder="Class code" maxlength="24" style="text-transform:uppercase;">
+                <input id="cbNameInput" placeholder="Your first name" maxlength="40">
+                <button onclick="joinClass()">Join</button>
+            </div>
+        </div>`;
+    }
+    window.joinClass = function () {
+        const code = (el('cbCodeInput').value || '').trim().toUpperCase();
+        const name = (el('cbNameInput').value || '').trim();
+        if (!code) { el('cbCodeInput').style.borderColor = 'var(--color-error)'; return; }
+        setClassInfo(code, name || 'Anon');
+        showToast('Connected to class ' + code);
+        renderHome();
+    };
+    window.leaveClass = function () {
+        if (!confirm('Leave this class? Your practice will stop being shared.')) return;
+        setClassInfo('', '');
+        renderHome();
+    };
 
     /* ================================================================
        PRACTISE MODE
@@ -3001,6 +3055,7 @@ Reply with ONLY a valid JSON object - no markdown, no code fences. Keys:
         fireConfetti(14);
 
         feedbackReceived = true;   // marks attempt closed
+        reportActivity('plan', p.qtype, countChecks());
         const btn = el('masterContinueActionBtn');
         btn.removeAttribute('disabled');
         btn.innerText = '▶ Next: turn the plan into writing';
@@ -3155,6 +3210,26 @@ Clear English for a band 6.5 student. Be honest but kind.`;
     const BACKEND_URL = 'https://ielts-planning-app.onrender.com';
     // Must match the APP_SECRET env var set on the backend, if you set one there.
     const APP_SECRET = '';
+
+    /* ---------- Class reporting (opt-in, for teachers' dashboard) ---------- */
+    function getClassInfo() {
+        try { return { code: localStorage.getItem('examacademy_class') || '', name: localStorage.getItem('examacademy_name') || '' }; }
+        catch (e) { return { code: '', name: '' }; }
+    }
+    function setClassInfo(code, name) {
+        try { localStorage.setItem('examacademy_class', code); localStorage.setItem('examacademy_name', name); } catch (e) {}
+    }
+    // Quietly send one finished plan or marked essay. Never blocks or breaks the student.
+    function reportActivity(kind, qtype, checks) {
+        const c = getClassInfo();
+        if (!c.code || !BACKEND_URL) return;
+        try {
+            fetch(BACKEND_URL.replace(/\/$/, '') + '/api/report', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: c.code, name: c.name, kind: kind, qtype: qtype, checks: checks })
+            }).catch(() => {});
+        } catch (e) {}
+    }
 
     const AI_PROVIDER_KEY = 'examacademy_ai_provider';
     const AI_KEY_KEY = 'examacademy_ai_key';
@@ -3357,6 +3432,7 @@ Use clear English for a band 6.5 student. Be honest but kind. If the essay is un
         try {
             const fb = await aiCall(sys, [{ role: 'user', text: 'My essay:\n\n' + studentEssayText }], 700);
             panel.innerHTML = `<div class="ai-feedback-panel">${fb.replace(/</g, '&lt;').replace(/\n/g, '<br>')}</div>`;
+            reportActivity('essay', p.qtype, 0);
         } catch (err) {
             if (err.code === 'nokey') showAISetup(panel, 'Connect your AI to have essays marked.', () => requestEssayFeedback());
             else if (err.code === 'auth') { clearAIKey(); showAISetup(panel, '⚠️ That key was rejected. Paste it again.', () => requestEssayFeedback()); }
