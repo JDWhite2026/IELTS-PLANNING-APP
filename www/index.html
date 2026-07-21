@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>The Exam Academy — IELTS Task 2 Writing: 7-Minute Planner</title>
+    <title>The Exam Academy - IELTS Task 2 Writing: 7-Minute Planner</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -150,10 +150,8 @@
         .home-door .hd-cta { display: inline-block; font-family: var(--font-display); font-size: 0.8rem; font-weight: 800; color: #fff; background: var(--brand-orange); padding: 10px 20px; border-radius: 999px; box-shadow: 0 8px 18px -8px rgba(240,146,59,0.7); transition: background 0.2s ease; }
         .home-door:hover .hd-cta { background: var(--brand-orange-deep); }
         .door-learn { background: var(--brand-orange-wash); border: 1px solid rgba(240,146,59,0.45); }
-        .door-practise { background: var(--brand-black); border: 1px solid var(--brand-black); }
-        .door-practise h4 { color: #fff; }
-        .door-practise p { color: rgba(255,255,255,0.72); }
-        .door-practise .door-kicker { color: var(--brand-orange); }
+        .door-practise { background: #ffffff; border: 1.5px solid var(--brand-black); }
+        .door-practise .hd-ico { background: var(--brand-black); box-shadow: 0 8px 18px -8px rgba(23,21,18,0.5); }
 
         /* ---------- Reveal / theory ---------- */
         .focus-beat { animation: zoomFocus 0.85s var(--glide) both; margin-bottom: 11px; }
@@ -644,7 +642,7 @@
         }
         @keyframes rippleGo { to { transform: scale(3.2); opacity: 0; } }
         @keyframes ringExpand { to { transform: scale(6); opacity: 0; } }
-        /* On phones the card fills the whole screen — no border around it.
+        /* On phones the card fills the whole screen - no border around it.
            (Kept last in the stylesheet so it wins over the base rules above.) */
         @media (max-width: 520px) {
             body { padding: 0; }
@@ -698,7 +696,7 @@
 
 <script>
     /* ================================================================
-       LEARN EXAMPLE — one fully worked prompt used across all chapters
+       LEARN EXAMPLE - one fully worked prompt used across all chapters
        ================================================================ */
     const LEARN_P = {
         topic: 'Education',
@@ -731,7 +729,7 @@
     };
 
     /* ================================================================
-       PRACTICE BANK — fresh prompts, never used in Learn
+       PRACTICE BANK - fresh prompts, never used in Learn
        ================================================================ */
     const PRACTICE_BANK = [
         { id: 'env', topic: 'Environment',
@@ -823,21 +821,21 @@
           loopTrap: "Free university education is good because students can study at university without paying.",
           chk4: 'A clear opinion line (agree / disagree + how far)',
           thesisWords: ['agree', 'disagree', 'while', 'although', 'partly', 'strongly'],
-          model: { boundary: "Boundary: university (not all education)", p1: "P1: free uni → equal access / talent not wealth decides / eg low-income enrolment ↑ where free", p2: "P2: accept cost / taxes ↑ + overcrowded courses / but targeted grants fix this", thesis: "Opinion: strongly agree — access > cost", concl: "Concl: restate opinion" } },
+          model: { boundary: "Boundary: university (not all education)", p1: "P1: free uni → equal access / talent not wealth decides / eg low-income enrolment ↑ where free", p2: "P2: accept cost / taxes ↑ + overcrowded courses / but targeted grants fix this", thesis: "Opinion: strongly agree - access > cost", concl: "Concl: restate opinion" } },
         { id: 'ad-remote', topic: 'Work', qtype: 'Advantages & Disadvantages',
           prompt: "In many countries, an increasing number of people work from home. Do the advantages of this development outweigh the disadvantages?",
           boundary: "people",
           pillarA: { label: "advantages", keywords: ['advantage','benefit','flexib','commute','focus','balance'] },
           pillarB: { label: "disadvantages", keywords: ['disadvantage','drawback','isolat','team','communicat','boundary blur'] },
           loopTrap: "Working from home is advantageous because it gives workers many advantages at home.",
-          chk4: 'A clear decision — do the advantages win or not?',
+          chk4: 'A clear decision - do the advantages win or not?',
           thesisWords: ['outweigh', 'while', 'although', 'overall', 'on balance'],
-          model: { boundary: "Boundary: working people (not students)", p1: "P1: advantages / no commute → time + focus / eg 2h saved daily → productivity ↑", p2: "P2: disadvantages / isolation + weaker teamwork / eg juniors miss mentoring", thesis: "Decision: advantages outweigh — IF teams meet regularly", concl: "Concl: restate decision" } },
+          model: { boundary: "Boundary: working people (not students)", p1: "P1: advantages / no commute → time + focus / eg 2h saved daily → productivity ↑", p2: "P2: disadvantages / isolation + weaker teamwork / eg juniors miss mentoring", thesis: "Decision: advantages outweigh - IF teams meet regularly", concl: "Concl: restate decision" } },
         { id: 'dq-alone', topic: 'Society', qtype: 'Double Question',
           prompt: "In many countries, more people are choosing to live alone than in the past. Why is this happening? Is it a positive or negative development?",
           boundary: "people",
-          pillarA: { label: "answer to Q1 — why", keywords: ['why','because','reason','income','independen','urban','later marriage'] },
-          pillarB: { label: "answer to Q2 — positive/negative", keywords: ['positive','negative','development','benefit','harm','lonel'] },
+          pillarA: { label: "answer to Q1 - why", keywords: ['why','because','reason','income','independen','urban','later marriage'] },
+          pillarB: { label: "answer to Q2 - positive/negative", keywords: ['positive','negative','development','benefit','harm','lonel'] },
           loopTrap: "More people live alone because living alone has become more common than before.",
           chk4: 'Both questions answered + a judgement (positive/negative)',
           thesisWords: ['positive', 'negative', 'while', 'overall', 'both'],
@@ -850,7 +848,7 @@
           loopTrap: "Traffic congestion causes problems because congested traffic is a serious problem for cities.",
           chk4: 'Each solution linked to a named problem',
           thesisWords: ['solve', 'solution', 'measure', 'while', 'best', 'overall'],
-          model: { boundary: "Boundary: cities", p1: "Problems: lost hours + air pollution / eg commuters lose 100h+/yr", p2: "Solutions: congestion charge → fewer trips; metro invest → real alternative (links to both problems)", thesis: "Stance: pricing + transport together — one alone fails", concl: "Concl: restate pairing" } },
+          model: { boundary: "Boundary: cities", p1: "Problems: lost hours + air pollution / eg commuters lose 100h+/yr", p2: "Solutions: congestion charge → fewer trips; metro invest → real alternative (links to both problems)", thesis: "Stance: pricing + transport together - one alone fails", concl: "Concl: restate pairing" } },
         { id: 'op-zoo', topic: 'Animals', qtype: 'Opinion',
           prompt: "Some people believe that keeping animals in zoos is cruel and zoos should be closed. To what extent do you agree or disagree?",
           boundary: "zoos",
@@ -859,21 +857,21 @@
           loopTrap: "Keeping animals in zoos is cruel because zoos treat animals in a cruel way.",
           chk4: 'A clear opinion line (agree / disagree + how far)',
           thesisWords: ['agree', 'disagree', 'while', 'although', 'partly', 'strongly'],
-          model: { boundary: "Boundary: zoos (not pets / farms)", p1: "P1: accept cruelty concern / small spaces → stress / eg pacing behaviour", p2: "P2: but modern zoos = conservation / breeding + funding / eg species saved from extinction", thesis: "Opinion: partly disagree — reform > closure", concl: "Concl: restate opinion" } },
+          model: { boundary: "Boundary: zoos (not pets / farms)", p1: "P1: accept cruelty concern / small spaces → stress / eg pacing behaviour", p2: "P2: but modern zoos = conservation / breeding + funding / eg species saved from extinction", thesis: "Opinion: partly disagree - reform > closure", concl: "Concl: restate opinion" } },
         { id: 'ad-tourism', topic: 'Tourism', qtype: 'Advantages & Disadvantages',
           prompt: "International tourism is now easier and cheaper than ever before. Do the advantages of this development outweigh the disadvantages?",
           boundary: "tourism",
           pillarA: { label: "advantages", keywords: ['advantage','benefit','economy','job','income','cultur','understand'] },
           pillarB: { label: "disadvantages", keywords: ['disadvantage','drawback','environment','crowd','pollut','local','price'] },
           loopTrap: "Cheap tourism is advantageous because tourists gain many advantages from cheap travel.",
-          chk4: 'A clear decision — do the advantages win or not?',
+          chk4: 'A clear decision - do the advantages win or not?',
           thesisWords: ['outweigh', 'while', 'although', 'overall', 'on balance'],
-          model: { boundary: "Boundary: international tourism", p1: "P1: advantages / jobs + income for hosts / eg coastal towns live on visitors", p2: "P2: disadvantages / crowding + environment strain / eg historic cities overwhelmed", thesis: "Decision: advantages outweigh — IF numbers managed", concl: "Concl: restate decision" } },
+          model: { boundary: "Boundary: international tourism", p1: "P1: advantages / jobs + income for hosts / eg coastal towns live on visitors", p2: "P2: disadvantages / crowding + environment strain / eg historic cities overwhelmed", thesis: "Decision: advantages outweigh - IF numbers managed", concl: "Concl: restate decision" } },
         { id: 'dq-cars', topic: 'Transport', qtype: 'Double Question',
           prompt: "Car ownership has increased rapidly in many countries. Why is this the case? What effects does this have on the environment?",
           boundary: "car ownership",
-          pillarA: { label: "answer to Q1 — why", keywords: ['why','because','reason','income','afford','status','convenien','suburb'] },
-          pillarB: { label: "answer to Q2 — effects", keywords: ['effect','environment','pollut','emission','air','congest','climate'] },
+          pillarA: { label: "answer to Q1 - why", keywords: ['why','because','reason','income','afford','status','convenien','suburb'] },
+          pillarB: { label: "answer to Q2 - effects", keywords: ['effect','environment','pollut','emission','air','congest','climate'] },
           loopTrap: "Car ownership has increased because more people now own cars than in the past.",
           chk4: 'Both questions answered, one per paragraph',
           thesisWords: ['because', 'effect', 'while', 'both', 'answer'],
@@ -886,7 +884,7 @@
           loopTrap: "Childhood obesity causes problems because obese children have many problems.",
           chk4: 'Each solution linked to a named problem',
           thesisWords: ['solve', 'solution', 'tackle', 'while', 'best', 'overall'],
-          model: { boundary: "Boundary: childhood (not adult obesity)", p1: "Problems: health + confidence / diabetes risk + bullying / eg lifelong habits set young", p2: "Solutions: school meals + sport hours (→ health); ad limits on junk food (→ habits)", thesis: "Stance: schools = best lever — reach every child daily", concl: "Concl: restate pairing" } }
+          model: { boundary: "Boundary: childhood (not adult obesity)", p1: "Problems: health + confidence / diabetes risk + bullying / eg lifelong habits set young", p2: "Solutions: school meals + sport hours (→ health); ad limits on junk food (→ habits)", thesis: "Stance: schools = best lever - reach every child daily", concl: "Concl: restate pairing" } }
     );
 
     /* ================================================================
@@ -903,11 +901,11 @@
 
     /* ---------- Question types (intro in ch 01, primers + picker in practise) ---------- */
     const QTYPES = [
-        { name: 'Discussion', cue: '"Discuss both views and give your opinion"', p1: 'View A', p2: 'View B', note: 'P1: view A / P2: view B — your stance in the thesis and carried by one paragraph.', body: 'Exactly what you have learned. Both views get the full three layers; your opinion appears in the thesis, one body paragraph, and the conclusion.' },
-        { name: 'Opinion', cue: '"To what extent do you agree or disagree?"', p1: 'Reason 1 (or other view)', p2: 'Reason 2 (your strongest)', note: 'P1: reason 1 / P2: reason 2 — or accept the other view first, then argue yours.', body: 'State your position in the thesis, then give two developed reasons — or one paragraph accepting the other view and one arguing yours. Your position must be completely clear from the introduction.' },
-        { name: 'Advantages & Disadvantages', cue: '"Do the advantages outweigh the disadvantages?"', p1: 'Advantages', p2: 'Disadvantages', note: 'P1: advantages / P2: disadvantages — thesis gives your decision: do the advantages win?', body: 'The word "outweigh" asks for a decision, not just a list. Your thesis announces which side is heavier, and your conclusion confirms it.' },
-        { name: 'Double Question', cue: 'Two direct questions in one prompt', p1: 'Answer to Q1', p2: 'Answer to Q2', note: 'P1: answer Q1 / P2: answer Q2 — miss one question and Task Response is capped.', body: 'Each question gets its own paragraph with the full three layers. Answering only one question is the most expensive mistake on this type — "addresses all parts" is band 7 wording.' },
-        { name: 'Problem & Solution', cue: '"What problems… what solutions…?"', p1: 'Problems', p2: 'Solutions', note: 'P1: problems / P2: solutions — link each solution to a named problem.', body: 'Paragraph 1 develops the problems, paragraph 2 the solutions. The band 7 trick: every solution should point back at a specific problem you named — that link IS the coherence.' }
+        { name: 'Discussion', cue: '"Discuss both views and give your opinion"', p1: 'View A', p2: 'View B', note: 'P1: view A / P2: view B - your stance in the thesis and carried by one paragraph.', body: 'Exactly what you have learned. Both views get the full three layers; your opinion appears in the thesis, one body paragraph, and the conclusion.' },
+        { name: 'Opinion', cue: '"To what extent do you agree or disagree?"', p1: 'Reason 1 (or other view)', p2: 'Reason 2 (your strongest)', note: 'P1: reason 1 / P2: reason 2 - or accept the other view first, then argue yours.', body: 'State your position in the thesis, then give two developed reasons - or one paragraph accepting the other view and one arguing yours. Your position must be completely clear from the introduction.' },
+        { name: 'Advantages & Disadvantages', cue: '"Do the advantages outweigh the disadvantages?"', p1: 'Advantages', p2: 'Disadvantages', note: 'P1: advantages / P2: disadvantages - thesis gives your decision: do the advantages win?', body: 'The word "outweigh" asks for a decision, not just a list. Your thesis announces which side is heavier, and your conclusion confirms it.' },
+        { name: 'Double Question', cue: 'Two direct questions in one prompt', p1: 'Answer to Q1', p2: 'Answer to Q2', note: 'P1: answer Q1 / P2: answer Q2 - miss one question and Task Response is capped.', body: 'Each question gets its own paragraph with the full three layers. Answering only one question is the most expensive mistake on this type - "addresses all parts" is band 7 wording.' },
+        { name: 'Problem & Solution', cue: '"What problems… what solutions…?"', p1: 'Problems', p2: 'Solutions', note: 'P1: problems / P2: solutions - link each solution to a named problem.', body: 'Paragraph 1 develops the problems, paragraph 2 the solutions. The band 7 trick: every solution should point back at a specific problem you named - that link IS the coherence.' }
     ];
     let mode = 'home';                 // 'home' | 'learn' | 'practise'
     let chIdx = 0, stIdx = 0;          // learn position
@@ -983,7 +981,7 @@
         } catch (e) {}
     }
     window.resetProgress = function () {
-        if (!confirm('Reset all progress — chapters and practice history?')) return;
+        if (!confirm('Reset all progress - chapters and practice history?')) return;
         try { localStorage.removeItem(PROG_KEY); } catch (e) {}
         for (let i = 0; i < chapterSeen.length; i++) chapterSeen[i] = 0;
         attempts.length = 0;
@@ -1008,12 +1006,12 @@
         timerHandle = setInterval(() => {
             remainingSeconds = remainingSeconds - 1;
             renderClock();
-            if (remainingSeconds === 180 && pState === 'write') showToast('3 minutes left — stop writing, start checking');
-            // Hitting zero doesn't stop you — the clock counts how far over exam time you go.
+            if (remainingSeconds === 180 && pState === 'write') showToast('3 minutes left - stop writing, start checking');
+            // Hitting zero doesn't stop you - the clock counts how far over exam time you go.
             if (remainingSeconds === 0) {
                 showToast(pState === 'write'
-                    ? 'Exam writing time is up — finish, and note how far over you go'
-                    : "7 minutes — that's exam time. Finish the plan and note the extra you needed");
+                    ? 'Exam writing time is up - finish, and note how far over you go'
+                    : "7 minutes - that's exam time. Finish the plan and note the extra you needed");
             }
         }, 1000);
     }
@@ -1031,21 +1029,21 @@
     function stmt(tag, html) { return `<div class="theory-stmt"><span class="stmt-tag">${tag}</span>${html}</div>`; }
     function expander(label, innerHTML) { return `<div class="why-exp"><div class="we-head" onclick="this.parentElement.classList.toggle('open')"><span>${label}</span><span class="we-chev">›</span></div><div class="we-body">${innerHTML}</div></div>`; }
 
-    /* Small, scoped language references — attached to the tasks that need
+    /* Small, scoped language references - attached to the tasks that need
        them, always behind a closed expander so the flow stays lean. */
     function langIntroHTML() {
-        return expander('Useful language — introductions',
+        return expander('Useful language - introductions',
             stmt('Openers for sentence 1', `These days, … &nbsp;·&nbsp; There is ongoing debate about whether … &nbsp;·&nbsp; People increasingly disagree about … &nbsp;·&nbsp; In many countries, …`) +
             stmt(`Swap the question's words`, `governments → the state &nbsp;·&nbsp; children → young people &nbsp;·&nbsp; important → essential, vital &nbsp;·&nbsp; many people think → it is often argued`) +
-            stmt('Frames for sentence 2 — your position', `While …, I believe … &nbsp;·&nbsp; Although some see …, … seems more convincing &nbsp;·&nbsp; Despite the appeal of …, I would argue …`));
+            stmt('Frames for sentence 2 - your position', `While …, I believe … &nbsp;·&nbsp; Although some see …, … seems more convincing &nbsp;·&nbsp; Despite the appeal of …, I would argue …`));
     }
     function langEssayHTML() {
-        return expander('Useful language — the essay',
+        return expander('Useful language - the essay',
             stmt('Giving reasons', `This is because … &nbsp;·&nbsp; The main reason is that … &nbsp;·&nbsp; As a result, …`) +
             stmt('Giving examples', `For instance, … &nbsp;·&nbsp; A clear example is … &nbsp;·&nbsp; This can be seen in …`) +
             stmt('Contrasting views', `However, … &nbsp;·&nbsp; While it is true that …, … &nbsp;·&nbsp; Others, by contrast, argue …`) +
             stmt('Concluding', `In short, … &nbsp;·&nbsp; On balance, I believe … &nbsp;·&nbsp; For these reasons, …`) +
-            stmt('Two band-7 flourishes', `Rarely do people consider … (inversion) &nbsp;·&nbsp; If this trend continues, … (conditional). One of each is plenty — accuracy beats decoration.`));
+            stmt('Two band-7 flourishes', `Rarely do people consider … (inversion) &nbsp;·&nbsp; If this trend continues, … (conditional). One of each is plenty - accuracy beats decoration.`));
     }
 
     /* Animated clock for the stage-rail walk-through: 0:00 → 7:00 in ~5.4s */
@@ -1064,7 +1062,7 @@
     }
     function quote(text, source) { return `<div class="theory-quote">"${text}"<span class="q-source">${source}</span></div>`; }
 
-    /* Animated five-types showcase (chapter 01) — one real question at a time, cue highlighted */
+    /* Animated five-types showcase (chapter 01) - one real question at a time, cue highlighted */
     const TYPE_SHOW = [
         { name: 'Discussion', q: `Some people think children should start school at four, <span class="cue-hl">while others believe</span> they should start later. <span class="cue-hl">Discuss both views and give your opinion.</span>`, relabel: 'P1 = view A · P2 = view B (your side)' },
         { name: 'Opinion', q: `Schools should teach children how to manage money. <span class="cue-hl">To what extent do you agree or disagree?</span>`, relabel: 'P1 = reason 1 · P2 = reason 2' },
@@ -1092,7 +1090,7 @@
         window.typeShowJump = function (j) { i = j; paint(); if (typeShowTimer) { clearInterval(typeShowTimer); } schedule(); };
     }
 
-    /* Minimalist line icons — one visual language across the app (currentColor, 16-grid) */
+    /* Minimalist line icons - one visual language across the app (currentColor, 16-grid) */
     const ICON = {
         target: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="5.2"/><circle cx="8" cy="8" r="1.5" fill="currentColor" stroke="none"/></svg>`,
         layers: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M8 2.6 14 5.6 8 8.6 2 5.6z"/><path d="M2.6 8.4 8 11.1 13.4 8.4"/></svg>`,
@@ -1236,7 +1234,7 @@
                     else {
                         board.innerHTML = `
                             <div class="drill-progress">${rounds.map(() => `<i class="done"></i>`).join('')}</div>
-                            <div class="drill-banner">✓ Drill complete — ${doneText || 'skill locked in'}</div>`;
+                            <div class="drill-banner">✓ Drill complete - ${doneText || 'skill locked in'}</div>`;
                         fireConfetti(8);
                         openBtn();
                     }
@@ -1274,7 +1272,7 @@
             <textarea class="mini-editor" id="createInput" placeholder="${cfg.placeholder}"></textarea>
             <button class="ai-feedback-btn" id="createCheckBtn" disabled onclick="runCreateCheck()">${ico('spark')} Check my ${cfg.noun}</button>
             <div class="help-bar" style="margin-top:10px;">
-                <button class="help-pill" onclick="runCreateHint()">${ico('chat')} Stuck? Get a hint — a question, not the answer</button>
+                <button class="help-pill" onclick="runCreateHint()">${ico('chat')} Stuck? Get a hint - a question, not the answer</button>
             </div>
             <div id="createPanel"></div>`;
         const minW = cfg.minWords || 4;
@@ -1320,7 +1318,7 @@
         } catch (err) {
             if (err.code === 'auth') { clearAIKey(); showAISetup(panel, '⚠️ That key was rejected. Check it and paste it again.', () => runCreateHint()); }
             else if (err.code === 'nokey') showAISetup(panel, 'Connect your AI to get coaching questions.', () => runCreateHint());
-            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Coach unavailable — try again.</div>`;
+            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Coach unavailable - try again.</div>`;
         }
     };
 
@@ -1336,7 +1334,7 @@
 
         /* ---------- 01 · WHY PLAN ---------- */
         { steps: [
-            { title: "Seven minutes. Five moves.", sub: "The whole method — watch it happen once before you learn it.", wm: "01",
+            { title: "Seven minutes. Five moves.", sub: "The whole method - watch it happen once before you learn it.", wm: "01",
               render(b, btn) {
                   const stages = [
                       ['target', 'Decode the question', '1 min'],
@@ -1351,11 +1349,11 @@
                           `<div class="rail-item" style="--rd:${(i * 1.05).toFixed(2)}s"><span class="rail-dot">${ico(s[0])}</span><span class="rail-name">${s[1]}</span><span class="rail-min">${s[2]}</span></div>`
                       ).join('') +
                       `</div><div class="rail-total" style="--rd:5.4s">= 7 minutes · ~45 words of notes · half your mark decided</div>
-                       <div class="rail-total" style="--rd:5.9s; color:var(--text-secondary); background:var(--brand-orange-wash); border:1px solid rgba(240,146,59,0.3); border-radius:10px; padding:10px 14px; margin-top:10px;">You'll still have <b>27 minutes for the writing itself</b>, and <b>3 to check it over</b> — don't worry, we'll practise both later.</div>`;
+                       <div class="rail-total" style="--rd:5.9s; color:var(--text-secondary); background:var(--brand-orange-wash); border:1px solid rgba(240,146,59,0.3); border-radius:10px; padding:10px 14px; margin-top:10px;">You'll still have <b>27 minutes for the writing itself</b>, and <b>3 to check it over</b> - don't worry, we'll practise both later.</div>`;
                   runRailClock();
                   pauseBtn(btn, 5600);
               } },
-            { title: "Five question types. One method.", sub: "Everything Task 2 can ask — and why the plan never changes.", wm: "01",
+            { title: "Five question types. One method.", sub: "Everything Task 2 can ask - and why the plan never changes.", wm: "01",
               render(b, btn) {
                   b.innerHTML = `
                       <div class="type-show ts-in" id="typeShowCard">
@@ -1364,23 +1362,23 @@
                           <div class="ts-relabel" id="tsRelabel"></div>
                       </div>
                       <div class="ts-dots">${TYPE_SHOW.map((_, i) => `<i onclick="typeShowJump(${i})"></i>`).join('')}</div>
-                      <div class="focus-card" style="animation-delay:0.3s;"><p>The plan never changes shape — five lines, every time. Only the <b>two paragraph labels</b> change with the type. You'll learn the method on <b>Discussion</b>; Practise trains the rest, with a short guide the first time you meet each.</p></div>`;
+                      <div class="focus-card" style="animation-delay:0.3s;"><p>The plan never changes shape - five lines, every time. Only the <b>two paragraph labels</b> change with the type. You'll learn the method on <b>Discussion</b>; Practise trains the rest, with a short guide the first time you meet each.</p></div>`;
                   runTypeShowcase();
                   pauseBtn(btn, 800);
               } },
-            { title: "Half your mark is decided before you write a word", sub: "Your essay is marked in four parts — two are won while planning.", wm: "01",
+            { title: "Half your mark is decided before you write a word", sub: "Your essay is marked in four parts - two are won while planning.", wm: "01",
               render(b, btn) { focusReveal(b, btn, [
                   `<div class="crit-map">
                       <div class="crit-block cb-plan" style="flex:2;"><span class="cb-pct">50%</span><span class="cb-label">Your plan<br>ideas + order</span></div>
                       <div class="crit-block cb-lang" style="flex:2;"><span class="cb-pct">50%</span><span class="cb-label">Your language<br>vocabulary + grammar</span></div>
                    </div>`,
-                  stmt('The point', `Two of the four marks — your <b>ideas</b> and their <b>order</b> — are decided while you plan, not while you write. Grammar takes years to improve. This takes today.`),
-                  expander(`Why this works — the examiner's own words`,
+                  stmt('The point', `Two of the four marks - your <b>ideas</b> and their <b>order</b> - are decided while you plan, not while you write. Grammar takes years to improve. This takes today.`),
+                  expander(`Why this works - the examiner's own words`,
                       stmt('The four parts', `Task Response (your ideas) 25% · Coherence (their order) 25% · Vocabulary 25% · Grammar 25%. The first two are planning decisions.`) +
-                      quote('...addresses the task; some parts may be more fully covered than others... ideas may be insufficiently developed', 'Band 6 — Task Response (simplified wording)') +
-                      quote('...addresses all parts of the task; presents a clear position throughout; extends and supports main ideas', 'Band 7 — Task Response (simplified wording)') +
-                      stmt('The gap', `<b>All parts</b>. <b>Clear position</b>. <b>Supported ideas</b>. Every one is a planning decision — none is a grammar decision.`) +
-                      stmt('One honest note', `You'll learn the method on the most common question type — "discuss both views". Practise mode covers the other four, with a short guide the first time you meet each.`))
+                      quote('...addresses the task; some parts may be more fully covered than others... ideas may be insufficiently developed', 'Band 6 - Task Response (simplified wording)') +
+                      quote('...addresses all parts of the task; presents a clear position throughout; extends and supports main ideas', 'Band 7 - Task Response (simplified wording)') +
+                      stmt('The gap', `<b>All parts</b>. <b>Clear position</b>. <b>Supported ideas</b>. Every one is a planning decision - none is a grammar decision.`) +
+                      stmt('One honest note', `You'll learn the method on the most common question type - "discuss both views". Practise mode covers the other four, with a short guide the first time you meet each.`))
               ]); } },
             { title: "What sinks a 6.5 essay?", sub: "Tap the biggest score-killer.", wm: "01",
               render(b, btn) {
@@ -1389,7 +1387,7 @@
                       <div class="tap-instruction">Tap your answer</div>
                       <div class="tap-card" data-hint="Slips cost marks, but examiners tolerate them at 6.5." onclick="tapAnswer(this, false)">Small grammar slips</div>
                       <div class="tap-card" style="animation-delay:0.15s;" onclick="tapAnswer(this, true)">Ideas that drift off-topic</div>
-                      <div class="tap-card" style="animation-delay:0.3s;" data-hint="Range helps — but ideas decide Task Response." onclick="tapAnswer(this, false)">Not enough uncommon vocabulary</div>
+                      <div class="tap-card" style="animation-delay:0.3s;" data-hint="Range helps - but ideas decide Task Response." onclick="tapAnswer(this, false)">Not enough uncommon vocabulary</div>
                       <div class="focus-card reveal-after"><p style="font-size:0.92rem;">Off-topic ideas keep Task Response stuck near band 5–6, however accurate the English. Planning prevents drift before it starts.</p></div>`;
               } },
             { title: "Planning is bought time", sub: "Two students. Same question. Same 40 minutes.", wm: "01",
@@ -1398,27 +1396,27 @@
                    <div class="vs-row">
                       <div class="vs-col vs-good"><span class="vs-head">${ico('check')} Plans first</span>
                           <div class="vs-bar">
-                              <div class="vs-seg" style="flex:3; background:#c3bcae;" title="Read the question — 3 min">3</div>
-                              <div class="vs-seg" style="flex:7; background:var(--brand-orange);" title="Plan — 7 min">plan 7</div>
-                              <div class="vs-seg" style="flex:27; background:var(--brand-black);" title="Write — 27 min">write 27</div>
-                              <div class="vs-seg" style="flex:3; background:#5aa06f;" title="Check — 3 min">3</div>
+                              <div class="vs-seg" style="flex:3; background:#c3bcae;" title="Read the question - 3 min">3</div>
+                              <div class="vs-seg" style="flex:7; background:var(--brand-orange);" title="Plan - 7 min">plan 7</div>
+                              <div class="vs-seg" style="flex:27; background:var(--brand-black);" title="Write - 27 min">write 27</div>
+                              <div class="vs-seg" style="flex:3; background:#5aa06f;" title="Check - 3 min">3</div>
                           </div>
                           <div class="vs-scale"><span>0 min</span><span>20 min</span><span>40 min</span></div>
-                          <div class="vs-verdict vv-good">Finishes the essay — with time to check it ✓</div>
+                          <div class="vs-verdict vv-good">Finishes the essay - with time to check it ✓</div>
                       </div>
                       <div class="vs-col vs-bad"><span class="vs-head">✕ Starts writing straight away</span>
                           <div class="vs-bar">
-                              <div class="vs-seg" style="flex:9; background:var(--brand-black);" title="Write — 9 min">write</div>
-                              <div class="vs-seg" style="flex:5; background:var(--color-error);" title="Stuck for an idea — 5 min">stuck</div>
-                              <div class="vs-seg" style="flex:10; background:var(--brand-black);" title="Write — 10 min">write</div>
-                              <div class="vs-seg" style="flex:6; background:var(--color-error);" title="Starting a paragraph again — 6 min">redo</div>
-                              <div class="vs-seg" style="flex:10; background:var(--brand-black);" title="Write — 10 min">write</div>
+                              <div class="vs-seg" style="flex:9; background:var(--brand-black);" title="Write - 9 min">write</div>
+                              <div class="vs-seg" style="flex:5; background:var(--color-error);" title="Stuck for an idea - 5 min">stuck</div>
+                              <div class="vs-seg" style="flex:10; background:var(--brand-black);" title="Write - 10 min">write</div>
+                              <div class="vs-seg" style="flex:6; background:var(--color-error);" title="Starting a paragraph again - 6 min">redo</div>
+                              <div class="vs-seg" style="flex:10; background:var(--brand-black);" title="Write - 10 min">write</div>
                           </div>
                           <div class="vs-scale"><span>0 min</span><span>20 min</span><span>40 min</span></div>
-                          <div class="vs-verdict vv-bad">Time runs out — no conclusion ✕</div>
+                          <div class="vs-verdict vv-bad">Time runs out - no conclusion ✕</div>
                       </div>
                    </div>`,
-                  stmt('The point', `Both write for the same 27 minutes. The first student decides everything, then just writes. The second decides <b>while</b> writing — gets stuck, starts again, and runs out of time. Planning is not lost time. It is bought time.`)
+                  stmt('The point', `Both write for the same 27 minutes. The first student decides everything, then just writes. The second decides <b>while</b> writing - gets stuck, starts again, and runs out of time. Planning is not lost time. It is bought time.`)
               ]); } }
         ]},
 
@@ -1426,55 +1424,55 @@
         { steps: [
             { title: "One word decides who the essay is about", sub: "Find it before you think of any ideas.", wm: "02", showPrompt: true,
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('The principle', `Every question contains one word that decides <b>who</b> — or <b>what</b> — the essay is about. Find it first. It is the fence around everything you write.`),
+                  stmt('The principle', `Every question contains one word that decides <b>who</b> - or <b>what</b> - the essay is about. Find it first. It is the fence around everything you write.`),
                   expander(`What it costs if you miss it`,
-                      stmt('Off-topic, however well written', `Write about schools when the question says <b>universities</b>, and those ideas are marked off-topic — the examiner cannot reward them, no matter how good the English is.`))
+                      stmt('Off-topic, however well written', `Write about schools when the question says <b>universities</b>, and those ideas are marked off-topic - the examiner cannot reward them, no matter how good the English is.`))
               ]); } },
             { title: "Watch the question give itself away", sub: "One word sets the limit. Another one pretends to.", wm: "02",
               render(b, btn) {
                   const sc = p.scope;
                   b.innerHTML = `
                       <div class="laser-prompt-frame" style="font-size:1.16rem; line-height:1.95;">${sc.before}<span class="text-word-token tok-anim-boundary">${sc.correctToken}</span>${sc.mid}<span class="text-word-token tok-anim-decoy">${sc.wrongToken}</span>${sc.after}</div>
-                      <div class="crit-legend" style="margin-top:2px; animation: zoomFocus 0.6s var(--glide) 3.4s both;"><span class="cl-plan"><i style="display:inline-block;width:9px;height:9px;background:var(--brand-orange);border-radius:2px;margin-right:4px;"></i>boundary — who it's about</span><span class="cl-lang"><i style="display:inline-block;width:9px;height:9px;background:var(--brand-black);border-radius:2px;margin-right:4px;"></i>decoy — one side of the argument</span></div>
-                      <div style="animation: zoomFocus 0.7s var(--glide) 4s both;">${stmt('Look at the two words', `<b>${sc.correctToken}</b> answers <i>"who is this essay about?"</i> — that's the boundary, the fence around everything you write. <b>${sc.wrongToken}</b> answers <i>"which side?"</i> — it's one team in the argument, not the fence. Ideas outside the fence don't count, however well written.`)}</div>
+                      <div class="crit-legend" style="margin-top:2px; animation: zoomFocus 0.6s var(--glide) 3.4s both;"><span class="cl-plan"><i style="display:inline-block;width:9px;height:9px;background:var(--brand-orange);border-radius:2px;margin-right:4px;"></i>boundary - who it's about</span><span class="cl-lang"><i style="display:inline-block;width:9px;height:9px;background:var(--brand-black);border-radius:2px;margin-right:4px;"></i>decoy - one side of the argument</span></div>
+                      <div style="animation: zoomFocus 0.7s var(--glide) 4s both;">${stmt('Look at the two words', `<b>${sc.correctToken}</b> answers <i>"who is this essay about?"</i> - that's the boundary, the fence around everything you write. <b>${sc.wrongToken}</b> answers <i>"which side?"</i> - it's one team in the argument, not the fence. Ideas outside the fence don't count, however well written.`)}</div>
                       <div style="animation: zoomFocus 0.7s var(--glide) 4.5s both;">${expander(`Why "${sc.wrongToken}" fools people`,
-                          stmt('It looks important', `It's one of the two things being compared — you'll write a whole paragraph about it later. But a paragraph topic is not a limit. The boundary tells you <b>whose essay this is</b>; the decoy just tells you one side of the debate.`))}</div>`;
+                          stmt('It looks important', `It's one of the two things being compared - you'll write a whole paragraph about it later. But a paragraph topic is not a limit. The boundary tells you <b>whose essay this is</b>; the decoy just tells you one side of the debate.`))}</div>`;
                   pauseBtn(btn, 4600);
               } },
-            { title: "Your turn: tap the boundary", sub: "Same question — now you find the fence.", wm: "02", showPrompt: false,
+            { title: "Your turn", sub: "You've just seen the answer - now find it yourself. It sticks better that way.", wm: "02", showPrompt: false,
               render(b, btn) {
                   gateBtn(btn);
                   const sc = p.scope;
                   b.innerHTML = `
-                      <div class="tap-instruction">Tap the word that sets the limit</div>
-                      <div class="laser-prompt-frame" style="font-size:1.1rem;">${sc.before}<span class="text-word-token tap-token" onclick="tapAnswer(this, true)">${sc.correctToken}</span>${sc.mid}<span class="text-word-token tap-token" data-hint="That's the decoy — one side of the argument, not the limit." onclick="tapAnswer(this, false)">${sc.wrongToken}</span>${sc.after}</div>`;
+                      <div class="tap-instruction">Tap the boundary - who is this essay about?</div>
+                      <div class="laser-prompt-frame" style="font-size:1.1rem;">${sc.before}<span class="text-word-token tap-token" onclick="tapAnswer(this, true)">${sc.correctToken}</span>${sc.mid}<span class="text-word-token tap-token" data-hint="That's the decoy - one side of the argument, not the limit." onclick="tapAnswer(this, false)">${sc.wrongToken}</span>${sc.after}</div>`;
               } },
-            { title: "Drill: three real questions", sub: "Find the boundary in each — exam-style prompts, no help.", wm: "02",
+            { title: "Drill: three real questions", sub: "Find the boundary in each - exam-style prompts, no help.", wm: "02",
               render(b, btn) {
                   drillStep(b, btn, [
-                      { instruction: "1 of 3 — Tap the boundary word",
-                        html: `<div class="laser-prompt-frame">Some people think ${dTok('parents', false, "Parents are one side's actor — a position, not the limit.")} should teach ${dTok('children', true)} how to be good members of society, while others believe ${dTok('school', false, "School is the other side's actor — a position.")} is the place to learn this.</div>` },
-                      { instruction: "2 of 3 — Tap the boundary word",
-                        html: `<div class="laser-prompt-frame">In many countries, ${dTok('young people', true)} are leaving ${dTok('rural areas', false, "That's where they leave from — part of the situation, not the limit on who.")} to work in ${dTok('cities', false, "That's the destination — not who the essay is about.")}. Discuss the advantages and disadvantages.</div>` },
-                      { instruction: "3 of 3 — Boundaries can limit WHAT, not only who",
-                        html: `<div class="laser-prompt-frame">Some believe ${dTok('governments', false, "An actor arguing one side — look for what KIND of thing is being limited.")} should ban ${dTok('dangerous sports', true)}, while others think people should have the ${dTok('freedom', false, "That's the other side's value — a position word.")} to choose.</div>` }
+                      { instruction: "1 of 3 - Tap the boundary word",
+                        html: `<div class="laser-prompt-frame">Some people think ${dTok('parents', false, "Parents are one side's actor - a position, not the limit.")} should teach ${dTok('children', true)} how to be good members of society, while others believe ${dTok('school', false, "School is the other side's actor - a position.")} is the place to learn this.</div>` },
+                      { instruction: "2 of 3 - Tap the boundary word",
+                        html: `<div class="laser-prompt-frame">In many countries, ${dTok('young people', true)} are leaving ${dTok('rural areas', false, "That's where they leave from - part of the situation, not the limit on who.")} to work in ${dTok('cities', false, "That's the destination - not who the essay is about.")}. Discuss the advantages and disadvantages.</div>` },
+                      { instruction: "3 of 3 - Boundaries can limit WHAT, not only who",
+                        html: `<div class="laser-prompt-frame">Some believe ${dTok('governments', false, "An actor arguing one side - look for what KIND of thing is being limited.")} should ban ${dTok('dangerous sports', true)}, while others think people should have the ${dTok('freedom', false, "That's the other side's value - a position word.")} to choose.</div>` }
                   ], 'you can decode any question');
               } },
-            { title: "Create: decode your own", sub: "Your turn to write it — the AI checks you found the limit, not the decoy.", wm: "02",
+            { title: "Create: decode your own", sub: "Your turn to write it - the AI checks you found the limit, not the decoy.", wm: "02",
               render(b, btn) {
                   createStep(b, btn, {
                       tag: 'Decode this question',
-                      task: `"<b>In many countries people now live far longer than before. Do the problems of an ageing population outweigh the benefits?</b>" — Write the <b>Boundary</b> line: the words that limit who or what this essay is about. Watch for the decoy.`,
+                      task: `"<b>In many countries people now live far longer than before. Do the problems of an ageing population outweigh the benefits?</b>" - Write the <b>Boundary</b> line: the words that limit who or what this essay is about. Watch for the decoy.`,
                       placeholder: 'Boundary: ...',
                       noun: 'boundary',
                       minWords: 2,
-                      rubric: `The student is practising IELTS Task 2 planning. Question: "In many countries people now live far longer than before. Do the problems of an ageing population outweigh the benefits?" They must write the BOUNDARY — the words limiting who/what the essay covers. Correct: "ageing population" (also accept "an ageing population" / "older people" / "the elderly"). Decoys they might wrongly pick: "problems" or "benefits" (these are the two sides to weigh, not the limit), or "many countries". ${MICRO_RUBRIC_BASE}`,
-                      selfCheck: `Ask "who or what is this whole essay about?" → an ageing population (older people). "Problems" and "benefits" are the two sides you weigh — not the boundary. If you wrote one of those, look again for the group the essay is about.`
+                      rubric: `The student is practising IELTS Task 2 planning. Question: "In many countries people now live far longer than before. Do the problems of an ageing population outweigh the benefits?" They must write the BOUNDARY - the words limiting who/what the essay covers. Correct: "ageing population" (also accept "an ageing population" / "older people" / "the elderly"). Decoys they might wrongly pick: "problems" or "benefits" (these are the two sides to weigh, not the limit), or "many countries". ${MICRO_RUBRIC_BASE}`,
+                      selfCheck: `Ask "who or what is this whole essay about?" → an ageing population (older people). "Problems" and "benefits" are the two sides you weigh - not the boundary. If you wrote one of those, look again for the group the essay is about.`
                   });
               } },
             { title: "Your model gains its first line", sub: "In the plan, decoding is two words.", wm: "02",
               render(b, btn) {
-                  b.innerHTML = modelCard(1, 0) + `<div class="word-count-callout">Move 1 complete — 4 lines to go ✅</div>`;
+                  b.innerHTML = modelCard(1, 0) + `<div class="word-count-callout">Move 1 complete - 4 lines to go ✅</div>`;
                   pauseBtn(btn, 700);
               } }
         ]},
@@ -1483,31 +1481,31 @@
         { steps: [
             { title: '"Because I said so" is not a reason', sub: "You already know what a bad reason sounds like.", wm: "03",
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('You know this one', `A child asks: "Why do I have to go to bed?" — "<b>Because I said so.</b>" Not a real reason: nothing new was said. Under exam pressure, writers do the polite version — "Job training is vital <b>because it is very important</b>." Same trick, longer sentence.`),
+                  stmt('You know this one', `A child asks: "Why do I have to go to bed?" - "<b>Because I said so.</b>" Not a real reason: nothing new was said. Under exam pressure, writers do the polite version - "Job training is vital <b>because it is very important</b>." Same trick, longer sentence.`),
                   expander(`What the examiner calls it`,
-                      quote('...main ideas may be insufficiently developed or unclear', 'Band 6 — Task Response (simplified wording)') +
+                      quote('...main ideas may be insufficiently developed or unclear', 'Band 6 - Task Response (simplified wording)') +
                       stmt('In plain words', `"Insufficiently developed" is the examiner's name for a reason that only repeats its claim. It is one of the most common band 6 comments.`))
               ]); } },
-            { title: "Watch a loop happen", sub: "See the sentence walk in a circle — slowly this time.", wm: "03",
+            { title: "Watch a loop happen", sub: "See the sentence walk in a circle - slowly this time.", wm: "03",
               render(b, btn) { focusReveal(b, btn, [
                   `<div class="laser-prompt-frame">"${d.s1} ${d.joiner} <span class="hl-red">${d.key}</span> ${d.verb} ${d.s2} <span class="hl-red">${d.loopWords}</span>."</div>`,
-                  stmt('Look at the red words', `'${d.loopWords}' is just '<b>${d.key}</b>' wearing different clothes. The "reason" travelled in a circle — the sentence ends exactly where it started. That is a <b>loop</b>.`)
+                  stmt('Look at the red words', `'${d.loopWords}' is just '<b>${d.key}</b>' wearing different clothes. The "reason" travelled in a circle - the sentence ends exactly where it started. That is a <b>loop</b>.`)
               ]); } },
             { title: "The Loop Test: two questions", sub: "This is the whole test. Memorise these two questions.", wm: "03",
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('Question 1', `<b>What is the strongest word in the claim?</b> Usually the judgement word — vital, essential, harmful, effective.`),
+                  stmt('Question 1', `<b>What is the strongest word in the claim?</b> Usually the judgement word - vital, essential, harmful, effective.`),
                   stmt('Question 2', `<b>Does the "because…" part just say that word again in other clothes?</b> Yes → loop, no marks. No → real reason.`),
                   expander(`The two disguises loops wear`,
-                      stmt('Synonyms', `"Vital… because it's useful and capable." Different words, same meaning — fails Question 2.`) +
-                      stmt('Echoes', `"Regulation regulates industries so they are well-regulated." The word itself comes back — fails Question 2.`))
+                      stmt('Synonyms', `"Vital… because it's useful and capable." Different words, same meaning - fails Question 2.`) +
+                      stmt('Echoes', `"Regulation regulates industries so they are well-regulated." The word itself comes back - fails Question 2.`))
               ]); } },
             { title: "Your turn: Question 1", sub: "Find the strongest word in the claim.", wm: "03",
               render(b, btn) {
                   gateBtn(btn);
                   b.innerHTML = `
                       <div class="tap-instruction">Tap the judgement word</div>
-                      <div class="laser-prompt-frame"><span class="text-word-token tap-token" data-hint="That's the topic — the thing being judged, not the judgement." onclick="tapAnswer(this, false)">${d.s1}</span> ${d.joiner} <span class="text-word-token tap-token" onclick="tapAnswer(this, true)">${d.key}</span> ${d.verb} <span class="text-word-token tap-token" data-hint="That's in the reason half — Question 1 looks only at the claim." onclick="tapAnswer(this, false)">${d.s2}</span> ${d.loopWords}.</div>
-                      <div class="focus-card" style="animation-delay:0.3s;"><p style="font-size:0.92rem;">Question 1: the strongest word is the <b>judgement</b> — what the sentence claims about ${d.s1.toLowerCase()}.</p></div>`;
+                      <div class="laser-prompt-frame"><span class="text-word-token tap-token" data-hint="That's the topic - the thing being judged, not the judgement." onclick="tapAnswer(this, false)">${d.s1}</span> ${d.joiner} <span class="text-word-token tap-token" onclick="tapAnswer(this, true)">${d.key}</span> ${d.verb} <span class="text-word-token tap-token" data-hint="That's in the reason half - Question 1 looks only at the claim." onclick="tapAnswer(this, false)">${d.s2}</span> ${d.loopWords}.</div>
+                      <div class="focus-card" style="animation-delay:0.3s;"><p style="font-size:0.92rem;">Question 1: the strongest word is the <b>judgement</b> - what the sentence claims about ${d.s1.toLowerCase()}.</p></div>`;
               } },
             { title: "Your turn: Question 2", sub: `Now ask it: does '${d.loopWords}' just re-say '${d.key}'?`, wm: "03",
               render(b, btn) {
@@ -1516,40 +1514,40 @@
                       <div class="tap-instruction">Your verdict?</div>
                       <div class="laser-prompt-frame" style="font-size:0.98rem;">${d.s1} ${d.joiner} <span class="hl-red">${d.key}</span> ${d.verb} ${d.s2} <span class="hl-red">${d.loopWords}</span>.</div>
                       <div class="side-chip-row">
-                          <div class="tap-card" style="flex:1; text-align:center;" onclick="tapAnswer(this, true)">✕ Loop — same idea again</div>
-                          <div class="tap-card" style="flex:1; text-align:center; animation-delay:0.12s;" data-hint="Read the red words again — is anything genuinely new in the second half?" onclick="tapAnswer(this, false)">✓ Real reason</div>
+                          <div class="tap-card" style="flex:1; text-align:center;" onclick="tapAnswer(this, true)">✕ Loop - same idea again</div>
+                          <div class="tap-card" style="flex:1; text-align:center; animation-delay:0.12s;" data-hint="Read the red words again - is anything genuinely new in the second half?" onclick="tapAnswer(this, false)">✓ Real reason</div>
                       </div>`;
               } },
-            { title: "What a real reason looks like", sub: "Same claim — now with a reason that passes Question 2.", wm: "03",
+            { title: "What a real reason looks like", sub: "Same claim - now with a reason that passes Question 2.", wm: "03",
               render(b, btn) { focusReveal(b, btn, [
                   `<div class="verdict-stamp stamp-good">✓ Bridge</div>
                    <div class="laser-prompt-frame" style="font-size:0.98rem;">Job training is vital because <span class="hl-green">it reduces graduate unemployment</span> by <span class="hl-green">matching courses to what employers ask for</span>.</div>`,
-                  stmt('Run the test yourself', `Q1: strongest word = <b>vital</b>. Q2: does "reduces unemployment / matches employer needs" just re-say vital? <b>No</b> — it names a cause and a result the claim never mentioned. We call this a <b>bridge</b>: it carries the reader somewhere new.`)
+                  stmt('Run the test yourself', `Q1: strongest word = <b>vital</b>. Q2: does "reduces unemployment / matches employer needs" just re-say vital? <b>No</b> - it names a cause and a result the claim never mentioned. We call this a <b>bridge</b>: it carries the reader somewhere new.`)
               ]); } },
             { title: "Drill: loop or bridge?", sub: "Three reasons from three different topics. Judge each one.", wm: "03",
               render(b, btn) {
                   drillStep(b, btn, [
-                      { instruction: "1 of 3 — 'Public transport reduces pollution because it means fewer polluting vehicles polluting the air.'",
-                        html: `<div class="side-chip-row">${dCard('✕ Loop', true, '', 0)}${dCard('✓ Bridge', false, "'Polluting vehicles polluting the air' just repeats 'pollution' — nothing new added.", 0.1)}</div>` },
-                      { instruction: "2 of 3 — 'Homework improves learning because repeating a skill within 24 hours moves it into long-term memory.'",
-                        html: `<div class="side-chip-row">${dCard('✕ Loop', false, "'Within 24 hours' and 'long-term memory' are real new information — a how and a why.", 0)}${dCard('✓ Bridge', true, '', 0.1)}</div>` },
-                      { instruction: "3 of 4 — 'Advertising to children is harmful because it exposes children to harmful advertisements.'",
-                        html: `<div class="side-chip-row">${dCard('✕ Loop', true, '', 0)}${dCard('✓ Bridge', false, "'Harmful advertisements' restates 'harmful' — a perfect circle.", 0.1)}</div>` },
-                      { instruction: "4 of 4 — Three reasons about job training. Tap the LOOP.",
-                        html: dCard(p.sentences.reason, false, "That one gives a real cause — what employers want.", 0) +
+                      { instruction: "1 of 3 - 'Public transport reduces pollution because it means fewer polluting vehicles polluting the air.'",
+                        html: `<div class="side-chip-row">${dCard('✕ Loop', true, '', 0)}${dCard('✓ Bridge', false, "'Polluting vehicles polluting the air' just repeats 'pollution' - nothing new added.", 0.1)}</div>` },
+                      { instruction: "2 of 3 - 'Homework improves learning because repeating a skill within 24 hours moves it into long-term memory.'",
+                        html: `<div class="side-chip-row">${dCard('✕ Loop', false, "'Within 24 hours' and 'long-term memory' are real new information - a how and a why.", 0)}${dCard('✓ Bridge', true, '', 0.1)}</div>` },
+                      { instruction: "3 of 4 - 'Advertising to children is harmful because it exposes children to harmful advertisements.'",
+                        html: `<div class="side-chip-row">${dCard('✕ Loop', true, '', 0)}${dCard('✓ Bridge', false, "'Harmful advertisements' restates 'harmful' - a perfect circle.", 0.1)}</div>` },
+                      { instruction: "4 of 4 - Three reasons about job training. Tap the LOOP.",
+                        html: dCard(p.sentences.reason, false, "That one gives a real cause - what employers want.", 0) +
                               dCard(p.loopTrap, true, '', 0.12) +
-                              dCard(p.halfLoop, false, "Close! 'People find it valuable' is weak — but it adds outside information, so it's not a pure loop.", 0.24) }
+                              dCard(p.halfLoop, false, "Close! 'People find it valuable' is weak - but it adds outside information, so it's not a pure loop.", 0.24) }
                   ], 'you now read like an examiner');
               } },
-            { title: "Create: write a reason that passes", sub: "No more choosing — this one is yours. The AI will run the Loop Test on it.", wm: "03",
+            { title: "Create: write a reason that passes", sub: "No more choosing - this one is yours. The AI will run the Loop Test on it.", wm: "03",
               render(b, btn) {
                   createStep(b, btn, {
                       tag: 'Your claim',
-                      task: `"<b>Governments should ban smoking in public parks.</b>" — Write the <i>because…</i> part. Ask yourself <b>why is it true?</b> and give a cause, a result, or a fact the claim doesn't already say.`,
+                      task: `"<b>Governments should ban smoking in public parks.</b>" - Write the <i>because…</i> part. Ask yourself <b>why is it true?</b> and give a cause, a result, or a fact the claim doesn't already say.`,
                       placeholder: 'because ...',
                       noun: 'reason',
                       rubric: `The student is practising IELTS Task 2 planning. Claim: "Governments should ban smoking in public parks." They wrote a reason (a because-clause). Run the Loop Test: a real reason adds a NEW mechanism or fact; a loop restates the claim in different words (e.g. "because smoking in parks is bad and should not be allowed"). ${MICRO_RUBRIC_BASE}`,
-                      selfCheck: `Q1: strongest words in the claim = "ban / smoking". Q2: does your reason just re-say them ("because smoking is bad", "because it shouldn't be allowed")? If yes → loop; ask why again. A passing reason names something new — e.g. second-hand smoke around children, or parks as spaces people can't avoid.`
+                      selfCheck: `Q1: strongest words in the claim = "ban / smoking". Q2: does your reason just re-say them ("because smoking is bad", "because it shouldn't be allowed")? If yes → loop; ask why again. A passing reason names something new - e.g. second-hand smoke around children, or parks as spaces people can't avoid.`
                   });
               } }
         ]},
@@ -1561,19 +1559,19 @@
                   stmt('The shape', `Each body paragraph carries exactly <b>one idea</b>, built in three layers: <b>main idea → reason → example</b>. Always this order.`),
                   expander(`Why not more ideas?`,
                       stmt('The instinct', `Most candidates believe more ideas = a better answer, and squeeze three or four points into each paragraph.`) +
-                      stmt('The reality', `Examiners reward the opposite. "Extends and supports main ideas" is band 7 wording — and extension needs room. One idea with a reason and an example scores higher than a list.`))
+                      stmt('The reality', `Examiners reward the opposite. "Extends and supports main ideas" is band 7 wording - and extension needs room. One idea with a reason and an example scores higher than a list.`))
               ]); } },
-            { title: "Blank mind? Ask two questions", sub: "You don't wait for ideas — you pull them out.", wm: "04",
+            { title: "Blank mind? Ask two questions", sub: "You don't wait for ideas - you pull them out.", wm: "04",
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('Question 1 — WHY is it true?', `Take your position and ask why. The answer is your <b>reason</b>.`),
-                  stmt('Question 2 — HOW do I know?', `Then ask how you know. The answer is your <b>example</b>. Two questions → a complete paragraph.`)
+                  stmt('Question 1 - WHY is it true?', `Take your position and ask why. The answer is your <b>reason</b>.`),
+                  stmt('Question 2 - HOW do I know?', `Then ask how you know. The answer is your <b>example</b>. Two questions → a complete paragraph.`)
               ]); } },
             { title: "Ask: WHY is it true?", sub: "Position: \"Universities should prioritize practical job training.\" Tap the real reason.", wm: "04",
               render(b, btn) {
                   gateBtn(btn);
                   b.innerHTML = `
                       <div class="tap-instruction">Which answer gives a real WHY?</div>
-                      <div class="tap-card" data-hint="'Important and useful' restates the position — that's a loop." onclick="tapAnswer(this, false)">${p.whyWrong}</div>
+                      <div class="tap-card" data-hint="'Important and useful' restates the position - that's a loop." onclick="tapAnswer(this, false)">${p.whyWrong}</div>
                       <div class="tap-card" style="animation-delay:0.15s;" onclick="tapAnswer(this, true)">${p.whyRight}</div>`;
               } },
             { title: "Ask: HOW do I know?", sub: "Now extract the example. Tap the stronger answer.", wm: "04",
@@ -1582,29 +1580,29 @@
                   b.innerHTML = `
                       <div class="tap-instruction">Which answer is a real example?</div>
                       <div class="tap-card" onclick="tapAnswer(this, true)">${p.howRight}</div>
-                      <div class="tap-card" style="animation-delay:0.15s;" data-hint="'Many people agree' is an opinion, not a case — it can't be checked." onclick="tapAnswer(this, false)">${p.howWrong}</div>`;
+                      <div class="tap-card" style="animation-delay:0.15s;" data-hint="'Many people agree' is an opinion, not a case - it can't be checked." onclick="tapAnswer(this, false)">${p.howWrong}</div>`;
               } },
-            { title: "You don't need statistics", sub: "The example worry — solved.", wm: "04",
+            { title: "You don't need statistics", sub: "The example worry - solved.", wm: "04",
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('The truth', `"But I don't know any facts or figures!" — you don't need them. Examiners never check examples. They reward a <b>specific, believable case</b> — "computing graduates with coding experience are hired faster" — not data.`)
+                  stmt('The truth', `"But I don't know any facts or figures!" - you don't need them. Examiners never check examples. They reward a <b>specific, believable case</b> - "computing graduates with coding experience are hired faster" - not data.`)
               ]); } },
             { title: "Now compress it", sub: "Full thoughts → plan notes. Watch the whole paragraph shrink.", wm: "04",
               render(b, btn) { compressStep(b, btn,
                   p.sentences.idea + " " + p.sentences.reason + " " + p.sentences.example,
-                  'layers', 'P1 — one line', p.notes.p1); } },
-            { title: "Create: compress it yourself", sub: "The exam skill — full thoughts into short notes. The AI checks your compression.", wm: "04",
+                  'layers', 'P1 - one line', p.notes.p1); } },
+            { title: "Create: compress it yourself", sub: "The exam skill - full thoughts into short notes. The AI checks your compression.", wm: "04",
               render(b, btn) {
                   createStep(b, btn, {
                       tag: 'Compress into plan notes',
-                      task: `Turn this full paragraph into <b>one line of plan notes</b> — keywords, arrows and abbreviations only, no full sentences. Keep all three layers (idea, reason, example):<br><br><i>"Cycling to work improves public health, because regular exercise lowers the risk of heart disease, and for example many employees who cycle daily report taking fewer sick days."</i>`,
+                      task: `Turn this full paragraph into <b>one line of plan notes</b> - keywords, arrows and abbreviations only, no full sentences. Keep all three layers (idea, reason, example):<br><br><i>"Cycling to work improves public health, because regular exercise lowers the risk of heart disease, and for example many employees who cycle daily report taking fewer sick days."</i>`,
                       placeholder: 'e.g. cycling → health / exercise ↓ heart disease / eg daily cyclists = fewer sick days',
                       noun: 'notes',
                       minWords: 3,
-                      rubric: `The student is practising IELTS Task 2 planning — compressing a full paragraph into PLAN NOTES. Source: "Cycling to work improves public health, because regular exercise lowers the risk of heart disease, and many employees who cycle daily report fewer sick days." Strong compressed notes: short fragments only (keywords, arrows like → or ↓, abbreviations like "eg"), NOT full sentences, ideally under ~12 words, and must keep all THREE layers — idea (cycling improves health), reason (exercise lowers heart-disease risk), example (daily cyclists take fewer sick days). Penalise: copying full sentences, missing the reason or the example, or losing the meaning. ${MICRO_RUBRIC_BASE}`,
-                      selfCheck: `Strong notes keep all three layers as fragments: idea (cycling → health), reason (exercise ↓ heart disease), example (eg daily cyclists = fewer sick days). If you wrote full sentences, cut every word you don't need. If you dropped the reason or example, add them back — short.`
+                      rubric: `The student is practising IELTS Task 2 planning - compressing a full paragraph into PLAN NOTES. Source: "Cycling to work improves public health, because regular exercise lowers the risk of heart disease, and many employees who cycle daily report fewer sick days." Strong compressed notes: short fragments only (keywords, arrows like → or ↓, abbreviations like "eg"), NOT full sentences, ideally under ~12 words, and must keep all THREE layers - idea (cycling improves health), reason (exercise lowers heart-disease risk), example (daily cyclists take fewer sick days). Penalise: copying full sentences, missing the reason or the example, or losing the meaning. ${MICRO_RUBRIC_BASE}`,
+                      selfCheck: `Strong notes keep all three layers as fragments: idea (cycling → health), reason (exercise ↓ heart disease), example (eg daily cyclists = fewer sick days). If you wrote full sentences, cut every word you don't need. If you dropped the reason or example, add them back - short.`
                   });
               } },
-            { title: "Paragraph 2: the other side", sub: "Same shape, opposite position — already in notes.", wm: "04",
+            { title: "Paragraph 2: the other side", sub: "Same shape, opposite position - already in notes.", wm: "04",
               render(b, btn) {
                   b.innerHTML = `
                       ${notePad([
@@ -1612,25 +1610,25 @@
                           { ico: 'reason', tag: 'Reason', text: p.p2notes.reason },
                           { ico: 'example', tag: 'Example', text: p.p2notes.example }
                       ])}
-                      <div class="focus-card" style="animation-delay:0.4s;"><p style="font-size:0.93rem;">"Discuss both views" means the examiner checks for <b>balance</b> — both sides get the full three layers.</p></div>`;
+                      <div class="focus-card" style="animation-delay:0.4s;"><p style="font-size:0.93rem;">"Discuss both views" means the examiner checks for <b>balance</b> - both sides get the full three layers.</p></div>`;
                   pauseBtn(btn, 700);
               } },
             { title: "Drill: generate on a fresh topic", sub: "Position: \"Governments should tax sugary drinks.\" Extract the paragraph.", wm: "04",
               render(b, btn) {
                   drillStep(b, btn, [
-                      { instruction: "1 of 2 — Ask WHY. Tap the real reason.",
-                        html: dCard('Because taxing sugary drinks is an effective and important health policy.', false, "'Effective and important' restates the position — loop.", 0) +
+                      { instruction: "1 of 2 - Ask WHY. Tap the real reason.",
+                        html: dCard('Because taxing sugary drinks is an effective and important health policy.', false, "'Effective and important' restates the position - loop.", 0) +
                               dCard('Because higher prices reliably reduce consumption of non-essential products.', true, '', 0.12) },
-                      { instruction: "2 of 2 — Ask HOW DO I KNOW. Tap the real example.",
+                      { instruction: "2 of 2 - Ask HOW DO I KNOW. Tap the real example.",
                         html: dCard('Countries that introduced sugar taxes saw soft-drink sales fall within two years.', true, '', 0) +
-                              dCard('Most people would probably agree that too much sugar is bad for health.', false, "'People would agree' is an opinion, not a case — nothing to check.", 0.12) }
+                              dCard('Most people would probably agree that too much sugar is bad for health.', false, "'People would agree' is an opinion, not a case - nothing to check.", 0.12) }
                   ], 'you just generated a full paragraph');
               } },
-            { title: "Create: write the example", sub: "Your reason is ready — now prove it. The AI checks if your example is specific enough.", wm: "04",
+            { title: "Create: write the example", sub: "Your reason is ready - now prove it. The AI checks if your example is specific enough.", wm: "04",
               render(b, btn) {
                   createStep(b, btn, {
                       tag: 'Your claim + reason',
-                      task: `"<b>Cities should invest in cycle lanes</b> because cycling takes cars off the road at rush hour." — Now answer <b>how do I know?</b> Write one specific, believable example. No statistics needed — a checkable case is enough.`,
+                      task: `"<b>Cities should invest in cycle lanes</b> because cycling takes cars off the road at rush hour." - Now answer <b>how do I know?</b> Write one specific, believable example. No statistics needed - a checkable case is enough.`,
                       placeholder: 'For example, ...',
                       noun: 'example',
                       rubric: `The student is practising IELTS Task 2 planning. Claim: "Cities should invest in cycle lanes." Reason: "cycling takes cars off the road at rush hour." They wrote an example. A good example is a specific, plausible, checkable case (a place, a group, an observable outcome). A weak one is vague opinion ("many people think it is good") or restates the reason. ${MICRO_RUBRIC_BASE}`,
@@ -1639,28 +1637,28 @@
               } },
             { title: "Two more lines on the model", sub: "Both paragraphs, planned.", wm: "04",
               render(b, btn) {
-                  b.innerHTML = modelCard(3, 2) + `<div class="word-count-callout">Move 3 complete — the plan is over half done ✅</div>`;
+                  b.innerHTML = modelCard(3, 2) + `<div class="word-count-callout">Move 3 complete - the plan is over half done ✅</div>`;
                   pauseBtn(btn, 700);
               } }
         ]},
 
         /* ---------- 05 · THESIS & STANCE ---------- */
         { steps: [
-            { title: "The examiner must never wonder where you stand", sub: "Your opinion appears three times — not once at the end.", wm: "05",
+            { title: "The examiner must never wonder where you stand", sub: "Your opinion appears three times - not once at the end.", wm: "05",
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('Where your opinion lives', `It appears <b>three times</b>: announced in the introduction, argued by one body paragraph, and restated in the conclusion. Saving it for the end — the most common 6.5 habit — fails the test.`),
+                  stmt('Where your opinion lives', `It appears <b>three times</b>: announced in the introduction, argued by one body paragraph, and restated in the conclusion. Saving it for the end - the most common 6.5 habit - fails the test.`),
                   expander(`The examiner's wording`,
-                      quote('...presents a clear position throughout the response', 'Band 7 — Task Response (simplified wording)') +
-                      stmt('What "throughout" means', `Many candidates discuss both views well — and reveal their own opinion only in the conclusion. "Throughout" means the reader knows your side from the first paragraph.`))
+                      quote('...presents a clear position throughout the response', 'Band 7 - Task Response (simplified wording)') +
+                      stmt('What "throughout" means', `Many candidates discuss both views well - and reveal their own opinion only in the conclusion. "Throughout" means the reader knows your side from the first paragraph.`))
               ]); } },
-            { title: "Name both sides", sub: "Your thesis previews both paragraphs — in the same words.", wm: "05",
+            { title: "Name both sides", sub: "Your thesis previews both paragraphs - in the same words.", wm: "05",
               render(b, btn) {
                   b.innerHTML = `
                       <div class="side-chip-row">
                           <div class="side-chip sc-a" style="animation-delay:0.1s;"><span class="sc-tag">Side A</span>${p.sideA}</div>
-                          <div class="side-chip sc-b" style="animation-delay:0.4s;"><span class="sc-tag">Side B — your side</span>${p.sideB}</div>
+                          <div class="side-chip sc-b" style="animation-delay:0.4s;"><span class="sc-tag">Side B - your side</span>${p.sideB}</div>
                       </div>
-                      <div class="focus-card" style="animation-delay:0.7s;"><p style="font-size:0.93rem;">Matching wording between thesis and paragraphs makes the essay's structure visible instantly — a clear sign of band 7+ writing.</p></div>`;
+                      <div class="focus-card" style="animation-delay:0.7s;"><p style="font-size:0.93rem;">Matching wording between thesis and paragraphs makes the essay's structure visible instantly - a clear sign of band 7+ writing.</p></div>`;
                   pauseBtn(btn, 700);
               } },
             { title: "Tap the linking word", sub: "One word joins both sides AND signals your stance.", wm: "05",
@@ -1669,59 +1667,59 @@
                   b.innerHTML = `
                       <div class="tap-instruction">Which word contrasts two views?</div>
                       <div class="side-chip-row" style="flex-wrap:wrap;">
-                          <div class="tap-card" style="flex:1; text-align:center;" data-hint="'And' adds — it doesn't contrast two views." onclick="tapAnswer(this, false)">And</div>
+                          <div class="tap-card" style="flex:1; text-align:center;" data-hint="'And' adds - it doesn't contrast two views." onclick="tapAnswer(this, false)">And</div>
                           <div class="tap-card" style="flex:1; text-align:center; animation-delay:0.12s;" onclick="tapAnswer(this, true)">While</div>
-                          <div class="tap-card" style="flex:1; text-align:center; animation-delay:0.24s;" data-hint="'Also' extends the same view — no contrast." onclick="tapAnswer(this, false)">Also</div>
+                          <div class="tap-card" style="flex:1; text-align:center; animation-delay:0.24s;" data-hint="'Also' extends the same view - no contrast." onclick="tapAnswer(this, false)">Also</div>
                       </div>
                       <div class="focus-card reveal-after"><p style="font-size:0.92rem;">"While" accepts the other view first, then hands the sentence to <b>your</b> position: <i>"${p.thesisSentence}"</i></p></div>`;
               } },
-            { title: "The final two lines", sub: "Thesis noted — and the conclusion decided in five words.", wm: "05",
+            { title: "The final two lines", sub: "Thesis noted - and the conclusion decided in five words.", wm: "05",
               render(b, btn) { focusReveal(b, btn, [
                   modelCard(5, 3),
-                  stmt('The two jobs of a conclusion', `Return to your stance, and echo your strongest reason — <b>nothing new</b>. A fresh idea in the final paragraph reads as unfinished, not as a bonus. Decide the echoed reason now, in the plan.`),
+                  stmt('The two jobs of a conclusion', `Return to your stance, and echo your strongest reason - <b>nothing new</b>. A fresh idea in the final paragraph reads as unfinished, not as a bonus. Decide the echoed reason now, in the plan.`),
                   expander(`Why five words in the plan matter`,
                       stmt('The evidence', `The band 6 marking guide says it directly: "conclusions may be unclear". No conclusion = band 6, whatever the rest looks like. Five planned words prevent it completely.`))
               ]); } },
             { title: "Drill: pick the exam-ready thesis", sub: "Prompt: home-working vs the office. Only one of these notes would earn band 7.", wm: "05",
               render(b, btn) {
                   drillStep(b, btn, [
-                      { instruction: "1 of 2 — Tap the thesis note that does the full job",
-                        html: dCard('Thesis: offices are essential for teamwork', false, "Only one side is named — where did the home-working view go?", 0) +
+                      { instruction: "1 of 2 - Tap the thesis note that does the full job",
+                        html: dCard('Thesis: offices are essential for teamwork', false, "Only one side is named - where did the home-working view go?", 0) +
                               dCard('Thesis: while home = focus, office = teamwork → office essential', true, '', 0.12) +
-                              dCard('Thesis: some people like home, others like the office', false, "Both sides named — but no stance. 'Clear position throughout' starts here.", 0.24) },
-                      { instruction: "2 of 2 — Prompt: sugar taxes. Tap the exam-ready note.",
+                              dCard('Thesis: some people like home, others like the office', false, "Both sides named - but no stance. 'Clear position throughout' starts here.", 0.24) },
+                      { instruction: "2 of 2 - Prompt: sugar taxes. Tap the exam-ready note.",
                         html: dCard('Thesis: while tax feels unfair, health benefit = greater → support tax', true, '', 0) +
-                              dCard('Thesis: sugar taxes have advantages and disadvantages', false, "That's a shrug, not a stance — the examiner still doesn't know your position.", 0.12) }
+                              dCard('Thesis: sugar taxes have advantages and disadvantages', false, "That's a shrug, not a stance - the examiner still doesn't know your position.", 0.12) }
                   ], 'both sides + a stance, every time');
               } },
             { title: "Create: write your thesis note", sub: "Prompt: \"Some think children should learn a musical instrument at school; others see it as a waste of time. Discuss both views.\"", wm: "05",
               render(b, btn) {
                   createStep(b, btn, {
                       tag: 'Your task',
-                      task: `Write the <b>thesis note</b> for this question — one short line, notes only. It must name <b>both sides</b> and show <b>where you stand</b>. Pattern: <i>Thesis: while X…, Y = …</i>`,
+                      task: `Write the <b>thesis note</b> for this question - one short line, notes only. It must name <b>both sides</b> and show <b>where you stand</b>. Pattern: <i>Thesis: while X…, Y = …</i>`,
                       placeholder: 'Thesis: while ...',
                       noun: 'thesis note',
                       rubric: `The student is practising IELTS Task 2 planning. Prompt: "Some think children should learn a musical instrument at school; others see it as a waste of time. Discuss both views and give your opinion." They wrote a thesis NOTE (note form is expected and correct). Check two things only: (1) both sides named (music learning AND the waste-of-time view), (2) a clear personal stance. A contrast word like "while" usually signals it. ${MICRO_RUBRIC_BASE}`,
                       selfCheck: `Two checks: ① are BOTH views in your line (instrument learning + waste-of-time)? ② could a stranger tell which side YOU take? "Thesis: while some see waste, music → discipline + memory = worth it" passes both.`
                   });
               } },
-            { title: "Create: write the conclusion note", sub: "The plan's last line — your fifth and final move. The AI checks it does both jobs.", wm: "05",
+            { title: "Create: write the conclusion note", sub: "The plan's last line - your fifth and final move. The AI checks it does both jobs.", wm: "05",
               render(b, btn) {
                   createStep(b, btn, {
                       tag: 'Write the conclusion note',
-                      task: `Essay: "<b>Should governments make cycling safer to reduce car use?</b>" — your stance is <b>yes</b>, and your strongest reason was <i>safe lanes make people switch from cars</i>. Write the <b>conclusion note</b>: say your stance again + repeat that reason. Short notes, and <b>no new ideas</b>.`,
+                      task: `Essay: "<b>Should governments make cycling safer to reduce car use?</b>" - your stance is <b>yes</b>, and your strongest reason was <i>safe lanes make people switch from cars</i>. Write the <b>conclusion note</b>: say your stance again + repeat that reason. Short notes, and <b>no new ideas</b>.`,
                       placeholder: 'Concl: ...',
                       noun: 'conclusion note',
                       minWords: 3,
-                      rubric: `The student is practising IELTS Task 2 planning — writing the CONCLUSION note (note form expected). Essay stance: yes, governments should make cycling safer. Strongest reason: safe lanes make people switch from cars. A good conclusion note does two things: (1) restates the stance, (2) echoes that strongest reason. It must contain NO new idea or example. Penalise: introducing a new point (e.g. pollution, health, cost not mentioned as the key reason), or restating the stance with no reason echoed. ${MICRO_RUBRIC_BASE}`,
-                      selfCheck: `Two jobs: restate the stance (yes — make cycling safer) AND echo the strongest reason (safe lanes → people leave their cars). One rule: nothing new. "Concl: safer cycling worth it — safe lanes move people out of cars" passes both.`
+                      rubric: `The student is practising IELTS Task 2 planning - writing the CONCLUSION note (note form expected). Essay stance: yes, governments should make cycling safer. Strongest reason: safe lanes make people switch from cars. A good conclusion note does two things: (1) restates the stance, (2) echoes that strongest reason. It must contain NO new idea or example. Penalise: introducing a new point (e.g. pollution, health, cost not mentioned as the key reason), or restating the stance with no reason echoed. ${MICRO_RUBRIC_BASE}`,
+                      selfCheck: `Two jobs: restate the stance (yes - make cycling safer) AND echo the strongest reason (safe lanes → people leave their cars). One rule: nothing new. "Concl: safer cycling worth it - safe lanes move people out of cars" passes both.`
                   });
               } },
-            { title: "The complete model — the method is yours", sub: "This is the entire product of seven minutes. ~45 words.", wm: "05",
+            { title: "The complete model - the method is yours", sub: "This is the entire product of seven minutes. ~45 words.", wm: "05",
               render(b, btn) {
                   b.innerHTML = modelCard(5, -1) + `
                       <div class="focus-card" style="animation-delay:0.4s;"><span class="focus-tag">One more chapter</span>
-                          <p>The plan is done — <b>06 · Write</b> shows how it becomes sentences on the page: the two-sentence introduction, and where marked writing fits in Practise.</p>
+                          <p>The plan is done - <b>06 · Write</b> shows how it becomes sentences on the page: the two-sentence introduction, and where marked writing fits in Practise.</p>
                       </div>`;
                   pauseBtn(btn, 700);
               } }
@@ -1731,62 +1729,62 @@
         { steps: [
             { title: "The introduction is two sentences", sub: "Both are already in your plan.", wm: "06",
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('The recipe', `<b>Sentence 1</b> — the question, said again in your own words. <b>Sentence 2</b> — your thesis line, written out in full. That's the whole introduction. No examples, no statistics, nothing else.`),
+                  stmt('The recipe', `<b>Sentence 1</b> - the question, said again in your own words. <b>Sentence 2</b> - your thesis line, written out in full. That's the whole introduction. No examples, no statistics, nothing else.`),
                   expander(`Why your own words matter`,
-                      quote('...uses a sufficient range of vocabulary to allow some flexibility and precision', 'Band 7 — Vocabulary (simplified wording)') +
-                      stmt('Copied words earn nothing', `Words copied from the question cannot show the examiner <b>your</b> vocabulary — they are skipped when your range is judged. Saying the question in new words is the first vocabulary evidence in the essay.`))
+                      quote('...uses a sufficient range of vocabulary to allow some flexibility and precision', 'Band 7 - Vocabulary (simplified wording)') +
+                      stmt('Copied words earn nothing', `Words copied from the question cannot show the examiner <b>your</b> vocabulary - they are skipped when your range is judged. Saying the question in new words is the first vocabulary evidence in the essay.`))
               ]); } },
             { title: "Same meaning, new words", sub: "Watch one question become an introduction.", wm: "06",
               render(b, btn) { focusReveal(b, btn, [
                   stmt('A question', `"Some people believe universities should focus on teaching <b>practical job skills</b>, while others think they should prioritise <b>pure theoretical research</b>. Discuss both views and give your opinion."`),
                   `<div class="laser-prompt-frame" style="font-size:0.95rem;">These days, people disagree about whether universities should concentrate on <span class="hl-green">preparing students for work</span> or on <span class="hl-green">pure academic study</span>. <b>While research has its place, I believe job skills matter more.</b></div>`,
-                  stmt('What changed', `"Practical job skills" → <span class="hl-green">preparing students for work</span>. "Theoretical research" → <span class="hl-green">pure academic study</span>. New words, same meaning — then the thesis line from the plan, written out.`)
+                  stmt('What changed', `"Practical job skills" → <span class="hl-green">preparing students for work</span>. "Theoretical research" → <span class="hl-green">pure academic study</span>. New words, same meaning - then the thesis line from the plan, written out.`)
               ]); } },
             { title: "Drill: spot the real paraphrase", sub: "Two rounds. Only one rewrite actually uses new words.", wm: "06",
               render(b, btn) {
                   drillStep(b, btn, [
-                      { instruction: "1 of 2 — 'Governments should invest more in public transport.' Tap the real paraphrase.",
-                        html: dCard('Governments should invest more money in public transport systems.', false, "Almost every word is the question's — adding 'money' and 'systems' is not a paraphrase.", 0) +
+                      { instruction: "1 of 2 - 'Governments should invest more in public transport.' Tap the real paraphrase.",
+                        html: dCard('Governments should invest more money in public transport systems.', false, "Almost every word is the question's - adding 'money' and 'systems' is not a paraphrase.", 0) +
                               dCard('The state ought to put greater funding into buses and trains.', true, '', 0.12) },
-                      { instruction: "2 of 2 — 'Many people believe children spend too much time on screens.' Tap the real paraphrase.",
+                      { instruction: "2 of 2 - 'Many people believe children spend too much time on screens.' Tap the real paraphrase.",
                         html: dCard('It is often argued that young people are overly attached to their devices.', true, '', 0) +
-                              dCard('Many people believe children spend a lot of time on screens.', false, "One word swapped — the rest is still the question's sentence.", 0.12) }
+                              dCard('Many people believe children spend a lot of time on screens.', false, "One word swapped - the rest is still the question's sentence.", 0.12) }
                   ], 'you can hear the difference now');
               } },
-            { title: "Create: write an introduction", sub: "Two sentences — the AI checks the paraphrase and the thesis.", wm: "06",
+            { title: "Create: write an introduction", sub: "Two sentences - the AI checks the paraphrase and the thesis.", wm: "06",
               render(b, btn) {
                   createStep(b, btn, {
                       tag: 'Your question',
-                      task: `"<b>Some people think all children should learn a musical instrument at school, while others see it as a waste of time. Discuss both views and give your opinion.</b>" — Write the <b>two-sentence introduction</b>: the question in your own words, then your position.`,
+                      task: `"<b>Some people think all children should learn a musical instrument at school, while others see it as a waste of time. Discuss both views and give your opinion.</b>" - Write the <b>two-sentence introduction</b>: the question in your own words, then your position.`,
                       placeholder: 'These days, ... . While ..., I believe ...',
                       noun: 'introduction',
                       minWords: 12,
-                      rubric: `The student is practising IELTS Task 2 writing. Question: "Some people think all children should learn a musical instrument at school, while others see it as a waste of time. Discuss both views and give your opinion." They wrote a two-sentence INTRODUCTION. Check three things: (1) sentence 1 paraphrases the question in their own words — copying 4+ words in a row from the question fails; (2) sentence 2 names both sides and shows a clear stance; (3) nothing extra — no examples or body ideas. ${MICRO_RUBRIC_BASE}`,
-                      selfCheck: `Check ①: did you re-say "learn a musical instrument at school" and "waste of time" in new words (e.g. "study music", "not a good use of lesson hours")? Check ②: does sentence 2 name both views AND show your side? Check ③: no examples yet — they belong in the body paragraphs.`
+                      rubric: `The student is practising IELTS Task 2 writing. Question: "Some people think all children should learn a musical instrument at school, while others see it as a waste of time. Discuss both views and give your opinion." They wrote a two-sentence INTRODUCTION. Check three things: (1) sentence 1 paraphrases the question in their own words - copying 4+ words in a row from the question fails; (2) sentence 2 names both sides and shows a clear stance; (3) nothing extra - no examples or body ideas. ${MICRO_RUBRIC_BASE}`,
+                      selfCheck: `Check ①: did you re-say "learn a musical instrument at school" and "waste of time" in new words (e.g. "study music", "not a good use of lesson hours")? Check ②: does sentence 2 name both views AND show your side? Check ③: no examples yet - they belong in the body paragraphs.`
                   });
               } },
-            { title: "From plan to essay — you have the whole path", sub: "This is exactly what Practise trains, end to end.", wm: "06",
+            { title: "From plan to essay - you have the whole path", sub: "This is exactly what Practise trains, end to end.", wm: "06",
               render(b, btn) {
                   b.innerHTML = `
                       <div class="focus-card"><span class="focus-tag">The full loop</span>
-                          <p><b>Draw a real question → plan it in 7 minutes → compare with a model → write</b>. In the Write step you'll build the introduction with AI checks — and when you've written a whole essay, it gets marked like an examiner would.</p>
+                          <p><b>Draw a real question → plan it in 7 minutes → compare with a model → write</b>. In the Write step you'll build the introduction with AI checks - and when you've written a whole essay, it gets marked like an examiner would.</p>
                       </div>
                       <div class="focus-card" style="animation-delay:0.2s;"><span class="focus-tag">Remember the order</span>
-                          <p>The introduction is written <b>from the plan</b> — never before it. Plan first, always. That is the method.</p>
+                          <p>The introduction is written <b>from the plan</b> - never before it. Plan first, always. That is the method.</p>
                       </div>`;
                   pauseBtn(btn, 800, "Start practising ▶");
-                  btn.onclick = function () { fireConfetti(20); showToast("Method complete — over to you"); chapterSeen[5] = CHAPTERS[5].steps.length; saveProgress(); setTimeout(enterPractise, 400); };
+                  btn.onclick = function () { fireConfetti(20); showToast("Method complete - over to you"); chapterSeen[5] = CHAPTERS[5].steps.length; saveProgress(); setTimeout(enterPractise, 400); };
               } }
         ]}
         ];
     }
 
     /* ================================================================
-       LEARN NAVIGATION — chapter map hub
+       LEARN NAVIGATION - chapter map hub
        ================================================================ */
     const CH_META = [
         { desc: 'Why half your mark is decided before you write', min: 3 },
-        { desc: 'Find the boundary word — and dodge the decoy', min: 4 },
+        { desc: 'Find the boundary word - and dodge the decoy', min: 4 },
         { desc: 'The two-question test that catches empty reasons', min: 4 },
         { desc: 'Generate and compress a full paragraph', min: 5 },
         { desc: 'Both sides, your stance, and the conclusion line', min: 4 },
@@ -1803,7 +1801,7 @@
         el('headerWatermark').innerText = '☰';
         el('appStepBadge').innerText = 'Learn the method';
         el('appStepTitle').innerText = 'Six small chapters';
-        el('appStepSubtitle').innerText = 'Each one is a few minutes with its own drill. Do them in order the first time — return to any of them whenever you need.';
+        el('appStepSubtitle').innerText = 'Each one is a few minutes with its own drill. Do them in order the first time - return to any of them whenever you need.';
         restartAnimation(el('stageHeaderBlock'));
 
         const board = el('visualDisplayBoard');
@@ -1823,7 +1821,7 @@
         const btn = el('masterContinueActionBtn');
         btn.removeAttribute('disabled');
         if (nextIdx === -1) {
-            btn.innerText = 'All chapters done — Practise ▶';
+            btn.innerText = 'All chapters done - Practise ▶';
             btn.onclick = enterPractise;
         } else {
             btn.innerText = (chapterSeen[nextIdx] > 0 ? 'Resume ' : 'Start ') + NAV[nextIdx].num + ' · ' + NAV[nextIdx].name;
@@ -1875,7 +1873,7 @@
         renderNav();
         setClockVisible(false);
         el('headerWatermark').innerText = step.wm || NAV[chIdx].num;
-        el('appStepBadge').innerText = NAV[chIdx].num + " · " + NAV[chIdx].name + "  —  " + (stIdx + 1) + " / " + CHAPTERS[chIdx].steps.length;
+        el('appStepBadge').innerText = NAV[chIdx].num + " · " + NAV[chIdx].name + "  -  " + (stIdx + 1) + " / " + CHAPTERS[chIdx].steps.length;
         el('appStepTitle').innerText = step.title;
         el('appStepSubtitle').innerText = step.sub;
         restartAnimation(el('stageHeaderBlock'));
@@ -1918,7 +1916,7 @@
         restartAnimation(el('stageHeaderBlock'));
 
         const doneCh = CHAPTERS.filter((c, i) => chapterSeen[i] >= c.steps.length).length;
-        let hDone = `<span class="compare-label">The method — ${doneCh} of ${CHAPTERS.length} chapters</span>
+        let hDone = `<span class="compare-label">The method - ${doneCh} of ${CHAPTERS.length} chapters</span>
             <div class="prog-grid">` + CHAPTERS.map((c, i) => {
                 const complete = chapterSeen[i] >= c.steps.length, started = chapterSeen[i] > 0 && !complete;
                 return `<div class="prog-ch ${complete ? 'done' : (started ? 'started' : '')}" style="animation-delay:${i * 0.05}s; cursor:pointer;" onclick="jumpToChapter(${i})">
@@ -1927,12 +1925,12 @@
 
         let hPractice = '';
         if (!attempts.length) {
-            hPractice = `<div class="focus-card"><span class="focus-tag">Practice history</span><p>Nothing here yet — your first plan starts your record. Times, checklist scores and trends will all build up on this page as you go.</p></div>`;
+            hPractice = `<div class="focus-card"><span class="focus-tag">Practice history</span><p>Nothing here yet - your first plan starts your record. Times, checklist scores and trends will all build up on this page as you go.</p></div>`;
         } else {
             const best = Math.max(...attempts.map(a => a.checks));
             const withSecs = attempts.filter(a => typeof a.secs === 'number');
             const avgSecs = withSecs.length ? Math.round(withSecs.reduce((s, a) => s + a.secs, 0) / withSecs.length) : null;
-            const avgStr = avgSecs === null ? '—' : Math.floor(avgSecs / 60) + ':' + String(avgSecs % 60).padStart(2, '0');
+            const avgStr = avgSecs === null ? '-' : Math.floor(avgSecs / 60) + ':' + String(avgSecs % 60).padStart(2, '0');
             const recent = attempts.slice(-10);
             const helpRecent = attempts.slice(-3).filter(a => a.peeked || a.coached).length;
             hPractice = `
@@ -1961,10 +1959,10 @@
                 <span class="compare-label">Question-type coverage</span>
                 <div class="tcov-row">` + QTYPES.map((q, i) => `
                     <div class="tcov-chip ${typeCounts[q.name] ? 'done' : ''}" style="animation-delay:${i * 0.05}s" onclick="setTypeFilter('${q.name.replace(/'/g, "\\'")}'); ">
-                        <span class="tc-n">${typeCounts[q.name] || '—'}</span><span class="tc-name">${tShort[q.name]}</span></div>`).join('') + `</div>` +
+                        <span class="tc-n">${typeCounts[q.name] || '-'}</span><span class="tc-name">${tShort[q.name]}</span></div>`).join('') + `</div>` +
                 (untried.length
-                    ? `<div class="focus-card" style="animation-delay:0.08s;"><span class="focus-tag">Not yet planned</span><p>You haven't planned a <b>${tShort[untried[0].name]}</b> question yet — tap it above to draw one. Full coverage means no surprises on exam day.</p></div>`
-                    : `<div class="focus-card" style="animation-delay:0.08s;"><span class="focus-tag">Full coverage</span><p>You have planned every question type at least once — whatever appears on exam day, you've met it here first.</p></div>`);
+                    ? `<div class="focus-card" style="animation-delay:0.08s;"><span class="focus-tag">Not yet planned</span><p>You haven't planned a <b>${tShort[untried[0].name]}</b> question yet - tap it above to draw one. Full coverage means no surprises on exam day.</p></div>`
+                    : `<div class="focus-card" style="animation-delay:0.08s;"><span class="focus-tag">Full coverage</span><p>You have planned every question type at least once - whatever appears on exam day, you've met it here first.</p></div>`);
 
             // Weakest area over the last 5 attempts that carry detail
             const detailed = attempts.filter(a => Array.isArray(a.detail)).slice(-5);
@@ -1974,10 +1972,10 @@
                 const worst = fails.indexOf(Math.max(...fails));
                 if (fails[worst] > 0) {
                     hPractice += `<div class="focus-card" style="animation-delay:0.1s;"><span class="focus-tag">Work on next</span>
-                        <p>Your most common gap recently: <b>${CHECK_LABELS[worst]}</b> — missing in ${fails[worst]} of your last ${detailed.length} plans. A quick review helps: <button class="peek-btn" onclick="jumpToChapter(${CHECK_CHAPTER[worst]})">open ${NAV[CHECK_CHAPTER[worst]].num} · ${NAV[CHECK_CHAPTER[worst]].name} →</button></p></div>`;
+                        <p>Your most common gap recently: <b>${CHECK_LABELS[worst]}</b> - missing in ${fails[worst]} of your last ${detailed.length} plans. A quick review helps: <button class="peek-btn" onclick="jumpToChapter(${CHECK_CHAPTER[worst]})">open ${NAV[CHECK_CHAPTER[worst]].num} · ${NAV[CHECK_CHAPTER[worst]].name} →</button></p></div>`;
                 } else {
                     hPractice += `<div class="focus-card" style="animation-delay:0.1s;"><span class="focus-tag">Work on next</span>
-                        <p>All five checklist items present in your recent plans ${helpRecent ? '— now try a run without the coach or peeking' : '— fully independent, too'}. Keep the streak going with a new question type.</p></div>`;
+                        <p>All five checklist items present in your recent plans ${helpRecent ? '- now try a run without the coach or peeking' : '- fully independent, too'}. Keep the streak going with a new question type.</p></div>`;
                 }
             }
         }
@@ -2016,7 +2014,7 @@
                 <div class="splash-tagline"><span class="tag-dash"></span> Quality English Exam Preparation</div>
                 <h1 class="splash-title">IELTS Task 2 Writing</h1>
                 <div class="splash-sub">7-Minute Planner</div>
-                <p class="splash-desc">Half your writing mark is decided before you write a sentence. Learn the planning method — then practise it, question after question.</p>
+                <p class="splash-desc">Half your writing mark is decided before you write a sentence. Learn the planning method - then practise it, question after question.</p>
             </div>`;
         const btn = el('masterContinueActionBtn');
         btn.removeAttribute('disabled');
@@ -2037,7 +2035,7 @@
         el('headerWatermark').innerText = '§';
         el('appStepBadge').innerText = 'IELTS Task 2 Writing';
         el('appStepTitle').innerText = 'The 7-Minute Planner';
-        el('appStepSubtitle').innerText = 'Half your writing mark is decided before you write a sentence. Learn the 7-minute planning method once — then practise it on real exam questions, as often as you like.';
+        el('appStepSubtitle').innerText = 'Half your writing mark is decided before you write a sentence. Learn the 7-minute planning method once - then practise it on real exam questions, as often as you like.';
         restartAnimation(el('stageHeaderBlock'));
 
         const learnedAll = chapterSeen.every((s, i) => CHAPTERS[i] && s >= CHAPTERS[i].steps.length);
@@ -2048,7 +2046,7 @@
                     <span class="hd-ico">${ico('layers')}</span>
                     <div><span class="door-kicker">Step 1 · about 20 minutes</span><h4>Learn the method</h4></div>
                 </div>
-                <p>Six short chapters with a micro-drill in each: why planning wins, decoding, the Loop Test, building paragraphs, the thesis — and turning the plan into writing. Revisit any chapter, any time.</p>
+                <p>Six short chapters with a micro-drill in each: why planning wins, decoding, the Loop Test, building paragraphs, the thesis - and turning the plan into writing. Revisit any chapter, any time.</p>
                 <span class="hd-cta">Start learning</span>
             </div>
             <div class="home-door door-practise" onclick="enterPractise()">
@@ -2056,7 +2054,7 @@
                     <span class="hd-ico">${ico('target')}</span>
                     <div><span class="door-kicker">Step 2 · repeat forever</span><h4>Practise planning</h4></div>
                 </div>
-                <p>Draw a fresh exam question — any of the five types, or bring your own — plan it, get feedback, compare with a model, then turn it into writing. ${learnedAll ? 'You know the method — go.' : 'Best after finishing the chapters.'}</p>
+                <p>Draw a fresh exam question - any of the five types, or bring your own - plan it, get feedback, compare with a model, then turn it into writing. ${learnedAll ? 'You know the method - go.' : 'Best after finishing the chapters.'}</p>
                 <span class="hd-cta">Practise now</span>
             </div>`;
         playEntrance(board);
@@ -2116,7 +2114,7 @@
         el('appStepBadge').innerText = 'Practise · Plan ' + (attempts.length + 1);
         el('appStepTitle').innerText = currentPrompt.custom ? 'Your question is ready' : 'Draw a question';
         el('appStepSubtitle').innerText = currentPrompt.custom
-            ? "All decoded — type spotted, checklist built, and a model plan ready to compare with later. Start whenever you're ready."
+            ? "All decoded - type spotted, checklist built, and a model plan ready to compare with later. Start whenever you're ready."
             : 'A fresh question each time, just like the real exam. Pick how you want to practise, then off you go.';
         restartAnimation(el('stageHeaderBlock'));
 
@@ -2142,20 +2140,20 @@
             <div class="mode-wrap">
                 <span class="mode-title">Choose how to practise</span>
                 <div class="mode-row">
-                    <button class="mode-chip ${practiceMode === 'relaxed' ? 'sel' : ''}" onclick="setPracticeMode('relaxed')"><span class="mc-dot"></span>Relaxed<span class="mc-sub">No clock — take your time</span></button>
+                    <button class="mode-chip ${practiceMode === 'relaxed' ? 'sel' : ''}" onclick="setPracticeMode('relaxed')"><span class="mc-dot"></span>Relaxed<span class="mc-sub">No clock - take your time</span></button>
                     <button class="mode-chip ${practiceMode === 'exam' ? 'sel' : ''}" onclick="setPracticeMode('exam')"><span class="mc-dot"></span>Exam clock<span class="mc-sub">Plan 7 min · write 27 + 3</span></button>
                 </div>
             </div>
             <div class="timer-hero" style="padding:8px 0 0 0;">
                 <div class="big-clock" style="font-size:3rem;">${practiceMode === 'exam' ? '7:00' : '–:–'}</div>
-                <div class="clock-sub" style="margin-top:8px; font-size:0.88rem;">${practiceMode === 'exam' ? 'Short notes only — no full sentences. The clock starts when you press the button.' : 'Short notes only — no full sentences. No clock in relaxed mode — learn the moves at your own pace.'}</div>
+                <div class="clock-sub" style="margin-top:8px; font-size:0.88rem;">${practiceMode === 'exam' ? 'Short notes only - no full sentences. The clock starts when you press the button.' : 'Short notes only - no full sentences. No clock in relaxed mode - learn the moves at your own pace.'}</div>
             </div>`;
         playEntrance(board);
 
         const btn = el('masterContinueActionBtn');
         btn.removeAttribute('disabled');
         const needsPrimer = currentPrompt.qtype !== 'Discussion' && !typesPrimed.includes(currentPrompt.qtype);
-        btn.innerText = needsPrimer ? '▶ New type — 60-second guide first' : (practiceMode === 'exam' ? '▶ Start the 7-minute clock' : '▶ Start planning');
+        btn.innerText = needsPrimer ? '▶ New type - 60-second guide first' : (practiceMode === 'exam' ? '▶ Start the 7-minute clock' : '▶ Start planning');
         btn.onclick = () => { needsPrimer ? renderTypePrimer() : renderPlanScreen(false); };
     }
     window.redraw = function () {
@@ -2192,20 +2190,20 @@
         el('headerWatermark').innerHTML = ico('cards');
         el('appStepBadge').innerText = 'New question type';
         el('appStepTitle').innerText = q.name;
-        el('appStepSubtitle').innerText = 'Same method, same five lines — only the paragraph labels change. Sixty seconds and you know this type.';
+        el('appStepSubtitle').innerText = 'Same method, same five lines - only the paragraph labels change. Sixty seconds and you know this type.';
         restartAnimation(el('stageHeaderBlock'));
 
         const others = QTYPES.filter(t => t.name !== q.name);
         const wrong1 = others[0], wrong2 = others[1];
         const board = el('visualDisplayBoard');
         board.innerHTML = `
-            <div class="theory-quote" style="animation-delay:0s;">${q.cue.replace(/^"|"$/g, '')}<span class="q-source">the cue — how you recognise ${q.name} in ten seconds</span></div>
+            <div class="theory-quote" style="animation-delay:0s;">${q.cue.replace(/^"|"$/g, '')}<span class="q-source">the cue - how you recognise ${q.name} in ten seconds</span></div>
             <div class="side-chip-row" style="animation-delay:0.15s;">
                 <div class="side-chip sc-a"><span class="sc-tag">P1 becomes</span>${q.p1}</div>
                 <div class="side-chip sc-b"><span class="sc-tag">P2 becomes</span>${q.p2}</div>
             </div>
             <div class="focus-card" style="animation-delay:0.3s;"><span class="focus-tag">What matters on this type</span><p>${q.body}</p></div>
-            <div class="tap-instruction" style="animation-delay:0.45s;">Quick check — which cue signals a <b>${q.name}</b> question?</div>
+            <div class="tap-instruction" style="animation-delay:0.45s;">Quick check - which cue signals a <b>${q.name}</b> question?</div>
             <div class="tap-card" style="animation-delay:0.5s;" onclick="tapAnswer(this, true)">${q.cue}</div>
             <div class="tap-card" style="animation-delay:0.6s;" data-hint="That cue belongs to ${wrong1.name}." onclick="tapAnswer(this, false)">${wrong1.cue}</div>
             <div class="tap-card" style="animation-delay:0.7s;" data-hint="That cue belongs to ${wrong2.name}." onclick="tapAnswer(this, false)">${wrong2.cue}</div>`;
@@ -2229,11 +2227,11 @@
         el('headerWatermark').innerHTML = ico('pen');
         el('appStepBadge').innerText = 'Practise · Your own question';
         el('appStepTitle').innerText = 'Bring your own question';
-        el('appStepSubtitle').innerText = 'Paste any real Task 2 question — from a book, a class, or a past exam. The AI finds the boundary and both sides, then builds your checklist and a model plan.';
+        el('appStepSubtitle').innerText = 'Paste any real Task 2 question - from a book, a class, or a past exam. The AI finds the boundary and both sides, then builds your checklist and a model plan.';
         restartAnimation(el('stageHeaderBlock'));
         const board = el('visualDisplayBoard');
         board.innerHTML = `
-            <textarea class="console-editor-box" id="customQInput" style="min-height:130px; font-size:1rem;" placeholder="Paste the full question here — e.g. 'Some people believe that..., while others think... Discuss both views and give your own opinion.'"></textarea>
+            <textarea class="console-editor-box" id="customQInput" style="min-height:130px; font-size:1rem;" placeholder="Paste the full question here - e.g. 'Some people believe that..., while others think... Discuss both views and give your own opinion.'"></textarea>
             <div class="console-meta-row"><span id="customQCount">0 words</span><button class="peek-btn" onclick="renderDrawScreen()">← Back to the question bank</button></div>
             <div id="customQPanel"></div>`;
         playEntrance(board);
@@ -2256,16 +2254,16 @@
         btn.setAttribute('disabled', 'true');
         panel.innerHTML = `<div class="ai-feedback-panel"><span class="spinner-dot"></span><span class="spinner-dot"></span><span class="spinner-dot"></span> Reading your question like an examiner...</div>`;
 
-        const sys = `You analyse IELTS Writing Task 2 questions for a planning app. The user sends one exam question. Reply with ONLY a valid JSON object — no markdown, no code fences, no explanation. Keys:
+        const sys = `You analyse IELTS Writing Task 2 questions for a planning app. The user sends one exam question. Reply with ONLY a valid JSON object - no markdown, no code fences, no explanation. Keys:
 "qtype": exactly one of "Discussion", "Opinion", "Advantages & Disadvantages", "Double Question", "Problem & Solution"
 "topic": a 1-2 word topic label (e.g. "Health", "Education")
 "boundary": the single word or short phrase in the question that limits WHO or WHAT the essay is about
 "pillarA": {"label": what body paragraph 1 should cover, 3-6 words, "keywords": 4-6 lowercase words or word-stems a student's notes would likely contain if they covered it}
 "pillarB": the same for body paragraph 2
-"loopTrap": one example of a circular reason for this topic — a claim whose "because..." only restates the claim in other words
+"loopTrap": one example of a circular reason for this topic - a claim whose "because..." only restates the claim in other words
 "chk4": a short label (5-10 words) for what the thesis/position line must do for this question type
 "thesisWords": 3-5 lowercase words whose presence in notes suggests the thesis line exists (contrast or stance words)
-"model": {"boundary": "Boundary: ...", "p1": "P1: idea / reason / eg ...", "p2": "P2: idea / reason / eg ...", "thesis": "Thesis: ...", "concl": "Concl: restate stance + best reason"} — a 5-line note-form model plan for this exact question, each line under 15 words, abbreviations welcome.
+"model": {"boundary": "Boundary: ...", "p1": "P1: idea / reason / eg ...", "p2": "P2: idea / reason / eg ...", "thesis": "Thesis: ...", "concl": "Concl: restate stance + best reason"} - a 5-line note-form model plan for this exact question, each line under 15 words, abbreviations welcome.
 If the text is NOT an IELTS Task 2 essay question, reply with exactly {"error": "not_task2"}.`;
 
         try {
@@ -2273,7 +2271,7 @@ If the text is NOT an IELTS Task 2 essay question, reply with exactly {"error": 
             const cleaned = raw.replace(/^\s*```(?:json)?/i, '').replace(/```\s*$/, '').trim();
             const obj = JSON.parse(cleaned);
             if (obj.error) {
-                panel.innerHTML = `<div class="ai-feedback-panel">That doesn't look like a complete Task 2 question. Paste the whole thing — including the instruction line, like "Discuss both views" or "Do you agree or disagree?".</div>`;
+                panel.innerHTML = `<div class="ai-feedback-panel">That doesn't look like a complete Task 2 question. Paste the whole thing - including the instruction line, like "Discuss both views" or "Do you agree or disagree?".</div>`;
                 btn.removeAttribute('disabled');
                 return;
             }
@@ -2310,9 +2308,9 @@ If the text is NOT an IELTS Task 2 essay question, reply with exactly {"error": 
             showToast('Question analysed ✓');
             renderDrawScreen();
         } catch (err) {
-            if (err.code === 'nokey') { showAISetup(panel, 'Your own questions need an AI connection — it reads the question and builds your checklist and model plan.', () => analyseCustomQuestion()); }
+            if (err.code === 'nokey') { showAISetup(panel, 'Your own questions need an AI connection - it reads the question and builds your checklist and model plan.', () => analyseCustomQuestion()); }
             else if (err.code === 'auth') { clearAIKey(); showAISetup(panel, '⚠️ That key was rejected. Check it and paste it again.', () => analyseCustomQuestion()); }
-            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Couldn't analyse that question — check it is a complete Task 2 question and try again.</div>`;
+            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Couldn't analyse that question - check it is a complete Task 2 question and try again.</div>`;
             btn.removeAttribute('disabled');
         }
     };
@@ -2328,8 +2326,8 @@ If the text is NOT an IELTS Task 2 essay question, reply with exactly {"error": 
         detailed.forEach(a => a.detail.forEach((ok, i) => { if (!ok) fails[i]++; }));
         const worst = fails.indexOf(Math.max(...fails));
         const weakLine = (detailed.length && fails[worst] > 0)
-            ? 'Their most common planning gap: ' + CHECK_LABELS[worst] + ' — missed in ' + fails[worst] + ' of their last ' + detailed.length + ' plans.'
-            : 'No clear checklist gap yet — they may simply need breadth.';
+            ? 'Their most common planning gap: ' + CHECK_LABELS[worst] + ' - missed in ' + fails[worst] + ' of their last ' + detailed.length + ' plans.'
+            : 'No clear checklist gap yet - they may simply need breadth.';
         const typeCounts = {};
         attempts.forEach(a => { if (a.qtype) typeCounts[a.qtype] = (typeCounts[a.qtype] || 0) + 1; });
         const leastType = QTYPES.map(q => q.name).sort((a, b) => (typeCounts[a] || 0) - (typeCounts[b] || 0))[0];
@@ -2337,9 +2335,9 @@ If the text is NOT an IELTS Task 2 essay question, reply with exactly {"error": 
         const sys = `You create personalised IELTS Writing Task 2 practice questions for a planning app.
 
 Student profile: ${weakLine}
-Question types practised so far (type: count): ${JSON.stringify(typeCounts)}. Prefer the least-practised type "${leastType}" unless the profile clearly suggests otherwise. Choose a common IELTS topic (health, environment, education, work, technology, cities, media, family...) that stretches their weak spot — e.g. a subtle boundary word if Boundary is weak.
+Question types practised so far (type: count): ${JSON.stringify(typeCounts)}. Prefer the least-practised type "${leastType}" unless the profile clearly suggests otherwise. Choose a common IELTS topic (health, environment, education, work, technology, cities, media, family...) that stretches their weak spot - e.g. a subtle boundary word if Boundary is weak.
 
-Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
+Reply with ONLY a valid JSON object - no markdown, no code fences. Keys:
 "prompt": the full exam question, 25-45 words, authentic IELTS wording ending with the correct instruction line for its type
 "qtype": exactly one of "Discussion", "Opinion", "Advantages & Disadvantages", "Double Question", "Problem & Solution"
 "topic": a 1-2 word topic label
@@ -2349,7 +2347,7 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
 "loopTrap": one example of a circular reason for this topic
 "chk4": a short label (5-10 words) for what the thesis/position line must do for this question type
 "thesisWords": 3-5 lowercase contrast or stance words
-"model": {"boundary": "Boundary: ...", "p1": "P1: idea / reason / eg ...", "p2": "P2: idea / reason / eg ...", "thesis": "Thesis: ...", "concl": "Concl: restate stance + best reason"} — each line under 15 words.`;
+"model": {"boundary": "Boundary: ...", "p1": "P1: idea / reason / eg ...", "p2": "P2: idea / reason / eg ...", "thesis": "Thesis: ...", "concl": "Concl: restate stance + best reason"} - each line under 15 words.`;
 
         try {
             const raw = await aiCall(sys, [{ role: 'user', text: 'Generate my next practice question.' }], 800);
@@ -2390,7 +2388,7 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         } catch (err) {
             if (err.code === 'nokey') showAISetup(panel, 'Personalised questions need an AI connection.', () => generatePersonalPrompt());
             else if (err.code === 'auth') { clearAIKey(); showAISetup(panel, '⚠️ That key was rejected. Paste it again.', () => generatePersonalPrompt()); }
-            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Couldn't build your question just now — give it a moment and try again.</div>`;
+            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Couldn't build your question just now - give it a moment and try again.</div>`;
         }
     };
 
@@ -2419,8 +2417,8 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         el('appStepBadge').innerText = 'Practise · Plan ' + (attempts.length + 1);
         el('appStepTitle').innerText = resuming ? 'Back to your plan' : 'Build your plan';
         el('appStepSubtitle').innerText = practiceMode === 'exam'
-            ? "Seven minutes on the clock. Notes only — five short lines and you're there."
-            : "No clock today — take all the time you need. Five short lines is all it takes.";
+            ? "Seven minutes on the clock. Notes only - five short lines and you're there."
+            : "No clock today - take all the time you need. Five short lines is all it takes.";
         restartAnimation(el('stageHeaderBlock'));
 
         const board = el('visualDisplayBoard');
@@ -2429,11 +2427,11 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
                 <span class="pp-tag">${ico('target')} The question <span class="pp-type">${p.qtype}</span></span>
                 <p class="pp-text">${p.prompt}</p>
             </div>
-            <span class="plan-label">Your notes <span class="pl-hint">— short phrases, arrows and abbreviations are perfect</span></span>
+            <span class="plan-label">Your notes <span class="pl-hint">- short phrases, arrows and abbreviations are perfect</span></span>
             <div class="plan-scaffold">
                 <div class="ps-row"><span class="ps-label">1 · Boundary <span class="ps-hint">who or what is the essay about?</span></span><textarea class="ps-input" id="ps_boundary" rows="1" placeholder="e.g. ${p.boundary}"></textarea></div>
-                <div class="ps-row"><span class="ps-label">2 · Paragraph 1 — ${p.pillarA.label} <span class="ps-hint">idea / reason / example</span></span><textarea class="ps-input" id="ps_p1" rows="2" placeholder="idea → because... → e.g. ..."></textarea></div>
-                <div class="ps-row"><span class="ps-label">3 · Paragraph 2 — ${p.pillarB.label} <span class="ps-hint">idea / reason / example</span></span><textarea class="ps-input" id="ps_p2" rows="2" placeholder="idea → because... → e.g. ..."></textarea></div>
+                <div class="ps-row"><span class="ps-label">2 · Paragraph 1 - ${p.pillarA.label} <span class="ps-hint">idea / reason / example</span></span><textarea class="ps-input" id="ps_p1" rows="2" placeholder="idea → because... → e.g. ..."></textarea></div>
+                <div class="ps-row"><span class="ps-label">3 · Paragraph 2 - ${p.pillarB.label} <span class="ps-hint">idea / reason / example</span></span><textarea class="ps-input" id="ps_p2" rows="2" placeholder="idea → because... → e.g. ..."></textarea></div>
                 <div class="ps-row"><span class="ps-label">4 · Your position <span class="ps-hint">both sides + where you stand</span></span><textarea class="ps-input" id="ps_thesis" rows="1" placeholder="while ..., I think ..."></textarea></div>
                 <div class="ps-row"><span class="ps-label">5 · Conclusion <span class="ps-hint">your position again, one line</span></span><textarea class="ps-input" id="ps_concl" rows="1" placeholder="restate + strongest reason"></textarea></div>
             </div>
@@ -2447,7 +2445,7 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
                 ${BACKEND_URL ? '' : '<button class="peek-btn" onclick="openAISetup()">' + ico('gear') + ' AI</button>'}
             </div>
             <div id="coachWrap"></div>
-            <button class="ai-feedback-btn" id="planFeedbackBtn" disabled onclick="requestPlanFeedback()">${ico('spark')} Examiner feedback — unlocks at 25 words</button>
+            <button class="ai-feedback-btn" id="planFeedbackBtn" disabled onclick="requestPlanFeedback()">${ico('spark')} Examiner feedback - unlocks at 25 words</button>
             <div id="planFeedbackPanel"></div>`;
         playEntrance(board);
         // Restore any in-progress notes into the five fields, then wire them up.
@@ -2467,7 +2465,7 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         btn.onclick = renderCompareScreen;
     }
 
-    /* The five scaffolded plan fields — combined into one notes string so the
+    /* The five scaffolded plan fields - combined into one notes string so the
        checklist, coach and examiner feedback all keep working unchanged. */
     const PS_FIELDS = [
         { id: 'ps_boundary', key: 'boundary', prefix: 'Boundary:' },
@@ -2523,10 +2521,10 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
                 if (fb.innerText.includes('unlocks')) fb.innerHTML = ico('spark') + ' Get examiner feedback on my plan';
             } else {
                 fb.setAttribute('disabled', 'true');
-                fb.innerHTML = ico('spark') + ' Examiner feedback — unlocks at 25 words (' + wc + ' so far)';
+                fb.innerHTML = ico('spark') + ' Examiner feedback - unlocks at 25 words (' + wc + ' so far)';
             }
         }
-        // The compare step unlocks with enough notes — it must not depend on the AI.
+        // The compare step unlocks with enough notes - it must not depend on the AI.
         if (pState === 'plan') {
             const cont = el('masterContinueActionBtn');
             if (cont) { if (wc >= 25) cont.removeAttribute('disabled'); else cont.setAttribute('disabled', 'true'); }
@@ -2554,22 +2552,22 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
     /* ---------- Peek drawer: per-stage reference with expandable detail ---------- */
     const PEEK_SECTIONS = [
         { icon: 'target', name: 'Decode', note: 'Boundary: ____', ch: 1,
-          body: `Find the word that limits <b>who</b> or <b>what</b> the essay covers — before thinking of any ideas. Beware the decoy: a <b>position</b> answers "which side?", the boundary answers "who is this about?".` },
+          body: `Find the word that limits <b>who</b> or <b>what</b> the essay covers - before thinking of any ideas. Beware the decoy: a <b>position</b> answers "which side?", the boundary answers "who is this about?".` },
         { icon: 'reason', name: 'Loop Test', note: '(guards every reason)', ch: 2,
           body: `Every reason must add a <b>new cause, result, or fact</b> the claim didn't already contain. Same idea in new words = loop = no development marks. Caught one? Cross it out and ask <i>why</i> again.` },
         { icon: 'layers', name: 'Build ×2', note: 'P1: idea / reason / eg', ch: 3,
-          body: `One idea per paragraph, three layers: <b>idea → reason → example</b>. Blank mind? Ask <b>why is it true?</b> (→ reason), then <b>how do I know?</b> (→ example). Examples need to be specific and believable — never statistics you don't have.` },
+          body: `One idea per paragraph, three layers: <b>idea → reason → example</b>. Blank mind? Ask <b>why is it true?</b> (→ reason), then <b>how do I know?</b> (→ example). Examples need to be specific and believable - never statistics you don't have.` },
         { icon: 'compass', name: 'Your position', note: 'Thesis: while X…, Y', ch: 4,
           body: `Name <b>both sides in the same words as your paragraphs</b>, plus your stance. "While" accepts the other view first, then hands the sentence to yours. Your position must be visible from the introduction onward.` },
         { icon: 'check', name: 'Conclude', note: 'Concl: stance + best reason', ch: 4,
-          body: `Two jobs: <b>return to your stance</b> and <b>echo your strongest reason</b>. One rule: <b>nothing new</b> — a fresh idea in the final paragraph looks like an unfinished thought. Decide the echoed reason in the plan.` }
+          body: `Two jobs: <b>return to your stance</b> and <b>echo your strongest reason</b>. One rule: <b>nothing new</b> - a fresh idea in the final paragraph looks like an unfinished thought. Decide the echoed reason in the plan.` }
     ];
     window.openPeek = function () {
         peekedThisAttempt = true;
         let typeNote = '';
         if (currentPrompt && currentPrompt.qtype && currentPrompt.qtype !== 'Discussion') {
             const q = QTYPES.find(t => t.name === currentPrompt.qtype);
-            if (q) typeNote = `<div class="peek-typenote">This prompt is <b>${q.name}</b> — relabel the card: P1 = ${q.p1} · P2 = ${q.p2}</div>`;
+            if (q) typeNote = `<div class="peek-typenote">This prompt is <b>${q.name}</b> - relabel the card: P1 = ${q.p1} · P2 = ${q.p2}</div>`;
         }
         el('peekContent').innerHTML = typeNote + PEEK_SECTIONS.map(s => `
             <div class="peek-section">
@@ -2609,7 +2607,7 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         el('headerWatermark').innerText = '⇄';
         el('appStepBadge').innerText = 'Practise · Plan ' + attempts.length + ' complete';
         el('appStepTitle').innerText = 'Compare with a model';
-        el('appStepSubtitle').innerText = 'Same question, planned with the method. Spot what the model has that yours misses — and notice what you did just as well.';
+        el('appStepSubtitle').innerText = 'Same question, planned with the method. Spot what the model has that yours misses - and notice what you did just as well.';
         restartAnimation(el('stageHeaderBlock'));
 
         const board = el('visualDisplayBoard');
@@ -2665,9 +2663,9 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         const guided = writeFocus === 'guided';
         el('appStepSubtitle').innerText = guided
             ? (practiceMode === 'exam'
-                ? 'Exam timing: 27 minutes to write, then 3 to check. Start with the introduction — two sentences, both already in your plan.'
-                : 'The introduction is just two sentences — the question in your own words, then your position. Both are already in your plan.')
-            : 'Straight to writing — for when you know the method and just want the practice.';
+                ? 'Exam timing: 27 minutes to write, then 3 to check. Start with the introduction - two sentences, both already in your plan.'
+                : 'The introduction is just two sentences - the question in your own words, then your position. Both are already in your plan.')
+            : 'Straight to writing - for when you know the method and just want the practice.';
         restartAnimation(el('stageHeaderBlock'));
 
         const board = el('visualDisplayBoard');
@@ -2687,13 +2685,13 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
             ${expander('See a worked example first',
                 stmt('A question', `"Some people believe universities should focus on teaching practical job skills, while others think they should prioritise pure theoretical research. Discuss both views and give your opinion."`) +
                 `<div class="laser-prompt-frame" style="font-size:0.95rem;">These days, people disagree about whether universities should concentrate on <span class="hl-green">preparing students for work</span> or on <span class="hl-green">pure academic study</span>. <b>While research has its place, I believe job skills matter more.</b></div>` +
-                stmt('Why it works', `Sentence 1 says the question again in <b>new words</b> — "practical job skills" became "preparing students for work". Sentence 2 is the thesis line from the plan, written out: both sides, and a clear side taken. Nothing else — no examples yet.`))}
+                stmt('Why it works', `Sentence 1 says the question again in <b>new words</b> - "practical job skills" became "preparing students for work". Sentence 2 is the thesis line from the plan, written out: both sides, and a clear side taken. Nothing else - no examples yet.`))}
             ${langIntroHTML()}
-            <span class="plan-label">Sentence 1 — the question in your own words <span class="pl-hint">don't copy its words</span></span>
-            <span class="plan-label" style="margin-top:6px;">Sentence 2 — your position <span class="pl-hint">from your thesis line</span></span>
+            <span class="plan-label">Sentence 1 - the question in your own words <span class="pl-hint">don't copy its words</span></span>
+            <span class="plan-label" style="margin-top:6px;">Sentence 2 - your position <span class="pl-hint">from your thesis line</span></span>
             <textarea class="console-editor-box" id="introInput" style="min-height:110px;" placeholder="These days, ... . While ..., I believe ...">${studentIntroText}</textarea>
             <div class="console-meta-row"><span id="introWordCount">0 words</span><span>Two sentences is enough</span></div>
-            <button class="ai-feedback-btn" id="introFeedbackBtn" disabled onclick="requestIntroFeedback()">${ico('spark')} Check my introduction — unlocks at 12 words</button>
+            <button class="ai-feedback-btn" id="introFeedbackBtn" disabled onclick="requestIntroFeedback()">${ico('spark')} Check my introduction - unlocks at 12 words</button>
             <div id="introFeedbackPanel"></div>
             <button class="peek-btn" style="margin-top:16px;" onclick="toggleEssayMark()">${ico('doc')} Written the whole essay? Get it marked</button>
             <div id="essayMarkWrap" style="display:none;">
@@ -2734,7 +2732,7 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
                 if (fb.innerText.includes('unlocks')) fb.innerHTML = ico('spark') + ' Check my introduction';
             } else {
                 fb.setAttribute('disabled', 'true');
-                fb.innerHTML = ico('spark') + ' Check my introduction — unlocks at 12 words (' + wc + ' so far)';
+                fb.innerHTML = ico('spark') + ' Check my introduction - unlocks at 12 words (' + wc + ' so far)';
             }
         }
     };
@@ -2745,20 +2743,20 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         if (!p || !panel || !btn) return;
         btn.setAttribute('disabled', 'true');
         panel.innerHTML = `<div class="ai-feedback-panel"><span class="spinner-dot"></span><span class="spinner-dot"></span><span class="spinner-dot"></span> Reading your introduction...</div>`;
-        const sys = `You are an IELTS Writing examiner checking a Task 2 INTRODUCTION — two sentences are expected: (1) a paraphrase of the question, (2) a thesis.
+        const sys = `You are an IELTS Writing examiner checking a Task 2 INTRODUCTION - two sentences are expected: (1) a paraphrase of the question, (2) a thesis.
 
 The question: "${p.prompt}" (type: ${p.qtype}). The thesis should name both "${p.pillarA.label}" and "${p.pillarB.label}" and show a clear stance. ${p.chk4}.
 
 Check exactly three things:
-1. Paraphrase — does sentence 1 restate the question in the student's own words? Copying 4+ words in a row from the question is not a paraphrase; changed word order alone is not either.
-2. Thesis — both sides named + the student's stance visible.
-3. Nothing extra — no examples, statistics or body-paragraph ideas in an introduction.
+1. Paraphrase - does sentence 1 restate the question in the student's own words? Copying 4+ words in a row from the question is not a paraphrase; changed word order alone is not either.
+2. Thesis - both sides named + the student's stance visible.
+3. Nothing extra - no examples, statistics or body-paragraph ideas in an introduction.
 
 Reply in plain text, no markdown, under 110 words:
 Line 1: "🟢", "🟠" or "🔴" then a 3-6 word verdict.
 "Paraphrase:" one sentence, quoting their words where useful.
 "Thesis:" one sentence.
-"Fix first:" the ONE most useful change — or "Nothing — move on."
+"Fix first:" the ONE most useful change - or "Nothing - move on."
 Clear English for a band 6.5 student. Be honest but kind.`;
         try {
             const fb = await aiCall(sys, [{ role: 'user', text: 'My introduction:\n\n' + studentIntroText }], 350);
@@ -2766,7 +2764,7 @@ Clear English for a band 6.5 student. Be honest but kind.`;
         } catch (err) {
             if (err.code === 'nokey') showAISetup(panel, 'Connect your AI to check introductions.', () => requestIntroFeedback());
             else if (err.code === 'auth') { clearAIKey(); showAISetup(panel, '⚠️ That key was rejected. Paste it again.', () => requestIntroFeedback()); }
-            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Couldn't reach the AI — try again in a moment.</div>`;
+            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Couldn't reach the AI - try again in a moment.</div>`;
         } finally {
             btn.removeAttribute('disabled');
             btn.innerHTML = ico('redo') + ' Check it again';
@@ -2774,9 +2772,9 @@ Clear English for a band 6.5 student. Be honest but kind.`;
     };
 
     /* ================================================================
-       AI LAYER — provider config (Gemini / Claude), unified call, coach
+       AI LAYER - provider config (Gemini / Claude), unified call, coach
        ================================================================ */
-    // Your live Render server (see /server) — every AI call goes through it,
+    // Your live Render server (see /server) - every AI call goes through it,
     // so students never see an API key. Blank would fall back to the personal
     // "paste your own key" flow below, but this app is wired to always use
     // your own server, matching /server/server.js.
@@ -2835,7 +2833,7 @@ Clear English for a band 6.5 student. Be honest but kind.`;
         if (panel) showAISetup(panel, 'Change your AI provider or key any time.', null);
     };
 
-    /* Unified call — messages: [{role:'user'|'assistant', text}]
+    /* Unified call - messages: [{role:'user'|'assistant', text}]
        Talks to YOUR server/server.js at POST /api/ielts-evaluator, sending
        { systemInstruction, contents, maxTokens } and reading back { reply }. */
     async function aiCall(system, messages, maxTokens) {
@@ -2855,7 +2853,7 @@ Clear English for a band 6.5 student. Be honest but kind.`;
                 const data = await resp.json();
                 return (data.reply || '').trim();
             } catch (backendErr) {
-                // Backend down or errored — quietly fall back to a personal key if one is saved.
+                // Backend down or errored - quietly fall back to a personal key if one is saved.
                 if (!getAIConfig().key) {
                     if (backendErr.code) throw backendErr;
                     const e = new Error('Backend unreachable'); e.code = 'api'; throw e;
@@ -2900,12 +2898,12 @@ Clear English for a band 6.5 student. Be honest but kind.`;
         btn.setAttribute('disabled', 'true');
         panel.innerHTML = `<div class="ai-feedback-panel"><span class="spinner-dot"></span><span class="spinner-dot"></span><span class="spinner-dot"></span> Reading your plan like an examiner...</div>`;
 
-        const systemPrompt = `You are an IELTS Writing examiner reviewing a student's PLANNING NOTES for a Task 2 essay, not the essay itself. The student had 7 minutes. Notes are EXPECTED to be short, abbreviated, note-form — fragments, arrows and abbreviations are correct planning technique; never criticise note-form style itself.
+        const systemPrompt = `You are an IELTS Writing examiner reviewing a student's PLANNING NOTES for a Task 2 essay, not the essay itself. The student had 7 minutes. Notes are EXPECTED to be short, abbreviated, note-form - fragments, arrows and abbreviations are correct planning technique; never criticise note-form style itself.
 
 Essay prompt: "${p.prompt}"
 Question type: ${p.qtype}. For this type, paragraph 1 should cover "${p.pillarA.label}" and paragraph 2 "${p.pillarB.label}". Check 4 for this type means: ${p.chk4}.
 
-A reference model plan for this prompt (for your judgement only — do not require identical ideas, any valid ideas are fine):
+A reference model plan for this prompt (for your judgement only - do not require identical ideas, any valid ideas are fine):
 ${p.model.boundary}
 ${p.model.p1}
 ${p.model.p2}
@@ -2923,18 +2921,18 @@ Also run the Loop Test on their reasons: a reason must add a new mechanism or fa
 
 Write in clear English suited to an IELTS band 6.5–7 candidate. Under 150 words, plain text, no markdown headers or asterisks. Structure exactly:
 Line 1-5: the five checks, each as "🟢", "🟠" or "🔴" followed by 3-6 words (e.g. "🟢 Boundary noted" / "🟠 P1 example too vague" / "🔴 No conclusion line").
-Then "Fix this first:" — the single most important gap or loop-risk, quoting their actual notes.
-Then "Next plan, focus on:" — one short instruction to carry into their next practice loop.
+Then "Fix this first:" - the single most important gap or loop-risk, quoting their actual notes.
+Then "Next plan, focus on:" - one short instruction to carry into their next practice loop.
 Be direct and specific, referencing their actual notes. No numeric band scores.`;
 
         try {
             const text = await aiCall(systemPrompt, [{ role: 'user', text: 'My plan notes:\n\n' + studentPlanNotes }], 600);
-            panel.innerHTML = `<div class="ai-feedback-panel"><b>${ico('spark')} Examiner feedback</b><br><br>${text || 'No feedback returned — try again.'}</div>`;
+            panel.innerHTML = `<div class="ai-feedback-panel"><b>${ico('spark')} Examiner feedback</b><br><br>${text || 'No feedback returned - try again.'}</div>`;
             el('masterContinueActionBtn').removeAttribute('disabled');
         } catch (err) {
             if (err.code === 'nokey') { showAISetup(panel, null, () => requestPlanFeedback()); }
             else if (err.code === 'auth') { clearAIKey(); showAISetup(panel, '⚠️ That key was rejected by the provider. Please check it and paste it again.', () => requestPlanFeedback()); }
-            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Something went wrong getting your feedback — give it a moment and try again.</div>`;
+            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Something went wrong getting your feedback - give it a moment and try again.</div>`;
         } finally {
             btn.removeAttribute('disabled');
             btn.innerHTML = ico('redo') + ' Get updated feedback';
@@ -2948,7 +2946,7 @@ Be direct and specific, referencing their actual notes. No numeric band scores.`
         if (!w) return;
         const open = w.style.display !== 'none';
         w.style.display = open ? 'none' : 'block';
-        // Note: the exam clock keeps running while the essay box is open — writing IS the timed part.
+        // Note: the exam clock keeps running while the essay box is open - writing IS the timed part.
         if (!open) { const ei = el('essayInput'); if (ei) ei.focus(); }
     };
     window.handleEssayInput = function () {
@@ -2974,21 +2972,21 @@ The exam question: "${p.prompt}" (type: ${p.qtype}).
 
 Mark against the four official criteria. Reply in plain text, no markdown, in exactly this shape:
 Overall estimate: band X.X
-Task Response X.X — one sentence, quoting their words where useful.
-Coherence & Cohesion X.X — one sentence.
-Vocabulary X.X — one sentence.
-Grammar X.X — one sentence.
+Task Response X.X - one sentence, quoting their words where useful.
+Coherence & Cohesion X.X - one sentence.
+Vocabulary X.X - one sentence.
+Grammar X.X - one sentence.
 Fix first: the ONE change that would raise the band most, in 1-2 sentences.
 Well done: one sentence naming something specific they did well.
 
-Use clear English for a band 6.5 student. Be honest but kind. If the essay is under 250 words, say so — it caps Task Response. If both body paragraphs lack the idea → reason → example layers, point to the weakest layer.`;
+Use clear English for a band 6.5 student. Be honest but kind. If the essay is under 250 words, say so - it caps Task Response. If both body paragraphs lack the idea → reason → example layers, point to the weakest layer.`;
         try {
             const fb = await aiCall(sys, [{ role: 'user', text: 'My essay:\n\n' + studentEssayText }], 700);
             panel.innerHTML = `<div class="ai-feedback-panel">${fb.replace(/</g, '&lt;').replace(/\n/g, '<br>')}</div>`;
         } catch (err) {
             if (err.code === 'nokey') showAISetup(panel, 'Connect your AI to have essays marked.', () => requestEssayFeedback());
             else if (err.code === 'auth') { clearAIKey(); showAISetup(panel, '⚠️ That key was rejected. Paste it again.', () => requestEssayFeedback()); }
-            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Couldn't reach the AI just now — give it a moment and try again.</div>`;
+            else panel.innerHTML = `<div class="ai-feedback-panel">⚠️ Couldn't reach the AI just now - give it a moment and try again.</div>`;
         } finally {
             btn.removeAttribute('disabled');
             btn.innerHTML = ico('redo') + ' Mark it again';
@@ -3007,7 +3005,7 @@ The exam prompt: "${p.prompt}" (type: ${p.qtype}; paragraph 1 should cover ${p.p
 The student's current plan notes right now:
 """${studentPlanNotes || '(empty so far)'}"""
 
-The method they follow — five note lines: 1) boundary word, 2) P1 idea/reason/example, 3) P2 idea/reason/example, 4) ${p.chk4}, 5) conclusion note. Reasons must pass the Loop Test: add a new mechanism or fact, never restate the claim in other words.
+The method they follow - five note lines: 1) boundary word, 2) P1 idea/reason/example, 3) P2 idea/reason/example, 4) ${p.chk4}, 5) conclusion note. Reasons must pass the Loop Test: add a new mechanism or fact, never restate the claim in other words.
 
 STRICT RULES for every reply:
 - At most ONE short encouraging sentence, then exactly ONE guiding question. Nothing else.
@@ -3024,7 +3022,7 @@ STRICT RULES for every reply:
         if (coachThinking) bubbles += `<div class="coach-bubble cb-coach">${ico('chat')} <span class="spinner-dot"></span><span class="spinner-dot"></span><span class="spinner-dot"></span></div>`;
         wrap.innerHTML = `<div class="coach-panel">${bubbles}
             <div class="coach-input-row">
-                <input class="coach-input" id="coachInput" placeholder="Answer the coach — or just update your notes above">
+                <input class="coach-input" id="coachInput" placeholder="Answer the coach - or just update your notes above">
                 <button class="ai-feedback-btn coach-send" onclick="sendCoachReply()">↑</button>
             </div>
             <button class="peek-btn" style="margin-top:8px;" onclick="askCoach()">${ico('redo')} Ask me a different question</button>
@@ -3040,14 +3038,14 @@ STRICT RULES for every reply:
         renderCoachUI();
         try {
             const q = await aiCall(coachSystemPrompt(), coachHistory.slice(-9).map(m => ({ role: m.role, text: m.text })), 150);
-            coachHistory.push({ role: 'assistant', text: q || 'What is the boundary word in this prompt — who or what is it really about?' });
+            coachHistory.push({ role: 'assistant', text: q || 'What is the boundary word in this prompt - who or what is it really about?' });
         } catch (err) {
             coachHistory.pop();
             if (err.code === 'nokey' || err.code === 'auth') {
                 if (err.code === 'auth') clearAIKey();
                 showAISetup(el('planFeedbackPanel'), err.code === 'auth' ? '⚠️ That key was rejected. Please paste it again.' : 'Connect your AI to start coaching.', () => askCoach());
             } else {
-                coachHistory.push({ role: 'assistant', text: '⚠️ I could not reach the AI just now — try again in a moment.' });
+                coachHistory.push({ role: 'assistant', text: '⚠️ I could not reach the AI just now - try again in a moment.' });
             }
         } finally {
             coachThinking = false;
