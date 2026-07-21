@@ -2144,6 +2144,7 @@
     function renderChapterMap() {
         if (mode === 'practise') pauseTimer();
         mode = 'learn';
+        try { localStorage.setItem('examacademy_lastsection', 'learn'); } catch (e) {}
         chIdx = -1;
         renderNav();
         setClockVisible(false);
@@ -2368,8 +2369,14 @@
             </div>`;
         const btn = el('masterContinueActionBtn');
         btn.removeAttribute('disabled');
-        btn.innerText = 'Begin';
-        btn.onclick = () => { showChrome(true); renderChapterMap(); };
+        // Take returning students back where they were; send newcomers to Learn.
+        const learnedAll = CHAPTERS.length && chapterSeen.every((s, i) => CHAPTERS[i] && s >= CHAPTERS[i].steps.length);
+        const brandNew = !attempts.length && chapterSeen.every(s => s === 0);
+        let last = '';
+        try { last = localStorage.getItem('examacademy_lastsection') || ''; } catch (e) {}
+        const goPractise = last === 'practise' || (last === '' && learnedAll);
+        btn.innerText = brandNew ? 'Begin' : (goPractise ? 'Continue practising' : 'Continue learning');
+        btn.onclick = () => { showChrome(true); goPractise ? enterPractise() : renderChapterMap(); };
     }
 
     /* ================================================================
@@ -2417,6 +2424,7 @@
        ================================================================ */
     function enterPractise() {
         mode = 'practise';
+        try { localStorage.setItem('examacademy_lastsection', 'practise'); } catch (e) {}
         renderNav();
         el('footerBackBtn').style.display = 'none';
         if (pState === 'plan' && currentPrompt && timerStarted && !feedbackReceived) {
