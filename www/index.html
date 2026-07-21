@@ -387,8 +387,27 @@
         .draw-card p { margin: 0; font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-main); line-height: 1.6; }
         .redraw-btn { font-family: var(--font-display); background: transparent; border: 1px solid var(--line-strong); color: var(--text-secondary); font-size: 0.82rem; font-weight: 700; padding: 12px 10px; border-radius: 12px; cursor: pointer; transition: all 0.2s var(--spring); width: 100%; margin-bottom: 8px; }
         .redraw-row { display: flex; gap: 8px; }
-        .skip-locked { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-display); font-size: 0.76rem; font-weight: 600; color: var(--text-muted); line-height: 1.4; max-width: 300px; }
-        .skip-locked .ico { color: var(--brand-orange); flex-shrink: 0; }
+
+        /* ---------- Straight-to-writing shortcut card ---------- */
+        .skip-card { display: flex; align-items: center; gap: 14px; border-radius: 14px; padding: 14px 16px; margin-top: 16px; text-align: left; transition: all 0.2s var(--spring); }
+        .skip-card .sk-ico { width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }
+        .skip-card .sk-body { flex: 1; }
+        .skip-card .sk-title { font-family: var(--font-display); font-size: 0.9rem; font-weight: 800; line-height: 1.25; }
+        .skip-card .sk-sub { font-size: 0.78rem; line-height: 1.45; margin-top: 2px; }
+        .skip-card .sk-arrow { font-family: var(--font-serif); font-size: 1.3rem; flex-shrink: 0; }
+        /* Locked */
+        .skip-card.locked { background: var(--paper-warm); border: 1px dashed var(--line-strong); }
+        .skip-card.locked .sk-ico { background: #fff; border: 1px solid var(--line-strong); color: var(--text-muted); }
+        .skip-card.locked .sk-title { color: var(--text-secondary); }
+        .skip-card.locked .sk-sub { color: var(--text-muted); }
+        /* Unlocked / ready */
+        .skip-card.ready { background: var(--brand-orange-wash); border: 1.5px solid var(--brand-orange); cursor: pointer; }
+        .skip-card.ready:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -16px rgba(240,146,59,0.6); }
+        .skip-card.ready:active { transform: scale(0.99); }
+        .skip-card.ready .sk-ico { background: var(--brand-orange); color: #fff; box-shadow: 0 7px 16px -7px rgba(240,146,59,0.8); }
+        .skip-card.ready .sk-title { color: var(--brand-orange-deep); }
+        .skip-card.ready .sk-sub { color: var(--text-secondary); }
+        .skip-card.ready .sk-arrow { color: var(--brand-orange); }
 
         /* ---------- Relaxed / exam mode toggle ---------- */
         .mode-wrap { background: var(--paper-warm); border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin: 14px 0 4px 0; }
@@ -912,6 +931,310 @@
           model: { boundary: "Boundary: childhood (not adult obesity)", p1: "Problems: health + confidence / diabetes risk + bullying / eg lifelong habits set young", p2: "Solutions: school meals + sport hours (→ health); ad limits on junk food (→ habits)", thesis: "Stance: schools = best lever - reach every child daily", concl: "Concl: restate pairing" } }
     );
 
+    /* ---- Opinion (agree/disagree): 8 more to make 10 ---- */
+    PRACTICE_BANK.push(
+        { id: 'op-homework', topic: 'Education', qtype: 'Opinion',
+          prompt: "Some people think homework should be abolished. To what extent do you agree or disagree?",
+          boundary: "homework",
+          pillarA: { label: "reasons to agree", keywords: ['agree','free time','stress','family','rest','pressure'] },
+          pillarB: { label: "the other view / second reason", keywords: ['practice','revision','discipline','however','reinforce','independent'] },
+          loopTrap: "Homework should be abolished because students should not have to do homework.",
+          chk4: 'A clear opinion line (agree / disagree + how far)',
+          thesisWords: ['agree', 'disagree', 'while', 'although', 'partly', 'strongly'],
+          model: { boundary: "Boundary: homework (not school hours)", p1: "P1: accept the cost / long days + lost family time / eg tired kids, little rest", p2: "P2: but homework builds habits / self-study → independence / eg revision before exams", thesis: "Opinion: partly disagree - less homework, not none", concl: "Concl: restate opinion + best reason" } },
+        { id: 'op-vote16', topic: 'Society', qtype: 'Opinion',
+          prompt: "The voting age should be lowered to sixteen. To what extent do you agree or disagree?",
+          boundary: "voting age",
+          pillarA: { label: "reasons to agree", keywords: ['agree','young','future','engage','affected','tax','responsib'] },
+          pillarB: { label: "the other view / second reason", keywords: ['maturity','experience','however','inform','pressure','uninterested'] },
+          loopTrap: "The voting age should be lowered because younger people should be allowed to vote.",
+          chk4: 'A clear opinion line (agree / disagree + how far)',
+          thesisWords: ['agree', 'disagree', 'while', 'although', 'partly', 'strongly'],
+          model: { boundary: "Boundary: voting age (not all rights)", p1: "P1: agree side / 16s work + pay tax → a stake / eg policies shape their future most", p2: "P2: but concerns / less life experience / answer: civic education alongside", thesis: "Opinion: mostly agree - with better citizenship teaching", concl: "Concl: restate opinion + best reason" } },
+        { id: 'op-meat', topic: 'Environment', qtype: 'Opinion',
+          prompt: "Eating meat should be discouraged in order to protect the environment. To what extent do you agree or disagree?",
+          boundary: "eating meat",
+          pillarA: { label: "reasons to agree", keywords: ['agree','emission','land','water','climate','livestock','reduce'] },
+          pillarB: { label: "the other view / second reason", keywords: ['choice','nutrition','farmer','culture','however','livelihood','local'] },
+          loopTrap: "Eating meat harms the environment because meat-eating is bad for the planet.",
+          chk4: 'A clear opinion line (agree / disagree + how far)',
+          thesisWords: ['agree', 'disagree', 'while', 'although', 'partly', 'strongly'],
+          model: { boundary: "Boundary: eating meat (not all farming)", p1: "P1: agree / livestock = emissions + land use / eg beef's huge water footprint", p2: "P2: but personal choice + nutrition / answer: reduce, don't ban / eg 'less but better' meat", thesis: "Opinion: agree - discourage, not forbid", concl: "Concl: restate opinion + best reason" } },
+        { id: 'op-uniform', topic: 'Education', qtype: 'Opinion',
+          prompt: "School uniforms should be compulsory for all students. To what extent do you agree or disagree?",
+          boundary: "school uniforms",
+          pillarA: { label: "reasons to agree", keywords: ['agree','equal','belong','cost','focus','discipline','pressure'] },
+          pillarB: { label: "the other view / second reason", keywords: ['express','individual','however','comfort','freedom','identity'] },
+          loopTrap: "Uniforms should be compulsory because all students should be made to wear a uniform.",
+          chk4: 'A clear opinion line (agree / disagree + how far)',
+          thesisWords: ['agree', 'disagree', 'while', 'although', 'partly', 'strongly'],
+          model: { boundary: "Boundary: uniforms (not all rules)", p1: "P1: agree / hides wealth gaps + builds belonging / eg less bullying over clothes", p2: "P2: but limits self-expression / answer: simple uniform + free-dress days", thesis: "Opinion: mostly agree - uniform with some flexibility", concl: "Concl: restate opinion + best reason" } },
+        { id: 'op-space', topic: 'Science', qtype: 'Opinion',
+          prompt: "Governments should stop spending money on space exploration and focus on problems on Earth. To what extent do you agree or disagree?",
+          boundary: "space exploration",
+          pillarA: { label: "reasons to agree", keywords: ['agree','poverty','earth','need','cost','waste','priority'] },
+          pillarB: { label: "the other view / second reason", keywords: ['technology','discover','satellite','however','benefit','future','spin-off'] },
+          loopTrap: "Space spending should stop because money on space is money that should not be spent on space.",
+          chk4: 'A clear opinion line (agree / disagree + how far)',
+          thesisWords: ['agree', 'disagree', 'while', 'although', 'partly', 'strongly'],
+          model: { boundary: "Boundary: space exploration spending", p1: "P1: agree side / urgent needs first / eg health + poverty unfunded", p2: "P2: but space brings returns / satellites, materials / eg GPS + weather forecasting", thesis: "Opinion: partly disagree - balance, don't stop", concl: "Concl: restate opinion + best reason" } },
+        { id: 'op-celeb', topic: 'Society', qtype: 'Opinion',
+          prompt: "Famous entertainers and sports stars deserve the very high salaries they receive. To what extent do you agree or disagree?",
+          boundary: "salaries",
+          pillarA: { label: "reasons to agree", keywords: ['agree','talent','demand','short career','entertain','market','rare'] },
+          pillarB: { label: "the other view / second reason", keywords: ['unfair','nurse','teacher','however','value','society','contribut'] },
+          loopTrap: "Stars deserve high pay because famous people are paid a lot of money.",
+          chk4: 'A clear opinion line (agree / disagree + how far)',
+          thesisWords: ['agree', 'disagree', 'while', 'although', 'partly', 'strongly'],
+          model: { boundary: "Boundary: entertainers + sports stars", p1: "P1: agree / rare talent + short careers + huge demand / eg millions pay to watch", p2: "P2: but seems unfair vs key workers / answer: markets, not merit, set pay", thesis: "Opinion: partly agree - earned, though uncomfortable", concl: "Concl: restate opinion + best reason" } },
+        { id: 'op-carfree', topic: 'Cities', qtype: 'Opinion',
+          prompt: "City centres should be closed to private cars. To what extent do you agree or disagree?",
+          boundary: "city centres",
+          pillarA: { label: "reasons to agree", keywords: ['agree','pollution','pedestrian','safe','space','clean','quiet'] },
+          pillarB: { label: "the other view / second reason", keywords: ['business','access','disabled','however','delivery','elderly','trade'] },
+          loopTrap: "City centres should ban cars because cars should not be allowed in city centres.",
+          chk4: 'A clear opinion line (agree / disagree + how far)',
+          thesisWords: ['agree', 'disagree', 'while', 'although', 'partly', 'strongly'],
+          model: { boundary: "Boundary: city centres (not whole city)", p1: "P1: agree / cleaner air + safer streets / eg pedestrianised squares thrive", p2: "P2: but access matters / disabled + deliveries / answer: exemptions, not total ban", thesis: "Opinion: mostly agree - with sensible exceptions", concl: "Concl: restate opinion + best reason" } },
+        { id: 'op-english-only', topic: 'Language', qtype: 'Opinion',
+          prompt: "Some people believe that one single international language should be used worldwide. To what extent do you agree or disagree?",
+          boundary: "international language",
+          pillarA: { label: "reasons to agree", keywords: ['agree','trade','understand','travel','efficient','communicat','global'] },
+          pillarB: { label: "the other view / second reason", keywords: ['culture','identity','lose','however','diversity','heritage','local language'] },
+          loopTrap: "One world language would help because everyone would speak the same language.",
+          chk4: 'A clear opinion line (agree / disagree + how far)',
+          thesisWords: ['agree', 'disagree', 'while', 'although', 'partly', 'strongly'],
+          model: { boundary: "Boundary: a single global language", p1: "P1: agree side / easier trade + travel / eg science already shares English", p2: "P2: but cultures live in languages / answer: shared 2nd language, keep the first", thesis: "Opinion: partly agree - a common 2nd language, not one only", concl: "Concl: restate opinion + best reason" } }
+    );
+
+    /* ---- Advantages & Disadvantages: 8 more to make 10 ---- */
+    PRACTICE_BANK.push(
+        { id: 'ad-globalbiz', topic: 'Business', qtype: 'Advantages & Disadvantages',
+          prompt: "Businesses are becoming increasingly global, operating in many countries. Do the advantages of this development outweigh the disadvantages?",
+          boundary: "businesses",
+          pillarA: { label: "advantages", keywords: ['advantage','benefit','job','choice','price','growth','invest'] },
+          pillarB: { label: "disadvantages", keywords: ['disadvantage','drawback','local','power','culture','exploit','tax'] },
+          loopTrap: "Global business is advantageous because global companies bring many global advantages.",
+          chk4: 'A clear decision - do the advantages win or not?',
+          thesisWords: ['outweigh', 'while', 'although', 'overall', 'on balance'],
+          model: { boundary: "Boundary: global businesses", p1: "P1: advantages / jobs + cheaper goods / eg new factories lift local wages", p2: "P2: disadvantages / small firms squeezed + tax avoidance / eg high streets close", thesis: "Decision: advantages outweigh - IF firms are regulated", concl: "Concl: restate decision" } },
+        { id: 'ad-ai-work', topic: 'Technology', qtype: 'Advantages & Disadvantages',
+          prompt: "Artificial intelligence is increasingly used to perform tasks once done by people. Do the advantages of this outweigh the disadvantages?",
+          boundary: "artificial intelligence",
+          pillarA: { label: "advantages", keywords: ['advantage','benefit','speed','cost','accuracy','dangerous','tireless'] },
+          pillarB: { label: "disadvantages", keywords: ['disadvantage','drawback','job','unemploy','skill','reliance','error'] },
+          loopTrap: "AI is advantageous because artificial intelligence gives us the advantages of AI.",
+          chk4: 'A clear decision - do the advantages win or not?',
+          thesisWords: ['outweigh', 'while', 'although', 'overall', 'on balance'],
+          model: { boundary: "Boundary: AI doing human tasks", p1: "P1: advantages / faster + safer + cheaper / eg AI checks scans humans miss", p2: "P2: disadvantages / job losses + over-reliance / eg whole roles automated away", thesis: "Decision: advantages outweigh - IF workers are retrained", concl: "Concl: restate decision" } },
+        { id: 'ad-cities-move', topic: 'Society', qtype: 'Advantages & Disadvantages',
+          prompt: "In many countries, people are increasingly moving away from rural areas to live in large cities. Do the advantages outweigh the disadvantages?",
+          boundary: "large cities",
+          pillarA: { label: "advantages", keywords: ['advantage','benefit','job','service','opportunit','education','transport'] },
+          pillarB: { label: "disadvantages", keywords: ['disadvantage','drawback','crowd','cost','pollut','rural decline','isolat'] },
+          loopTrap: "Moving to cities is advantageous because cities give people the advantages of city life.",
+          chk4: 'A clear decision - do the advantages win or not?',
+          thesisWords: ['outweigh', 'while', 'although', 'overall', 'on balance'],
+          model: { boundary: "Boundary: moving to large cities", p1: "P1: advantages / jobs + services close together / eg hospitals, unis, transport", p2: "P2: disadvantages / high rents + crowding + empty villages / eg rural schools close", thesis: "Decision: advantages outweigh - for the individual at least", concl: "Concl: restate decision" } },
+        { id: 'ad-gapyear', topic: 'Education', qtype: 'Advantages & Disadvantages',
+          prompt: "Many young people take a year off between finishing school and starting university. Do the advantages of this outweigh the disadvantages?",
+          boundary: "young people",
+          pillarA: { label: "advantages", keywords: ['advantage','benefit','mature','experience','work','travel','ready'] },
+          pillarB: { label: "disadvantages", keywords: ['disadvantage','drawback','delay','lose momentum','cost','habit','distract'] },
+          loopTrap: "A gap year is advantageous because taking a year off has many advantages.",
+          chk4: 'A clear decision - do the advantages win or not?',
+          thesisWords: ['outweigh', 'while', 'although', 'overall', 'on balance'],
+          model: { boundary: "Boundary: school-leavers before university", p1: "P1: advantages / maturity + real-world experience / eg part-time job → confidence", p2: "P2: disadvantages / study habits fade + delayed start / eg harder to return to books", thesis: "Decision: advantages outweigh - IF the year has a purpose", concl: "Concl: restate decision" } },
+        { id: 'ad-onlineshop', topic: 'Business', qtype: 'Advantages & Disadvantages',
+          prompt: "Online shopping is replacing shopping in physical stores. Do the advantages of this development outweigh the disadvantages?",
+          boundary: "shopping",
+          pillarA: { label: "advantages", keywords: ['advantage','benefit','convenien','choice','price','compare','time'] },
+          pillarB: { label: "disadvantages", keywords: ['disadvantage','drawback','high street','job','community','delivery','return'] },
+          loopTrap: "Online shopping is advantageous because shopping online is convenient for online shoppers.",
+          chk4: 'A clear decision - do the advantages win or not?',
+          thesisWords: ['outweigh', 'while', 'although', 'overall', 'on balance'],
+          model: { boundary: "Boundary: online vs physical shopping", p1: "P1: advantages / convenience + wider choice + lower prices / eg compare in seconds", p2: "P2: disadvantages / shops close + jobs lost + dead high streets / eg town centres empty", thesis: "Decision: advantages outweigh - for shoppers, not for towns", concl: "Concl: restate decision" } },
+        { id: 'ad-phones-kids', topic: 'Technology', qtype: 'Advantages & Disadvantages',
+          prompt: "Children are being given mobile phones at an increasingly young age. Do the advantages of this outweigh the disadvantages?",
+          boundary: "children",
+          pillarA: { label: "advantages", keywords: ['advantage','benefit','safe','contact','learn','independen','emergency'] },
+          pillarB: { label: "disadvantages", keywords: ['disadvantage','drawback','screen','distract','sleep','bully','addict'] },
+          loopTrap: "Giving children phones is advantageous because young children benefit from having phones.",
+          chk4: 'A clear decision - do the advantages win or not?',
+          thesisWords: ['outweigh', 'while', 'although', 'overall', 'on balance'],
+          model: { boundary: "Boundary: children (young age)", p1: "P1: advantages / safety + staying in contact / eg parents reach them after school", p2: "P2: disadvantages / screen time + sleep + online risks / eg late-night scrolling", thesis: "Decision: disadvantages outweigh - unless use is limited", concl: "Concl: restate decision" } },
+        { id: 'ad-4day', topic: 'Work', qtype: 'Advantages & Disadvantages',
+          prompt: "Some companies are moving to a four-day working week. Do the advantages of this outweigh the disadvantages?",
+          boundary: "working week",
+          pillarA: { label: "advantages", keywords: ['advantage','benefit','rest','wellbeing','productiv','balance','happy'] },
+          pillarB: { label: "disadvantages", keywords: ['disadvantage','drawback','cost','cover','deadline','pay','output'] },
+          loopTrap: "A four-day week is advantageous because working four days gives workers the advantage of a shorter week.",
+          chk4: 'A clear decision - do the advantages win or not?',
+          thesisWords: ['outweigh', 'while', 'although', 'overall', 'on balance'],
+          model: { boundary: "Boundary: the four-day week", p1: "P1: advantages / rest → focus + wellbeing / eg trials show output held or rose", p2: "P2: disadvantages / cover gaps + some sectors can't / eg hospitals need every day", thesis: "Decision: advantages outweigh - in the right industries", concl: "Concl: restate decision" } },
+        { id: 'ad-english-global', topic: 'Language', qtype: 'Advantages & Disadvantages',
+          prompt: "English has become the main language for international business and science. Do the advantages of this outweigh the disadvantages?",
+          boundary: "English",
+          pillarA: { label: "advantages", keywords: ['advantage','benefit','share','trade','research','access','communicat'] },
+          pillarB: { label: "disadvantages", keywords: ['disadvantage','drawback','native speaker','unfair','lose','culture','translat'] },
+          loopTrap: "English being global is advantageous because a global English brings global advantages.",
+          chk4: 'A clear decision - do the advantages win or not?',
+          thesisWords: ['outweigh', 'while', 'although', 'overall', 'on balance'],
+          model: { boundary: "Boundary: English in business + science", p1: "P1: advantages / one shared language → faster trade + research / eg global conferences", p2: "P2: disadvantages / native speakers gain edge + other languages fade / eg local terms lost", thesis: "Decision: advantages outweigh - with support for other languages", concl: "Concl: restate decision" } }
+    );
+
+    /* ---- Double Question: 8 more to make 10 ---- */
+    PRACTICE_BANK.push(
+        { id: 'dq-fame', topic: 'Society', qtype: 'Double Question',
+          prompt: "These days, more and more people want to become famous. Why do people want to be famous? Is this a positive or negative development?",
+          boundary: "famous",
+          pillarA: { label: "answer to Q1 - why", keywords: ['why','because','reason','money','attention','social media','admire'] },
+          pillarB: { label: "answer to Q2 - positive/negative", keywords: ['positive','negative','development','pressure','role model','shallow','mental'] },
+          loopTrap: "People want fame because being famous is something many people now want.",
+          chk4: 'Both questions answered + a judgement (positive/negative)',
+          thesisWords: ['positive', 'negative', 'while', 'overall', 'both'],
+          model: { boundary: "Boundary: wanting to be famous", p1: "Q1 why: money + attention + social media models it / eg influencers seem rich, admired", p2: "Q2 judgement: mostly negative / pressure + shallow goals / eg chasing likes over skills", thesis: "Answers: money + visibility; on balance negative", concl: "Concl: restate both answers" } },
+        { id: 'dq-fastfood', topic: 'Health', qtype: 'Double Question',
+          prompt: "Fast food is becoming more and more popular. Why is fast food so popular? What effects does this have on people's lives?",
+          boundary: "fast food",
+          pillarA: { label: "answer to Q1 - why", keywords: ['why','because','reason','cheap','quick','busy','convenien','taste'] },
+          pillarB: { label: "answer to Q2 - effects", keywords: ['effect','health','obesity','cook','habit','cost','diet'] },
+          loopTrap: "Fast food is popular because a lot of people choose to eat fast food.",
+          chk4: 'Both questions answered, one per paragraph',
+          thesisWords: ['because', 'effect', 'while', 'both', 'answer'],
+          model: { boundary: "Boundary: fast food's popularity", p1: "Q1 why: cheap + fast + busy lives / eg long work hours, no time to cook", p2: "Q2 effects: diet worsens + cooking skills fade / eg obesity + families stop cooking", thesis: "Answers: speed + cost; effects = mostly harmful", concl: "Concl: restate both answers" } },
+        { id: 'dq-latekids', topic: 'Society', qtype: 'Double Question',
+          prompt: "In many countries, people are choosing to have children later in life. Why is this happening? Is it a positive or negative development?",
+          boundary: "children later",
+          pillarA: { label: "answer to Q1 - why", keywords: ['why','because','reason','career','money','study','stable','independence'] },
+          pillarB: { label: "answer to Q2 - positive/negative", keywords: ['positive','negative','development','ready','health','energy','support'] },
+          loopTrap: "People have children later because they are waiting until later to have children.",
+          chk4: 'Both questions answered + a judgement (positive/negative)',
+          thesisWords: ['positive', 'negative', 'while', 'overall', 'both'],
+          model: { boundary: "Boundary: choosing to have children later", p1: "Q1 why: careers + finances first / eg finish studies, buy a home", p2: "Q2 judgement: mostly positive / more stable + ready / but some health risks", thesis: "Answers: career + money; on balance positive", concl: "Concl: restate both answers" } },
+        { id: 'dq-online-shop', topic: 'Business', qtype: 'Double Question',
+          prompt: "More and more people are doing their shopping online rather than in stores. Why is this happening? Is it a positive or negative trend for society?",
+          boundary: "shopping online",
+          pillarA: { label: "answer to Q1 - why", keywords: ['why','because','reason','convenien','price','choice','delivery','time'] },
+          pillarB: { label: "answer to Q2 - positive/negative", keywords: ['positive','negative','society','high street','job','community','convenient'] },
+          loopTrap: "People shop online because online shopping is what more people are choosing to do.",
+          chk4: 'Both questions answered + a judgement (positive/negative)',
+          thesisWords: ['positive', 'negative', 'while', 'overall', 'both'],
+          model: { boundary: "Boundary: shopping online (for society)", p1: "Q1 why: convenience + lower prices + wide choice / eg buy anytime from home", p2: "Q2 judgement: mixed → slightly negative / high streets + jobs lost / eg empty town centres", thesis: "Answers: ease + price; on balance a little negative", concl: "Concl: restate both answers" } },
+        { id: 'dq-langlearn', topic: 'Language', qtype: 'Double Question',
+          prompt: "More adults are choosing to learn a foreign language. Why do they do this? Is this a positive or negative development?",
+          boundary: "adults",
+          pillarA: { label: "answer to Q1 - why", keywords: ['why','because','reason','work','travel','brain','culture','opportunit'] },
+          pillarB: { label: "answer to Q2 - positive/negative", keywords: ['positive','negative','development','understand','confidence','benefit','time'] },
+          loopTrap: "Adults learn languages because more grown-ups now decide to study a new language.",
+          chk4: 'Both questions answered + a judgement (positive/negative)',
+          thesisWords: ['positive', 'negative', 'while', 'overall', 'both'],
+          model: { boundary: "Boundary: adults learning a language", p1: "Q1 why: work + travel + keeping the mind sharp / eg jobs abroad, brain benefits", p2: "Q2 judgement: clearly positive / cultural understanding + opportunity / eg easier connection", thesis: "Answers: careers + travel; strongly positive", concl: "Concl: restate both answers" } },
+        { id: 'dq-secondhand', topic: 'Environment', qtype: 'Double Question',
+          prompt: "Buying second-hand goods rather than new ones is becoming more popular. Why is this happening? Is it a positive or negative development?",
+          boundary: "second-hand goods",
+          pillarA: { label: "answer to Q1 - why", keywords: ['why','because','reason','cheap','money','environment','waste','unique'] },
+          pillarB: { label: "answer to Q2 - positive/negative", keywords: ['positive','negative','development','reuse','saving','quality','stigma'] },
+          loopTrap: "People buy second-hand because buying used items has become a popular choice.",
+          chk4: 'Both questions answered + a judgement (positive/negative)',
+          thesisWords: ['positive', 'negative', 'while', 'overall', 'both'],
+          model: { boundary: "Boundary: buying second-hand", p1: "Q1 why: saves money + cuts waste / eg rising prices push people to reuse", p2: "Q2 judgement: clearly positive / less waste + affordable / minor quality risk", thesis: "Answers: cost + environment; positive", concl: "Concl: restate both answers" } },
+        { id: 'dq-gaming', topic: 'Technology', qtype: 'Double Question',
+          prompt: "Playing video games is a popular hobby among adults as well as children. Why is it so popular? Is it a positive or negative development?",
+          boundary: "video games",
+          pillarA: { label: "answer to Q1 - why", keywords: ['why','because','reason','fun','social','escape','challenge','online'] },
+          pillarB: { label: "answer to Q2 - positive/negative", keywords: ['positive','negative','development','skill','time','sedentary','friend'] },
+          loopTrap: "Video games are popular because a lot of people enjoy playing video games.",
+          chk4: 'Both questions answered + a judgement (positive/negative)',
+          thesisWords: ['positive', 'negative', 'while', 'overall', 'both'],
+          model: { boundary: "Boundary: video gaming (all ages)", p1: "Q1 why: fun + social + a challenge / eg friends play together online", p2: "Q2 judgement: mixed / skills + friendship BUT time + sitting / eg less exercise", thesis: "Answers: enjoyment + social; on balance neutral-to-positive if limited", concl: "Concl: restate both answers" } },
+        { id: 'dq-cities-work', topic: 'Society', qtype: 'Double Question',
+          prompt: "Large numbers of people move to big cities to find work. Why does this happen? Is it a positive or negative development for the cities?",
+          boundary: "big cities",
+          pillarA: { label: "answer to Q1 - why", keywords: ['why','because','reason','job','wage','opportunit','industry','rural'] },
+          pillarB: { label: "answer to Q2 - positive/negative", keywords: ['positive','negative','development','crowd','economy','housing','pressure'] },
+          loopTrap: "People move to cities for work because cities are where people go to find jobs.",
+          chk4: 'Both questions answered + a judgement (positive/negative)',
+          thesisWords: ['positive', 'negative', 'while', 'overall', 'both'],
+          model: { boundary: "Boundary: moving to cities for work (for the city)", p1: "Q1 why: more jobs + higher wages / eg industries cluster in cities", p2: "Q2 judgement: mixed / labour + economy grow BUT housing + crowding strain / eg rents soar", thesis: "Answers: jobs + wages; on balance positive if managed", concl: "Concl: restate both answers" } }
+    );
+
+    /* ---- Problem & Solution: 8 more to make 10 ---- */
+    PRACTICE_BANK.push(
+        { id: 'ps-plastic', topic: 'Environment', qtype: 'Problem & Solution',
+          prompt: "Plastic waste is increasingly polluting the world's oceans. What problems does this cause, and what solutions can you suggest?",
+          boundary: "oceans",
+          pillarA: { label: "problems", keywords: ['problem','wildlife','food chain','microplastic','tourism','fish','harm'] },
+          pillarB: { label: "solutions", keywords: ['solution','ban','recycl','tax','clean','packaging','reuse'] },
+          loopTrap: "Plastic in the oceans is a problem because ocean plastic causes problems in the sea.",
+          chk4: 'Each solution linked to a named problem',
+          thesisWords: ['solve', 'solution', 'measure', 'while', 'best', 'overall'],
+          model: { boundary: "Boundary: ocean plastic waste", p1: "Problems: harms wildlife + enters food chain / eg turtles, then our seafood", p2: "Solutions: ban single-use (→ less waste); deposit returns (→ recycling) links to both", thesis: "Stance: prevention over clean-up - stop it at source", concl: "Concl: restate pairing" } },
+        { id: 'ps-stress', topic: 'Work', qtype: 'Problem & Solution',
+          prompt: "Work-related stress is rising in many countries. What problems does this cause, and how could it be reduced?",
+          boundary: "work-related stress",
+          pillarA: { label: "problems", keywords: ['problem','health','burnout','absence','productiv','family','sleep'] },
+          pillarB: { label: "solutions", keywords: ['solution','reduce','hours','support','flexib','manage','wellbeing'] },
+          loopTrap: "Work stress is a problem because stressed workers experience the problem of stress.",
+          chk4: 'Each solution linked to a named problem',
+          thesisWords: ['solve', 'solution', 'reduce', 'while', 'best', 'overall'],
+          model: { boundary: "Boundary: stress from work", p1: "Problems: health + burnout + lost output / eg sick days rise, staff quit", p2: "Solutions: fair hours + manager training (→ health); flexible work (→ balance) links to both", thesis: "Stance: workload limits = the biggest lever", concl: "Concl: restate pairing" } },
+        { id: 'ps-youthunemp', topic: 'Society', qtype: 'Problem & Solution',
+          prompt: "In many countries, unemployment among young people is very high. What problems does this cause, and what could be done about it?",
+          boundary: "young people",
+          pillarA: { label: "problems", keywords: ['problem','poverty','crime','skill','confidence','economy','waste'] },
+          pillarB: { label: "solutions", keywords: ['solution','training','apprentice','education','tax break','experience','link'] },
+          loopTrap: "Youth unemployment is a problem because unemployed young people have the problem of no job.",
+          chk4: 'Each solution linked to a named problem',
+          thesisWords: ['solve', 'solution', 'measure', 'while', 'best', 'overall'],
+          model: { boundary: "Boundary: youth unemployment", p1: "Problems: poverty + lost skills + wider economy / eg 'scarring' effect on careers", p2: "Solutions: apprenticeships (→ skills); hiring incentives (→ first jobs) links to both", thesis: "Stance: work experience routes = best fix", concl: "Concl: restate pairing" } },
+        { id: 'ps-water', topic: 'Environment', qtype: 'Problem & Solution',
+          prompt: "Many regions of the world are facing serious shortages of fresh water. What problems does this cause, and what measures could address it?",
+          boundary: "fresh water",
+          pillarA: { label: "problems", keywords: ['problem','health','crop','conflict','hygiene','food','disease'] },
+          pillarB: { label: "solutions", keywords: ['solution','save','recycl','price','irrigation','infrastructure','educat'] },
+          loopTrap: "Water shortages are a problem because a lack of water is a problem for dry regions.",
+          chk4: 'Each solution linked to a named problem',
+          thesisWords: ['solve', 'solution', 'measure', 'while', 'best', 'overall'],
+          model: { boundary: "Boundary: fresh water shortages", p1: "Problems: health + failed crops + tension / eg disease + food prices rise", p2: "Solutions: efficient irrigation (→ crops); fix leaks + fair pricing (→ waste) links to both", thesis: "Stance: cutting waste first - cheaper than new supply", concl: "Concl: restate pairing" } },
+        { id: 'ps-ageing', topic: 'Health', qtype: 'Problem & Solution',
+          prompt: "Populations in many countries are ageing, with more elderly people than before. What problems does this cause, and what solutions are there?",
+          boundary: "elderly people",
+          pillarA: { label: "problems", keywords: ['problem','healthcare','pension','cost','worker','care','lonely'] },
+          pillarB: { label: "solutions", keywords: ['solution','retire later','immigration','train','robot','support','community'] },
+          loopTrap: "An ageing population is a problem because having more old people creates the problem of ageing.",
+          chk4: 'Each solution linked to a named problem',
+          thesisWords: ['solve', 'solution', 'measure', 'while', 'best', 'overall'],
+          model: { boundary: "Boundary: ageing populations", p1: "Problems: healthcare + pension costs + fewer workers / eg strained hospitals", p2: "Solutions: later retirement + train more carers (→ workers/care) links to both", thesis: "Stance: a flexible retirement age = the key measure", concl: "Concl: restate pairing" } },
+        { id: 'ps-foodwaste', topic: 'Environment', qtype: 'Problem & Solution',
+          prompt: "Households in many countries waste large amounts of food. What problems does this cause, and how could food waste be reduced?",
+          boundary: "food",
+          pillarA: { label: "problems", keywords: ['problem','environment','money','hunger','emission','landfill','resource'] },
+          pillarB: { label: "solutions", keywords: ['solution','plan','educat','date label','donate','portion','compost'] },
+          loopTrap: "Food waste is a problem because wasting food is a wasteful problem for households.",
+          chk4: 'Each solution linked to a named problem',
+          thesisWords: ['solve', 'solution', 'reduce', 'while', 'best', 'overall'],
+          model: { boundary: "Boundary: household food waste", p1: "Problems: wasted money + emissions + wasted resources / eg landfill methane", p2: "Solutions: meal planning + clearer date labels (→ less binning) links to problems", thesis: "Stance: shopping + planning habits = the main fix", concl: "Concl: restate pairing" } },
+        { id: 'ps-rural', topic: 'Society', qtype: 'Problem & Solution',
+          prompt: "In many countries, young people are leaving rural areas to live in cities. What problems does this cause for rural areas, and what could be done?",
+          boundary: "rural areas",
+          pillarA: { label: "problems", keywords: ['problem','decline','school close','ageing','service','economy','empty'] },
+          pillarB: { label: "solutions", keywords: ['solution','job','internet','invest','incentive','transport','remote work'] },
+          loopTrap: "Young people leaving villages is a problem because empty villages have the problem of no young people.",
+          chk4: 'Each solution linked to a named problem',
+          thesisWords: ['solve', 'solution', 'measure', 'while', 'best', 'overall'],
+          model: { boundary: "Boundary: rural areas losing young people", p1: "Problems: services close + ageing + weak economy / eg village schools shut", p2: "Solutions: rural jobs + fast internet → remote work (→ reasons to stay) links to problems", thesis: "Stance: local jobs = the root fix", concl: "Concl: restate pairing" } },
+        { id: 'ps-screens', topic: 'Health', qtype: 'Problem & Solution',
+          prompt: "Children in many countries are spending too much time looking at screens. What problems does this cause, and what could be done to address it?",
+          boundary: "children",
+          pillarA: { label: "problems", keywords: ['problem','sleep','eyes','exercise','attention','social','sedentary'] },
+          pillarB: { label: "solutions", keywords: ['solution','limit','parent','school','outdoor','activity','rule'] },
+          loopTrap: "Too much screen time is a problem because children on screens too long is a screen-time problem.",
+          chk4: 'Each solution linked to a named problem',
+          thesisWords: ['solve', 'solution', 'measure', 'while', 'best', 'overall'],
+          model: { boundary: "Boundary: children's screen time", p1: "Problems: poor sleep + less exercise + short attention / eg late-night devices", p2: "Solutions: screen limits at home + more sport at school (→ sleep/exercise) links to problems", thesis: "Stance: clear home routines = the strongest lever", concl: "Concl: restate pairing" } }
+    );
+
     /* ================================================================
        STATE
        ================================================================ */
@@ -1135,7 +1458,8 @@
         redo: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8a5 5 0 1 1-1.6-3.7"/><path d="M13.2 1.9v2.9h-2.9"/></svg>`,
         gear: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="2"/><path d="M8 1.8v2M8 12.2v2M1.8 8h2M12.2 8h2M3.6 3.6l1.4 1.4M11 11l1.4 1.4M12.4 3.6 11 5M5 11l-1.4 1.4"/></svg>`,
         cards: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><rect x="2.2" y="4" width="8" height="10" rx="1.6"/><path d="M6 2.2h7.8v10"/></svg>`,
-        clock: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="5.6"/><path d="M8 4.8V8l2.2 1.6"/></svg>`
+        clock: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="5.6"/><path d="M8 4.8V8l2.2 1.6"/></svg>`,
+        lock: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><rect x="3.4" y="7.2" width="9.2" height="6.4" rx="1.6"/><path d="M5.4 7.2V5.4a2.6 2.6 0 0 1 5.2 0v1.8"/></svg>`
     };
     function ico(name, cls) { return `<span class="ico ${cls || ''}">${ICON[name] || ''}</span>`; }
 
@@ -2110,8 +2434,11 @@
     function drawPrompt() {
         const typed = typeFilter === 'All' ? PRACTICE_BANK : PRACTICE_BANK.filter(p => p.qtype === typeFilter);
         const base = typed.length ? typed : PRACTICE_BANK;
-        const unused = base.filter(p => !usedPromptIds.includes(p.id));
-        const pool = unused.length ? unused : base;
+        const currentId = currentPrompt ? currentPrompt.id : null;
+        // Prefer questions not yet completed; always avoid repeating the one on screen.
+        let pool = base.filter(p => !usedPromptIds.includes(p.id) && p.id !== currentId);
+        if (!pool.length) pool = base.filter(p => p.id !== currentId);  // seen them all - just don't repeat
+        if (!pool.length) pool = base;                                   // only one in this filter
         return pool[Math.floor(Math.random() * pool.length)];
     }
 
@@ -2175,11 +2502,16 @@
                 <div class="big-clock" style="font-size:3rem;">${practiceMode === 'exam' ? '7:00' : '–:–'}</div>
                 <div class="clock-sub" style="margin-top:8px; font-size:0.88rem;">${practiceMode === 'exam' ? 'Short notes only - no full sentences. The clock starts when you press the button.' : 'Short notes only - no full sentences. No clock in relaxed mode - learn the moves at your own pace.'}</div>
             </div>
-            <div style="text-align:center; margin-top:14px;">
-                ${attempts.some(a => a.checks >= 5)
-                    ? `<button class="peek-btn" onclick="skipToWrite()">Skip straight to writing this one →</button>`
-                    : `<span class="skip-locked">${ico('eye')} Make one full plan (all five parts) to unlock a straight-to-writing shortcut.</span>`}
-            </div>`;
+            ${attempts.some(a => a.checks >= 5)
+                ? `<div class="skip-card ready" onclick="skipToWrite()">
+                       <span class="sk-ico">${ico('pen')}</span>
+                       <div class="sk-body"><div class="sk-title">Skip straight to writing</div><div class="sk-sub">You've earned it - go right to the writing step for this question.</div></div>
+                       <span class="sk-arrow">→</span>
+                   </div>`
+                : `<div class="skip-card locked">
+                       <span class="sk-ico">${ico('lock')}</span>
+                       <div class="sk-body"><div class="sk-title">Straight-to-writing shortcut</div><div class="sk-sub">Complete one full plan - all five parts checked off - and this unlocks, so you can jump straight to writing next time.</div></div>
+                   </div>`}`;
         playEntrance(board);
 
         const btn = el('masterContinueActionBtn');
