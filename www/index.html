@@ -115,7 +115,7 @@
         .nav-tab.tab-practise.active .t-name { color: var(--brand-orange-deep); }
 
         .clock-badge-pill { font-family: var(--font-display); font-weight: 700; color: var(--brand-orange-deep); font-size: 0.95rem; background: var(--brand-orange-wash); padding: 9px 16px; border-radius: 10px; border: 1px solid rgba(240,146,59,0.4); display: none; align-items: center; gap: 6px; white-space: nowrap; font-variant-numeric: tabular-nums; width: max-content; margin-left: auto; margin-bottom: 12px; }
-        .clock-badge-pill.clock-visible { display: flex; animation: springIn 0.6s var(--spring) both; }
+        .clock-badge-pill.clock-visible { display: flex; position: fixed; top: calc(10px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); z-index: 60; margin: 0; background: #fdf1e3; box-shadow: 0 10px 26px -10px rgba(23,21,18,0.35); }
         .clock-badge-pill.time-critical { color: var(--color-error); background: var(--color-error-light); border-color: rgba(194,64,47,0.4); animation: pulseSoft 1s infinite ease-in-out; }
 
         /* ---------- Header ---------- */
@@ -877,7 +877,7 @@
        STATE
        ================================================================ */
     const NAV = [
-        { num: '01', name: 'Why Plan' },
+        { num: '01', name: 'Why Plan?' },
         { num: '02', name: 'Decode' },
         { num: '03', name: 'Loop Test' },
         { num: '04', name: 'Paragraph' },
@@ -1014,6 +1014,23 @@
     /* ---------- Shared partials ---------- */
     function stmt(tag, html) { return `<div class="theory-stmt"><span class="stmt-tag">${tag}</span>${html}</div>`; }
     function expander(label, innerHTML) { return `<div class="why-exp"><div class="we-head" onclick="this.parentElement.classList.toggle('open')"><span>${label}</span><span class="we-chev">›</span></div><div class="we-body">${innerHTML}</div></div>`; }
+
+    /* Small, scoped language references — attached to the tasks that need
+       them, always behind a closed expander so the flow stays lean. */
+    function langIntroHTML() {
+        return expander('Useful language — introductions',
+            stmt('Openers for sentence 1', `These days, … &nbsp;·&nbsp; There is ongoing debate about whether … &nbsp;·&nbsp; People increasingly disagree about … &nbsp;·&nbsp; In many countries, …`) +
+            stmt(`Swap the question's words`, `governments → the state &nbsp;·&nbsp; children → young people &nbsp;·&nbsp; important → essential, vital &nbsp;·&nbsp; many people think → it is often argued`) +
+            stmt('Frames for sentence 2 — your position', `While …, I believe … &nbsp;·&nbsp; Although some see …, … seems more convincing &nbsp;·&nbsp; Despite the appeal of …, I would argue …`));
+    }
+    function langEssayHTML() {
+        return expander('Useful language — the essay',
+            stmt('Giving reasons', `This is because … &nbsp;·&nbsp; The main reason is that … &nbsp;·&nbsp; As a result, …`) +
+            stmt('Giving examples', `For instance, … &nbsp;·&nbsp; A clear example is … &nbsp;·&nbsp; This can be seen in …`) +
+            stmt('Contrasting views', `However, … &nbsp;·&nbsp; While it is true that …, … &nbsp;·&nbsp; Others, by contrast, argue …`) +
+            stmt('Concluding', `In short, … &nbsp;·&nbsp; On balance, I believe … &nbsp;·&nbsp; For these reasons, …`) +
+            stmt('Two band-7 flourishes', `Rarely do people consider … (inversion) &nbsp;·&nbsp; If this trend continues, … (conditional). One of each is plenty — accuracy beats decoration.`));
+    }
 
     /* Animated clock for the stage-rail walk-through: 0:00 → 7:00 in ~5.4s */
     let railTimer = null;
@@ -2650,6 +2667,7 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
                 stmt('A question', `"Some people believe universities should focus on teaching practical job skills, while others think they should prioritise pure theoretical research. Discuss both views and give your opinion."`) +
                 `<div class="laser-prompt-frame" style="font-size:0.95rem;">These days, people disagree about whether universities should concentrate on <span class="hl-green">preparing students for work</span> or on <span class="hl-green">pure academic study</span>. <b>While research has its place, I believe job skills matter more.</b></div>` +
                 stmt('Why it works', `Sentence 1 says the question again in <b>new words</b> — "practical job skills" became "preparing students for work". Sentence 2 is the thesis line from the plan, written out: both sides, and a clear side taken. Nothing else — no examples yet.`))}
+            ${langIntroHTML()}
             <span class="plan-label">Sentence 1 — the question in your own words <span class="pl-hint">don't copy its words</span></span>
             <span class="plan-label" style="margin-top:6px;">Sentence 2 — your position <span class="pl-hint">from your thesis line</span></span>
             <textarea class="console-editor-box" id="introInput" style="min-height:110px;" placeholder="These days, ... . While ..., I believe ...">${studentIntroText}</textarea>
@@ -2658,11 +2676,13 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
             <div id="introFeedbackPanel"></div>
             <button class="peek-btn" style="margin-top:16px;" onclick="toggleEssayMark()">${ico('doc')} Written the whole essay? Get it marked</button>
             <div id="essayMarkWrap" style="display:none;">
+                ${langEssayHTML()}
                 <textarea class="console-editor-box" id="essayInput" style="min-height:200px;" placeholder="Paste or type your full essay here.">${studentEssayText}</textarea>
                 <div class="console-meta-row"><span id="essayWordCount">0 words</span><span>Task 2 needs 250+</span></div>
                 <button class="ai-feedback-btn" id="essayFeedbackBtn" disabled onclick="requestEssayFeedback()">${ico('spark')} Mark my essay</button>
                 <div id="essayFeedbackPanel"></div>
             </div>` : `
+            ${langEssayHTML()}
             <span class="plan-label">Your full essay</span>
             <textarea class="console-editor-box" id="essayInput" style="min-height:280px;" placeholder="Write your essay here, from your plan above.">${studentEssayText}</textarea>
             <div class="console-meta-row"><span id="essayWordCount">0 words</span><span>Task 2 needs 250+</span></div>
