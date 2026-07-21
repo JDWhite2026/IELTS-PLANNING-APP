@@ -123,9 +123,10 @@
         /* ---------- Header ---------- */
         .stage-header-block { position: relative; animation: canvasShift 0.55s var(--glide) both; }
         .step-mini-tag { font-family: var(--font-display); color: var(--brand-orange-deep); font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 6px; }
-        .heading-main { font-family: var(--font-serif); font-size: 1.9rem; font-weight: 700; color: var(--text-main); margin: 0 0 9px 0; letter-spacing: -0.03em; line-height: 1.12; }
+        .heading-main { font-family: var(--font-serif); font-size: 1.9rem; font-weight: 700; color: var(--text-main); margin: 0 0 9px 0; letter-spacing: -0.03em; line-height: 1.12; padding-right: 52px; }
         .subtext-narrative { font-size: 0.94rem; color: var(--text-secondary); margin-bottom: 22px; line-height: 1.65; font-weight: 450; }
         .header-watermark { position: absolute; top: -14px; right: -6px; font-family: var(--font-serif); font-size: 4.2rem; font-weight: 700; color: var(--brand-orange); opacity: 0.12; pointer-events: none; line-height: 1; }
+        .header-watermark .ico { font-size: 3.2rem; opacity: 0.6; }
 
         .persistent-prompt-anchor-box {
             background: var(--paper-warm); border: 1px solid var(--line);
@@ -648,6 +649,28 @@
             body { padding: 0; }
             .app-container { padding: 0; max-width: none; }
             .workspace-card { border-radius: 0; min-height: 100vh; min-height: 100dvh; padding-top: env(safe-area-inset-top); padding-bottom: calc(32px + env(safe-area-inset-bottom)); box-shadow: none; }
+        }
+
+        /* ---------- Desktop / wide screens: use the space, keep it calm ---------- */
+        @media (min-width: 860px) {
+            body { padding: 34px 0 60px 0; }
+            .app-container { max-width: 720px; }
+            .workspace-card { padding: 0 48px 40px 48px; }
+            /* The two home cards sit side by side */
+            .home-doors-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: stretch; }
+            .home-doors-grid .home-door { margin-bottom: 0; display: flex; flex-direction: column; }
+            .home-doors-grid .home-door p { flex: 1; }
+            /* Five plan fields: two columns, with P1/P2 free to sit together */
+            .plan-scaffold { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+            .plan-scaffold .ps-row:nth-child(1) { grid-column: 1 / -1; }
+            .plan-scaffold .ps-row:nth-child(4) { grid-column: 1 / -1; }
+            .plan-scaffold .ps-row:nth-child(5) { grid-column: 1 / -1; }
+            /* Planning-is-bought-time bars side by side again on wide screens */
+            .vs-row { flex-direction: row; }
+            /* Compare screen: student plan and model plan side by side */
+            .compare-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+            /* Draw-screen type chips get more room */
+            .tf-grid { grid-template-columns: repeat(6, 1fr); }
         }
     </style>
 </head>
@@ -2041,6 +2064,7 @@
         const learnedAll = chapterSeen.every((s, i) => CHAPTERS[i] && s >= CHAPTERS[i].steps.length);
         const board = el('visualDisplayBoard');
         board.innerHTML = `
+            <div class="home-doors-grid">
             <div class="home-door door-learn" onclick="renderChapterMap()">
                 <div class="hd-top">
                     <span class="hd-ico">${ico('layers')}</span>
@@ -2056,6 +2080,7 @@
                 </div>
                 <p>Draw a fresh exam question - any of the five types, or bring your own - plan it, get feedback, compare with a model, then turn it into writing. ${learnedAll ? 'You know the method - go.' : 'Best after finishing the chapters.'}</p>
                 <span class="hd-cta">Practise now</span>
+            </div>
             </div>`;
         playEntrance(board);
 
@@ -2613,15 +2638,17 @@ Reply with ONLY a valid JSON object - no markdown, no code fences. Keys:
         const board = el('visualDisplayBoard');
         board.innerHTML = `
             <div class="attempt-strip"><span class="attempt-chip">This plan: <b>${usedStr}</b> · ${countChecks()}/5 checklist${peekedThisAttempt ? ' · peeked' : ''}${coachedThisAttempt ? ' · coached' : ''}</span></div>
-            <span class="compare-label">Your plan</span>
-            <div class="note-pad" style="transform:none;"><div class="note-line" style="font-size:1.35rem; white-space:pre-wrap;">${studentPlanNotes.replace(/</g, '&lt;')}</div></div>
-            <span class="compare-label">A model plan for the same question</span>
+            <div class="compare-cols">
+            <div><span class="compare-label">Your plan</span>
+            <div class="note-pad" style="transform:none;"><div class="note-line" style="font-size:1.35rem; white-space:pre-wrap;">${studentPlanNotes.replace(/</g, '&lt;')}</div></div></div>
+            <div><span class="compare-label">A model plan for the same question</span>
             <div class="model-plan-card">
                 <span class="note-tag">${ico('target')} Boundary</span><div class="note-line">${p.model.boundary}</div>
                 <span class="note-tag">${ico('layers')} Paragraph 1</span><div class="note-line">${p.model.p1}</div>
                 <span class="note-tag">${ico('layers')} Paragraph 2</span><div class="note-line">${p.model.p2}</div>
                 <span class="note-tag">${ico('compass')} Thesis</span><div class="note-line">${p.model.thesis}</div>
                 <span class="note-tag">${ico('check')} Conclusion</span><div class="note-line">${p.model.concl}</div>
+            </div></div>
             </div>`;
         playEntrance(board);
         fireConfetti(14);
