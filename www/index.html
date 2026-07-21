@@ -58,6 +58,13 @@
 
         .grain-overlay { position: fixed; inset: 0; z-index: 5; pointer-events: none; opacity: 0.045; mix-blend-mode: multiply; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"); }
 
+        /* On phones the card fills the whole screen — no border around it. */
+        @media (max-width: 520px) {
+            body { padding: 0; }
+            .app-container { padding: 0; max-width: none; }
+            .workspace-card { border-radius: 0; min-height: 100vh; min-height: 100dvh; padding-top: env(safe-area-inset-top); padding-bottom: calc(32px + env(safe-area-inset-bottom)); box-shadow: none; }
+        }
+
         .app-container { width: 100%; max-width: 470px; margin: 0 auto; padding: 0 16px; flex-grow: 1; display: flex; flex-direction: column; }
 
         .workspace-card {
@@ -302,9 +309,10 @@
         .ts-dots i.on { background: var(--brand-orange); transform: scale(1.35); }
 
         /* ---------- Type filter chips (draw screen) ---------- */
-        .tf-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+        .tf-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .tf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px; }
         .tf-label { font-family: var(--font-display); font-size: 0.64rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-right: 2px; }
-        .tf-chip { font-family: var(--font-display); font-size: 0.74rem; font-weight: 700; padding: 6px 12px; border-radius: 999px; border: 1.5px solid var(--line-strong); background: #fff; color: var(--text-secondary); cursor: pointer; transition: all 0.2s var(--glide); }
+        .tf-chip { font-family: var(--font-display); font-size: 0.74rem; font-weight: 700; padding: 8px 4px; text-align: center; border-radius: 999px; border: 1.5px solid var(--line-strong); background: #fff; color: var(--text-secondary); cursor: pointer; transition: all 0.2s var(--glide); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .tf-chip:hover { border-color: var(--brand-orange); color: var(--brand-orange-deep); }
         .tf-chip.sel { background: var(--brand-orange); border-color: var(--brand-orange); color: #fff; box-shadow: 0 6px 16px -8px rgba(240,146,59,0.7); }
 
@@ -368,7 +376,15 @@
         .draw-card { background: #ffffff; border: 1px solid var(--line); border-radius: 16px; padding: 24px; text-align: left; margin-bottom: 12px; box-shadow: 0 8px 24px -14px rgba(23,21,18,0.12); animation: zoomFocus 0.7s var(--glide) both; }
         .draw-card .topic-tag { font-family: var(--font-display); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.13em; color: var(--brand-orange-deep); display: block; margin-bottom: 10px; }
         .draw-card p { margin: 0; font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text-main); line-height: 1.6; }
-        .redraw-btn { font-family: var(--font-display); background: transparent; border: 1px solid var(--line-strong); color: var(--text-secondary); font-size: 0.82rem; font-weight: 700; padding: 12px 18px; border-radius: 12px; cursor: pointer; transition: all 0.2s var(--spring); width: 100%; margin-bottom: 8px; }
+        .redraw-btn { font-family: var(--font-display); background: transparent; border: 1px solid var(--line-strong); color: var(--text-secondary); font-size: 0.82rem; font-weight: 700; padding: 12px 10px; border-radius: 12px; cursor: pointer; transition: all 0.2s var(--spring); width: 100%; margin-bottom: 8px; }
+        .redraw-row { display: flex; gap: 8px; }
+
+        /* ---------- Relaxed / exam mode toggle ---------- */
+        .mode-row { display: flex; gap: 8px; margin: 14px 0 4px 0; }
+        .mode-chip { flex: 1; font-family: var(--font-display); font-size: 0.78rem; font-weight: 700; padding: 12px 8px; border-radius: 12px; border: 1.5px solid var(--line-strong); background: #fff; color: var(--text-secondary); cursor: pointer; transition: all 0.2s var(--glide); text-align: center; }
+        .mode-chip .mc-sub { display: block; font-size: 0.62rem; font-weight: 600; color: var(--text-muted); margin-top: 3px; text-transform: none; }
+        .mode-chip.sel { background: var(--brand-orange-wash); border-color: var(--brand-orange); color: var(--brand-orange-deep); }
+        .mode-chip.sel .mc-sub { color: var(--brand-orange-deep); }
         .redraw-btn:hover { border-color: var(--brand-orange); color: var(--brand-orange-deep); }
 
         .attempt-strip { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
@@ -955,6 +971,15 @@
         renderProgress();
     };
 
+    /* ---------- Practice mode: relaxed (no clock) or exam (real timings) ---------- */
+    let practiceMode = 'relaxed';
+    try { practiceMode = localStorage.getItem('examacademy_pmode') || 'relaxed'; } catch (e) {}
+    window.setPracticeMode = function (m) {
+        practiceMode = m;
+        try { localStorage.setItem('examacademy_pmode', m); } catch (e) {}
+        renderDrawScreen();
+    };
+
     /* ---------- Timer (practise only) ---------- */
     function startTimer() {
         if (timerHandle) return;
@@ -962,7 +987,8 @@
         timerHandle = setInterval(() => {
             remainingSeconds = Math.max(0, remainingSeconds - 1);
             renderClock();
-            if (remainingSeconds === 0) clearInterval(timerHandle);
+            if (remainingSeconds === 180 && pState === 'write') showToast('3 minutes left — stop writing, start checking');
+            if (remainingSeconds === 0) { clearInterval(timerHandle); showToast("Time's up"); }
         }, 1000);
     }
     function pauseTimer() { if (timerHandle) { clearInterval(timerHandle); timerHandle = null; } }
@@ -2050,26 +2076,33 @@
             `<button class="tf-chip ${typeFilter === t ? 'sel' : ''}" onclick="setTypeFilter('${t.replace(/'/g, "\\'")}')">${tfShort[t] || t}</button>`).join('');
         board.innerHTML = `
             ${attemptStrip()}
-            <div class="tf-row"><span class="tf-label">Question type</span>${tfChips}<button class="peek-btn" onclick="toggleTypeRef()" style="margin-left:auto;">${ico('cards')} The five types</button></div>
+            <div class="tf-head"><span class="tf-label">Question type</span><button class="peek-btn" onclick="toggleTypeRef()">${ico('cards')} The five types</button></div>
+            <div class="tf-grid">${tfChips}</div>
             <div id="typeRefPanel" style="display:none;"></div>
             <div class="draw-card">
                 <span class="topic-tag">${currentPrompt.custom ? ico('pen') + ' ' : ''}${currentPrompt.topic}<span class="type-chip">${currentPrompt.qtype}</span></span>
                 <p>${currentPrompt.prompt}</p>
             </div>
             <button class="redraw-btn" onclick="redraw()">${ico('dice')} Draw a different question</button>
-            <button class="redraw-btn" onclick="openCustomEntry()">${ico('pen')} Or paste your own question</button>
-            <button class="redraw-btn" onclick="generatePersonalPrompt()">${ico('aim')} A question aimed at my weak spot</button>
+            <div class="redraw-row">
+                <button class="redraw-btn" onclick="openCustomEntry()">${ico('pen')} Your own question</button>
+                <button class="redraw-btn" onclick="generatePersonalPrompt()">${ico('aim')} Target my weak spot</button>
+            </div>
             <div id="personalPromptPanel"></div>
+            <div class="mode-row">
+                <button class="mode-chip ${practiceMode === 'relaxed' ? 'sel' : ''}" onclick="setPracticeMode('relaxed')">Relaxed<span class="mc-sub">No clock — take your time</span></button>
+                <button class="mode-chip ${practiceMode === 'exam' ? 'sel' : ''}" onclick="setPracticeMode('exam')">Exam clock<span class="mc-sub">Plan 7 min · write 27 + 3</span></button>
+            </div>
             <div class="timer-hero" style="padding:8px 0 0 0;">
-                <div class="big-clock" style="font-size:3rem;">7:00</div>
-                <div class="clock-sub" style="margin-top:8px; font-size:0.88rem;">Short notes only — no full sentences. The clock starts when you press the button.</div>
+                <div class="big-clock" style="font-size:3rem;">${practiceMode === 'exam' ? '7:00' : '–:–'}</div>
+                <div class="clock-sub" style="margin-top:8px; font-size:0.88rem;">${practiceMode === 'exam' ? 'Short notes only — no full sentences. The clock starts when you press the button.' : 'Short notes only — no full sentences. No clock in relaxed mode — learn the moves at your own pace.'}</div>
             </div>`;
         playEntrance(board);
 
         const btn = el('masterContinueActionBtn');
         btn.removeAttribute('disabled');
         const needsPrimer = currentPrompt.qtype !== 'Discussion' && !typesPrimed.includes(currentPrompt.qtype);
-        btn.innerText = needsPrimer ? '▶ New type — 60-second guide first' : '▶ Start the 7-minute clock';
+        btn.innerText = needsPrimer ? '▶ New type — 60-second guide first' : (practiceMode === 'exam' ? '▶ Start the 7-minute clock' : '▶ Start planning');
         btn.onclick = () => { needsPrimer ? renderTypePrimer() : renderPlanScreen(false); };
     }
     window.redraw = function () {
@@ -2325,14 +2358,16 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
     function renderPlanScreen(resuming) {
         pState = 'plan';
         const p = currentPrompt;
-        setClockVisible(true);
+        setClockVisible(practiceMode === 'exam');
         renderClock();
-        startTimer();
+        if (practiceMode === 'exam') startTimer();
         el('globalPromptBoxNode').style.display = 'none';
         el('headerWatermark').innerHTML = ico('pen');
         el('appStepBadge').innerText = 'Practise · Plan ' + (attempts.length + 1);
         el('appStepTitle').innerText = resuming ? 'Back to your plan' : 'Build your plan';
-        el('appStepSubtitle').innerText = 'Seven minutes. Notes only — turn the question into the five-line plan below.';
+        el('appStepSubtitle').innerText = practiceMode === 'exam'
+            ? 'Seven minutes. Notes only — turn the question into the five-line plan below.'
+            : 'No clock — take your time. Notes only: turn the question into the five-line plan below.';
         restartAnimation(el('stageHeaderBlock'));
 
         const board = el('visualDisplayBoard');
@@ -2510,9 +2545,10 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         setClockVisible(false);
         const p = currentPrompt;
         const used = 420 - remainingSeconds;
-        const usedStr = Math.floor(used / 60) + ':' + String(used % 60).padStart(2, '0');
+        const timed = practiceMode === 'exam' && timerStarted;
+        const usedStr = timed ? Math.floor(used / 60) + ':' + String(used % 60).padStart(2, '0') : 'untimed';
 
-        attempts.push({ time: usedStr, secs: used, checks: countChecks(), detail: checksDetail(), peeked: peekedThisAttempt, coached: coachedThisAttempt, id: p.id, qtype: p.qtype });
+        attempts.push({ time: usedStr, secs: timed ? used : null, checks: countChecks(), detail: checksDetail(), peeked: peekedThisAttempt, coached: coachedThisAttempt, id: p.id, qtype: p.qtype });
         if (!p.custom && !usedPromptIds.includes(p.id)) usedPromptIds.push(p.id);
         saveProgress();
 
@@ -2550,13 +2586,25 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
     let studentIntroText = '';
     function renderWriteScreen() {
         pState = 'write';
-        setClockVisible(false);
         const p = currentPrompt;
+        if (practiceMode === 'exam') {
+            pauseTimer();
+            timerHandle = null;
+            timerStarted = false;
+            remainingSeconds = 1800;   // 27 minutes to write + 3 to check
+            setClockVisible(true);
+            renderClock();
+            startTimer();
+        } else {
+            setClockVisible(false);
+        }
         el('globalPromptBoxNode').style.display = 'none';
         el('headerWatermark').innerHTML = ico('pen');
         el('appStepBadge').innerText = 'Practise · Write';
         el('appStepTitle').innerText = 'Turn the plan into writing';
-        el('appStepSubtitle').innerText = 'The introduction is just two sentences — the question in your own words, then your position. Both are already in your plan.';
+        el('appStepSubtitle').innerText = practiceMode === 'exam'
+            ? 'Exam timing: 27 minutes to write, then 3 to check. Start with the introduction — two sentences, both already in your plan.'
+            : 'The introduction is just two sentences — the question in your own words, then your position. Both are already in your plan.';
         restartAnimation(el('stageHeaderBlock'));
 
         const board = el('visualDisplayBoard');
@@ -2821,7 +2869,8 @@ Be direct and specific, referencing their actual notes. No numeric band scores.`
         if (!w) return;
         const open = w.style.display !== 'none';
         w.style.display = open ? 'none' : 'block';
-        if (!open) { pauseTimer(); const ei = el('essayInput'); if (ei) ei.focus(); }
+        // Note: the exam clock keeps running while the essay box is open — writing IS the timed part.
+        if (!open) { const ei = el('essayInput'); if (ei) ei.focus(); }
     };
     window.handleEssayInput = function () {
         const ei = el('essayInput');
