@@ -1386,7 +1386,7 @@
                         html: `<div class="laser-prompt-frame">In many countries, ${dTok('young people', true)} are leaving ${dTok('rural areas', false, "That's where they leave from — part of the situation, not the limit on who.")} to work in ${dTok('cities', false, "That's the destination — not who the essay is about.")}. Discuss the advantages and disadvantages.</div>` },
                       { instruction: "3 of 3 — Boundaries can limit WHAT, not only who",
                         html: `<div class="laser-prompt-frame">Some believe ${dTok('governments', false, "An actor arguing one side — look for what KIND of thing is being limited.")} should ban ${dTok('dangerous sports', true)}, while others think people should have the ${dTok('freedom', false, "That's the other side's value — a position word.")} to choose.</div>` }
-                  ], 'you can decode any prompt');
+                  ], 'you can decode any question');
               } },
             { title: "Create: decode your own", sub: "Your turn to write it — the AI checks you found the limit, not the decoy.", wm: "02",
               render(b, btn) {
@@ -1626,7 +1626,7 @@
               render(b, btn) {
                   createStep(b, btn, {
                       tag: 'Your task',
-                      task: `Write the <b>thesis note</b> for this prompt — one short line, note form. It must name <b>both sides</b> and show <b>your stance</b>. Pattern: <i>Thesis: while X…, Y = …</i>`,
+                      task: `Write the <b>thesis note</b> for this question — one short line, notes only. It must name <b>both sides</b> and show <b>where you stand</b>. Pattern: <i>Thesis: while X…, Y = …</i>`,
                       placeholder: 'Thesis: while ...',
                       noun: 'thesis note',
                       rubric: `The student is practising IELTS Task 2 planning. Prompt: "Some think children should learn a musical instrument at school; others see it as a waste of time. Discuss both views and give your opinion." They wrote a thesis NOTE (note form is expected and correct). Check two things only: (1) both sides named (music learning AND the waste-of-time view), (2) a clear personal stance. A contrast word like "while" usually signals it. ${MICRO_RUBRIC_BASE}`,
@@ -1637,7 +1637,7 @@
               render(b, btn) {
                   createStep(b, btn, {
                       tag: 'Write the conclusion note',
-                      task: `Essay: "<b>Should governments make cycling safer to reduce car use?</b>" — your stance is <b>yes</b>, and your strongest reason was <i>safe lanes make people switch from cars</i>. Write the <b>conclusion note</b>: restate the stance + echo that reason. Note form, and <b>no new ideas</b>.`,
+                      task: `Essay: "<b>Should governments make cycling safer to reduce car use?</b>" — your stance is <b>yes</b>, and your strongest reason was <i>safe lanes make people switch from cars</i>. Write the <b>conclusion note</b>: say your stance again + repeat that reason. Short notes, and <b>no new ideas</b>.`,
                       placeholder: 'Concl: ...',
                       noun: 'conclusion note',
                       minWords: 3,
@@ -1916,7 +1916,7 @@
 
         const btn = el('masterContinueActionBtn');
         btn.removeAttribute('disabled');
-        btn.innerText = attempts.length ? '▶ Plan another prompt' : '▶ Make your first plan';
+        btn.innerText = attempts.length ? '▶ Plan another question' : '▶ Make your first plan';
         btn.onclick = enterPractise;
     };
 
@@ -1965,7 +1965,7 @@
         el('headerWatermark').innerText = '§';
         el('appStepBadge').innerText = 'IELTS Task 2 Writing';
         el('appStepTitle').innerText = 'The 7-Minute Planner';
-        el('appStepSubtitle').innerText = 'Half your writing mark is decided before you write a sentence. Learn the 7-minute planning method once — then practise it on real prompts, as often as you like.';
+        el('appStepSubtitle').innerText = 'Half your writing mark is decided before you write a sentence. Learn the 7-minute planning method once — then practise it on real exam questions, as often as you like.';
         restartAnimation(el('stageHeaderBlock'));
 
         const learnedAll = chapterSeen.every((s, i) => CHAPTERS[i] && s >= CHAPTERS[i].steps.length);
@@ -1980,7 +1980,7 @@
             <div class="home-door" onclick="enterPractise()">
                 <span class="door-kicker">Step 2 · repeat forever</span>
                 <h4>Practise planning</h4>
-                <p>Draw a fresh prompt — any of the five question types, or bring your own — plan it in 7 minutes, get examiner-style AI feedback, then compare with a model plan. ${learnedAll ? 'You know the method — go.' : 'Best after finishing the chapters.'}</p>
+                <p>Draw a fresh exam question — any of the five types, or bring your own — plan it in 7 minutes, get feedback, compare with a model plan, then turn it into writing. ${learnedAll ? 'You know the method — go.' : 'Best after finishing the chapters.'}</p>
                 <span class="door-arrow">→</span>
             </div>`;
         playEntrance(board);
@@ -2038,7 +2038,7 @@
         el('globalPromptBoxNode').style.display = 'none';
         el('headerWatermark').innerText = '▶';
         el('appStepBadge').innerText = 'Practise · Plan ' + (attempts.length + 1);
-        el('appStepTitle').innerText = currentPrompt.custom ? 'Your question is ready' : 'Draw a prompt';
+        el('appStepTitle').innerText = currentPrompt.custom ? 'Your question is ready' : 'Draw a question';
         el('appStepSubtitle').innerText = currentPrompt.custom
             ? 'The AI has decoded it — type identified, checklist built, model plan waiting for the compare step. 7 minutes on the clock once you start.'
             : 'A fresh question each time — like the real exam. You get 7 minutes on the clock once you start.';
@@ -2062,7 +2062,7 @@
             <div id="personalPromptPanel"></div>
             <div class="timer-hero" style="padding:8px 0 0 0;">
                 <div class="big-clock" style="font-size:3rem;">7:00</div>
-                <div class="clock-sub" style="margin-top:8px; font-size:0.88rem;">Note form only — the clock starts when you press the button.</div>
+                <div class="clock-sub" style="margin-top:8px; font-size:0.88rem;">Short notes only — no full sentences. The clock starts when you press the button.</div>
             </div>`;
         playEntrance(board);
 
@@ -2528,7 +2528,7 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
             <div class="attempt-strip"><span class="attempt-chip">This plan: <b>${usedStr}</b> · ${countChecks()}/5 checklist${peekedThisAttempt ? ' · peeked' : ''}${coachedThisAttempt ? ' · coached' : ''}</span></div>
             <span class="compare-label">Your plan</span>
             <div class="note-pad" style="transform:none;"><div class="note-line" style="font-size:1.35rem; white-space:pre-wrap;">${studentPlanNotes.replace(/</g, '&lt;')}</div></div>
-            <span class="compare-label">A model plan for this prompt</span>
+            <span class="compare-label">A model plan for the same question</span>
             <div class="model-plan-card">
                 <span class="note-tag">${ico('target')} Boundary</span><div class="note-line">${p.model.boundary}</div>
                 <span class="note-tag">${ico('layers')} Paragraph 1</span><div class="note-line">${p.model.p1}</div>
@@ -2591,7 +2591,7 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
 
         const btn = el('masterContinueActionBtn');
         btn.removeAttribute('disabled');
-        btn.innerText = '▶ Plan another prompt';
+        btn.innerText = '▶ Plan another question';
         btn.onclick = () => { renderDrawScreen(); };
     }
     window.handleIntroInput = function () {
@@ -2848,7 +2848,7 @@ Mark against the four official criteria. Reply in plain text, no markdown, in ex
 Overall estimate: band X.X
 Task Response X.X — one sentence, quoting their words where useful.
 Coherence & Cohesion X.X — one sentence.
-Lexical Resource X.X — one sentence.
+Vocabulary X.X — one sentence.
 Grammar X.X — one sentence.
 Fix first: the ONE change that would raise the band most, in 1-2 sentences.
 Well done: one sentence naming something specific they did well.

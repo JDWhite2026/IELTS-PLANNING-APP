@@ -28,6 +28,11 @@ const app = express();
 app.use(cors()); // You can restrict this to your app's domain later
 app.use(express.json({ limit: '1mb' }));
 
+// Serve the app itself, so students can use it in a browser at this
+// same URL — no install needed. (../www is the Capacitor web folder.)
+const path = require('path');
+app.use(express.static(path.join(__dirname, '..', 'www')));
+
 const API_KEY = process.env.GEMINI_API_KEY;
 const APP_SECRET = process.env.APP_SECRET || '';
 
