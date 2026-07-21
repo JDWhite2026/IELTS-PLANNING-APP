@@ -1280,7 +1280,7 @@
         { name: 'Discussion', cue: '"Discuss both views and give your opinion"', p1: 'View A', p2: 'View B', note: 'P1: view A / P2: view B - your stance in the thesis and carried by one paragraph.', body: 'Exactly what you have learned. Both views get the full three layers; your opinion appears in the thesis, one body paragraph, and the conclusion.' },
         { name: 'Opinion', cue: '"To what extent do you agree or disagree?"', p1: 'Reason 1 (or other view)', p2: 'Reason 2 (your strongest)', note: 'P1: reason 1 / P2: reason 2 - or accept the other view first, then argue yours.', body: 'State your position in the thesis, then give two developed reasons - or one paragraph accepting the other view and one arguing yours. Your position must be completely clear from the introduction.' },
         { name: 'Advantages & Disadvantages', cue: '"Do the advantages outweigh the disadvantages?"', p1: 'Advantages', p2: 'Disadvantages', note: 'P1: advantages / P2: disadvantages - thesis gives your decision: do the advantages win?', body: 'The word "outweigh" asks for a decision, not just a list. Your thesis announces which side is heavier, and your conclusion confirms it.' },
-        { name: 'Double Question', cue: 'Two direct questions in one prompt', p1: 'Answer to Q1', p2: 'Answer to Q2', note: 'P1: answer Q1 / P2: answer Q2 - miss one question and Task Response is capped.', body: 'Each question gets its own paragraph with the full three layers. Answering only one question is the most expensive mistake on this type - "addresses all parts" is band 7 wording.' },
+        { name: 'Double Question', cue: 'Two direct questions in one prompt', p1: 'Answer to Q1', p2: 'Answer to Q2', note: 'P1: answer Q1 / P2: answer Q2 - miss one question and your Task Response mark can\'t go high.', body: 'Each question gets its own paragraph with the full three layers. Answering only one question is the most costly mistake on this type - "addresses all parts" is band 7 wording.' },
         { name: 'Problem & Solution', cue: '"What problems… what solutions…?"', p1: 'Problems', p2: 'Solutions', note: 'P1: problems / P2: solutions - link each solution to a named problem.', body: 'Paragraph 1 develops the problems, paragraph 2 the solutions. The band 7 trick: every solution should point back at a specific problem you named - that link IS the coherence.' }
     ];
     let mode = 'home';                 // 'home' | 'learn' | 'practise'
@@ -1804,19 +1804,19 @@
         { steps: [
             { title: "One word decides who the essay is about", sub: "Find it before you think of any ideas.", wm: "02", showPrompt: true,
               render(b, btn) { focusReveal(b, btn, [
-                  stmt('The principle', `Every question contains one word that decides <b>who</b> - or <b>what</b> - the essay is about. Find it first. It is the fence around everything you write.`),
+                  stmt('The principle', `Every question has one word that decides <b>who</b> - or <b>what</b> - the essay is about. Find it first: everything you write has to stay about this one thing.`),
                   expander(`What it costs if you miss it`,
                       stmt('Off-topic, however well written', `Write about schools when the question says <b>universities</b>, and those ideas are marked off-topic - the examiner cannot reward them, no matter how good the English is.`))
               ]); } },
-            { title: "Watch the question give itself away", sub: "One word sets the limit. Another one pretends to.", wm: "02",
+            { title: "Watch the question give itself away", sub: "One word tells you what the essay is about. Another pretends to.", wm: "02",
               render(b, btn) {
                   const sc = p.scope;
                   b.innerHTML = `
                       <div class="laser-prompt-frame" style="font-size:1.16rem; line-height:1.95;">${sc.before}<span class="text-word-token tok-anim-boundary">${sc.correctToken}</span>${sc.mid}<span class="text-word-token tok-anim-decoy">${sc.wrongToken}</span>${sc.after}</div>
                       <div class="crit-legend" style="margin-top:2px; animation: zoomFocus 0.6s var(--glide) 3.4s both;"><span class="cl-plan"><i style="display:inline-block;width:9px;height:9px;background:var(--brand-orange);border-radius:2px;margin-right:4px;"></i>boundary - who it's about</span><span class="cl-lang"><i style="display:inline-block;width:9px;height:9px;background:var(--brand-black);border-radius:2px;margin-right:4px;"></i>decoy - one side of the argument</span></div>
-                      <div style="animation: zoomFocus 0.7s var(--glide) 4s both;">${stmt('Look at the two words', `<b>${sc.correctToken}</b> answers <i>"who is this essay about?"</i> - that's the boundary, the fence around everything you write. <b>${sc.wrongToken}</b> answers <i>"which side?"</i> - it's one team in the argument, not the fence. Ideas outside the fence don't count, however well written.`)}</div>
+                      <div style="animation: zoomFocus 0.7s var(--glide) 4s both;">${stmt('Look at the two words', `<b>${sc.correctToken}</b> answers <i>"who is this essay about?"</i> - that's the boundary. <b>${sc.wrongToken}</b> answers <i>"which side?"</i> - it's one team in the argument, not the topic. Any idea that isn't about <b>${sc.correctToken}</b> won't count, however well written.`)}</div>
                       <div style="animation: zoomFocus 0.7s var(--glide) 4.5s both;">${expander(`Why "${sc.wrongToken}" fools people`,
-                          stmt('It looks important', `It's one of the two things being compared - you'll write a whole paragraph about it later. But a paragraph topic is not a limit. The boundary tells you <b>whose essay this is</b>; the decoy just tells you one side of the debate.`))}</div>`;
+                          stmt('It looks important', `It's one of the two things being compared - you'll write a whole paragraph about it later. But that's just one paragraph's topic, not what the <b>whole</b> essay is about. The boundary tells you what the essay is about; the decoy is only one side of the debate.`))}</div>`;
                   pauseBtn(btn, 4600);
               } },
             { title: "Your turn", sub: "You've just seen the answer - now find it yourself. It sticks better that way.", wm: "02", showPrompt: false,
@@ -1825,24 +1825,24 @@
                   const sc = p.scope;
                   b.innerHTML = `
                       <div class="tap-instruction">Tap the boundary - who is this essay about?</div>
-                      <div class="laser-prompt-frame" style="font-size:1.1rem;">${sc.before}<span class="text-word-token tap-token" onclick="tapAnswer(this, true)">${sc.correctToken}</span>${sc.mid}<span class="text-word-token tap-token" data-hint="That's the decoy - one side of the argument, not the limit." onclick="tapAnswer(this, false)">${sc.wrongToken}</span>${sc.after}</div>`;
+                      <div class="laser-prompt-frame" style="font-size:1.1rem;">${sc.before}<span class="text-word-token tap-token" onclick="tapAnswer(this, true)">${sc.correctToken}</span>${sc.mid}<span class="text-word-token tap-token" data-hint="That's the decoy - one side of the argument, not what the essay is about." onclick="tapAnswer(this, false)">${sc.wrongToken}</span>${sc.after}</div>`;
               } },
             { title: "Drill: three real questions", sub: "Find the boundary in each - exam-style prompts, no help.", wm: "02",
               render(b, btn) {
                   drillStep(b, btn, [
                       { instruction: "1 of 3 - Tap the boundary word",
-                        html: `<div class="laser-prompt-frame">Some people think ${dTok('parents', false, "Parents are one side's actor - a position, not the limit.")} should teach ${dTok('children', true)} how to be good members of society, while others believe ${dTok('school', false, "School is the other side's actor - a position.")} is the place to learn this.</div>` },
+                        html: `<div class="laser-prompt-frame">Some people think ${dTok('parents', false, "Parents are one side of the argument - a position, not the topic.")} should teach ${dTok('children', true)} how to be good members of society, while others believe ${dTok('school', false, "School is the other side of the argument - a position.")} is the place to learn this.</div>` },
                       { instruction: "2 of 3 - Tap the boundary word",
-                        html: `<div class="laser-prompt-frame">In many countries, ${dTok('young people', true)} are leaving ${dTok('rural areas', false, "That's where they leave from - part of the situation, not the limit on who.")} to work in ${dTok('cities', false, "That's the destination - not who the essay is about.")}. Discuss the advantages and disadvantages.</div>` },
-                      { instruction: "3 of 3 - Boundaries can limit WHAT, not only who",
-                        html: `<div class="laser-prompt-frame">Some believe ${dTok('governments', false, "An actor arguing one side - look for what KIND of thing is being limited.")} should ban ${dTok('dangerous sports', true)}, while others think people should have the ${dTok('freedom', false, "That's the other side's value - a position word.")} to choose.</div>` }
+                        html: `<div class="laser-prompt-frame">In many countries, ${dTok('young people', true)} are leaving ${dTok('rural areas', false, "That's where they leave from - part of the situation, not who the essay is about.")} to work in ${dTok('cities', false, "That's the destination - not who the essay is about.")}. Discuss the advantages and disadvantages.</div>` },
+                      { instruction: "3 of 3 - The boundary can be a WHAT, not only a who",
+                        html: `<div class="laser-prompt-frame">Some believe ${dTok('governments', false, "One side of the argument - look for what the essay is actually about.")} should ban ${dTok('dangerous sports', true)}, while others think people should have the ${dTok('freedom', false, "That's the other side's value - a position word.")} to choose.</div>` }
                   ], 'you can decode any question');
               } },
-            { title: "Create: decode your own", sub: "Your turn to write it - the AI checks you found the limit, not the decoy.", wm: "02",
+            { title: "Create: decode your own", sub: "Your turn to write it - the AI checks you found the boundary, not the decoy.", wm: "02",
               render(b, btn) {
                   createStep(b, btn, {
                       tag: 'Decode this question',
-                      task: `"<b>In many countries people now live far longer than before. Do the problems of an ageing population outweigh the benefits?</b>" - Write the <b>Boundary</b> line: the words that limit who or what this essay is about. Watch for the decoy.`,
+                      task: `"<b>In many countries people now live far longer than before. Do the problems of an ageing population outweigh the benefits?</b>" - Write the <b>Boundary</b> line: the words that tell you who or what this essay is about. Watch for the decoy.`,
                       placeholder: 'Boundary: ...',
                       noun: 'boundary',
                       minWords: 2,
@@ -2893,7 +2893,7 @@ Reply with ONLY a valid JSON object - no markdown, no code fences. Keys:
             </div>
             <span class="plan-label">Your notes <span class="pl-hint">- short phrases, arrows and abbreviations are perfect</span></span>
             <div class="plan-scaffold">
-                <div class="ps-row"><span class="ps-label">1 · Boundary <span class="ps-hint">who or what is the essay about?</span></span><textarea class="ps-input" id="ps_boundary" rows="1" placeholder="the word(s) that limit the topic..."></textarea></div>
+                <div class="ps-row"><span class="ps-label">1 · Boundary <span class="ps-hint">who or what is the essay about?</span></span><textarea class="ps-input" id="ps_boundary" rows="1" placeholder="who or what the essay is about..."></textarea></div>
                 <div class="ps-row"><span class="ps-label">2 · Paragraph 1 - ${p.pillarA.label} <span class="ps-hint">idea / reason / example</span></span><textarea class="ps-input" id="ps_p1" rows="2" placeholder="idea → because... → e.g. ..."></textarea></div>
                 <div class="ps-row"><span class="ps-label">3 · Paragraph 2 - ${p.pillarB.label} <span class="ps-hint">idea / reason / example</span></span><textarea class="ps-input" id="ps_p2" rows="2" placeholder="idea → because... → e.g. ..."></textarea></div>
                 <div class="ps-row"><span class="ps-label">4 · Your position <span class="ps-hint">both sides + where you stand</span></span><textarea class="ps-input" id="ps_thesis" rows="1" placeholder="while ..., I think ..."></textarea></div>
@@ -3016,7 +3016,7 @@ Reply with ONLY a valid JSON object - no markdown, no code fences. Keys:
     /* ---------- Peek drawer: per-stage reference with expandable detail ---------- */
     const PEEK_SECTIONS = [
         { icon: 'target', name: 'Decode', note: 'Boundary: ____', ch: 1,
-          body: `Find the word that limits <b>who</b> or <b>what</b> the essay covers - before thinking of any ideas. Beware the decoy: a <b>position</b> answers "which side?", the boundary answers "who is this about?".` },
+          body: `Find the word that tells you <b>who</b> or <b>what</b> the essay is about - before thinking of any ideas. Watch out for the decoy: a <b>position</b> answers "which side?", the boundary answers "who is this about?".` },
         { icon: 'reason', name: 'Loop Test', note: '(guards every reason)', ch: 2,
           body: `Every reason must add a <b>new cause, result, or fact</b> the claim didn't already contain. Same idea in new words = loop = no development marks. Caught one? Cross it out and ask <i>why</i> again.` },
         { icon: 'layers', name: 'Build ×2', note: 'P1: idea / reason / eg', ch: 3,
