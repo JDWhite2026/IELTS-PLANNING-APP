@@ -411,6 +411,16 @@
         .skip-card .sk-title { font-family: var(--font-display); font-size: 0.9rem; font-weight: 800; line-height: 1.25; }
         .skip-card .sk-sub { font-size: 0.78rem; line-height: 1.45; margin-top: 2px; }
         .skip-card .sk-arrow { font-family: var(--font-serif); font-size: 1.3rem; flex-shrink: 0; }
+
+        /* ---------- Chapter objective (intro) screen ---------- */
+        .chapter-intro { animation: zoomFocus 0.6s var(--glide) both; }
+        .ci-kicker { font-family: var(--font-display); font-size: 0.64rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand-orange-deep); display: block; margin-bottom: 12px; }
+        .ci-goal { font-family: var(--font-serif); font-size: 1.28rem; font-weight: 700; line-height: 1.4; color: var(--text-main); letter-spacing: -0.01em; margin-bottom: 22px; }
+        .ci-label { font-family: var(--font-display); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); display: block; margin-bottom: 12px; }
+        .ci-list { list-style: none; margin: 0; padding: 0; }
+        .ci-list li { display: flex; align-items: flex-start; gap: 11px; padding: 11px 14px; background: #fff; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5; color: var(--text-main); animation: springIn 0.5s var(--spring) both; }
+        .ci-list li:nth-child(2) { animation-delay: 0.08s; } .ci-list li:nth-child(3) { animation-delay: 0.16s; }
+        .ci-list li .ico { color: var(--brand-orange); flex-shrink: 0; margin-top: 2px; font-size: 1rem; }
         /* Locked */
         .skip-card.locked { background: var(--paper-warm); border: 1px dashed var(--line-strong); }
         .skip-card.locked .sk-ico { background: #fff; border: 1px solid var(--line-strong); color: var(--text-muted); }
@@ -1330,7 +1340,7 @@
     }
 
     /* ---------- Persistence ---------- */
-    const PROG_KEY = 'examacademy_progress_v2';
+    const PROG_KEY = 'examacademy_progress_v3';
     function saveProgress() {
         try { localStorage.setItem(PROG_KEY, JSON.stringify({ ch: chapterSeen, at: attempts.slice(-50), up: usedPromptIds, tp: typesPrimed })); } catch (e) {}
     }
@@ -1637,7 +1647,7 @@
             <textarea class="mini-editor" id="createInput" placeholder="${cfg.placeholder}"></textarea>
             <button class="ai-feedback-btn" id="createCheckBtn" disabled onclick="runCreateCheck()">${ico('spark')} Check my ${cfg.noun}</button>
             <div class="help-bar" style="margin-top:10px;">
-                <button class="help-pill" onclick="runCreateHint()">${ico('chat')} Stuck? Get a hint - a question, not the answer</button>
+                <button class="help-pill" onclick="runCreateHint()">${ico('chat')} Need a hint?</button>
             </div>
             <div id="createPanel"></div>`;
         const minW = cfg.minWords || 4;
@@ -2141,6 +2151,39 @@
         { desc: 'Both sides, your stance, and the conclusion line', min: 4 },
         { desc: 'Turn the plan into an introduction', min: 4 }
     ];
+
+    /* Each chapter opens with a short "here's what and why" screen before the activities. */
+    const CH_INTRO = [
+        { goal: 'See why planning wins you marks - then meet the whole method once.',
+          points: ['Why half your score is decided before you write', 'What really keeps essays stuck at 6.5', 'The five-move plan, from start to finish'] },
+        { goal: 'Learn to spot the one word that fixes what your essay must be about.',
+          points: ['Find the "boundary" - who or what the essay is about', 'Dodge the "decoy" word that only looks important', 'Practise until you can decode any question fast'] },
+        { goal: 'Catch weak reasons that only repeat themselves in new words.',
+          points: ['Hear a "loop" - a reason going in a circle', 'Use one quick two-question test', 'Turn loops into reasons that add something real'] },
+        { goal: 'Build one strong body paragraph, three layers deep.',
+          points: ['Idea → reason → example, always in that order', 'Pull ideas out when your mind goes blank', 'We\'ll call your two body paragraphs P1 and P2 for short'] },
+        { goal: 'Make your opinion clear from the very first paragraph.',
+          points: ['Name both sides in one thesis line', 'Take a side the reader can\'t miss', 'Finish with a conclusion that adds nothing new'] },
+        { goal: 'Turn the finished plan into a real introduction.',
+          points: ['Two sentences: the question in your words, then your position', 'Paraphrase without copying the question', 'Then, when you\'re ready, get a whole essay marked'] }
+    ];
+    function makeIntroStep(i) {
+        const it = CH_INTRO[i] || { goal: '', points: [] };
+        return {
+            title: NAV[i].name.replace(/\?$/, ''), sub: it.goal, wm: NAV[i].num, isIntro: true,
+            render(b, btn) {
+                b.innerHTML = `
+                    <div class="chapter-intro">
+                        <span class="ci-kicker">Chapter ${NAV[i].num} · about ${CH_META[i].min} min</span>
+                        <div class="ci-goal">${it.goal}</div>
+                        <span class="ci-label">By the end you'll be able to</span>
+                        <ul class="ci-list">${it.points.map(p => `<li>${ico('check')}<span>${p}</span></li>`).join('')}</ul>
+                    </div>`;
+                btn.removeAttribute('disabled');
+                btn.innerText = "Let's go ▸";
+            }
+        };
+    }
     function renderChapterMap() {
         if (mode === 'practise') pauseTimer();
         mode = 'learn';
@@ -2211,7 +2254,8 @@
             saveProgress();
             showToast(`${NAV[chIdx].num} ${NAV[chIdx].name} complete ✓`);
             fireConfetti(10);
-            if (chIdx < CHAPTERS.length - 1) renderChapterMap();
+            // Flow straight into the next chapter's objective screen, no detour to the contents.
+            if (chIdx < CHAPTERS.length - 1) jumpToChapter(chIdx + 1);
             else enterPractise();
         }
     }
@@ -2816,7 +2860,7 @@ Reply with ONLY a valid JSON object - no markdown, no code fences. Keys:
                 <span>Aim for 30–45</span>
             </div>
             <div class="help-bar">
-                <button class="help-pill" onclick="askCoach()">${ico('chat')} Stuck? Ask the coach for a hint</button>
+                <button class="help-pill" onclick="askCoach()">${ico('chat')} Need a hint?</button>
                 <button class="peek-btn" onclick="openPeek()">${ico('eye')} Peek at the method</button>
                 ${BACKEND_URL ? '' : '<button class="peek-btn" onclick="openAISetup()">' + ico('gear') + ' AI</button>'}
             </div>
@@ -3506,6 +3550,7 @@ STRICT RULES for every reply:
        BOOT
        ================================================================ */
     CHAPTERS = buildChapters();
+    CHAPTERS.forEach((c, i) => c.steps.unshift(makeIntroStep(i)));  // each chapter opens with its objective screen
     loadProgress();
     renderClock();
     renderSplash();
