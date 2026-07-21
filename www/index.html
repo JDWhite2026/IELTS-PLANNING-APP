@@ -860,7 +860,8 @@
         { num: '02', name: 'Decode' },
         { num: '03', name: 'Loop Test' },
         { num: '04', name: 'Paragraph' },
-        { num: '05', name: 'Thesis' }
+        { num: '05', name: 'Thesis' },
+        { num: '06', name: 'Write' }
     ];
 
     /* ---------- Question types (intro in ch 01, primers + picker in practise) ---------- */
@@ -873,7 +874,7 @@
     ];
     let mode = 'home';                 // 'home' | 'learn' | 'practise'
     let chIdx = 0, stIdx = 0;          // learn position
-    const chapterSeen = [0, 0, 0, 0, 0]; // furthest step seen per chapter
+    const chapterSeen = [0, 0, 0, 0, 0, 0]; // furthest step seen per chapter
     let CHAPTERS = [];
 
     // practise state
@@ -1647,11 +1648,62 @@
             { title: "The complete model — the method is yours", sub: "This is the entire product of seven minutes. ~45 words.", wm: "05",
               render(b, btn) {
                   b.innerHTML = modelCard(5, -1) + `
-                      <div class="focus-card" style="animation-delay:0.4s;"><span class="focus-tag">What happens next</span>
-                          <p>Practise runs the full loop: <b>draw a real question → plan it in 7 minutes → compare with a model → turn the plan into writing</b>. That last step is where it pays off — you'll write the introduction (and, when you're ready, a whole essay) and get it checked like an examiner would.</p>
+                      <div class="focus-card" style="animation-delay:0.4s;"><span class="focus-tag">One more chapter</span>
+                          <p>The plan is done — <b>06 · Write</b> shows how it becomes sentences on the page: the two-sentence introduction, and where marked writing fits in Practise.</p>
+                      </div>`;
+                  pauseBtn(btn, 700);
+              } }
+        ]},
+
+        /* ---------- 06 · WRITE ---------- */
+        { steps: [
+            { title: "The introduction is two sentences", sub: "Both are already in your plan.", wm: "06",
+              render(b, btn) { focusReveal(b, btn, [
+                  stmt('The recipe', `<b>Sentence 1</b> — the question, said again in your own words. <b>Sentence 2</b> — your thesis line, written out in full. That's the whole introduction. No examples, no statistics, nothing else.`),
+                  expander(`Why your own words matter`,
+                      quote('...uses a sufficient range of vocabulary to allow some flexibility and precision', 'Band 7 — Vocabulary (simplified wording)') +
+                      stmt('Copied words earn nothing', `Words copied from the question cannot show the examiner <b>your</b> vocabulary — they are skipped when your range is judged. Saying the question in new words is the first vocabulary evidence in the essay.`))
+              ]); } },
+            { title: "Same meaning, new words", sub: "Watch one question become an introduction.", wm: "06",
+              render(b, btn) { focusReveal(b, btn, [
+                  stmt('A question', `"Some people believe universities should focus on teaching <b>practical job skills</b>, while others think they should prioritise <b>pure theoretical research</b>. Discuss both views and give your opinion."`),
+                  `<div class="laser-prompt-frame" style="font-size:0.95rem;">These days, people disagree about whether universities should concentrate on <span class="hl-green">preparing students for work</span> or on <span class="hl-green">pure academic study</span>. <b>While research has its place, I believe job skills matter more.</b></div>`,
+                  stmt('What changed', `"Practical job skills" → <span class="hl-green">preparing students for work</span>. "Theoretical research" → <span class="hl-green">pure academic study</span>. New words, same meaning — then the thesis line from the plan, written out.`)
+              ]); } },
+            { title: "Drill: spot the real paraphrase", sub: "Two rounds. Only one rewrite actually uses new words.", wm: "06",
+              render(b, btn) {
+                  drillStep(b, btn, [
+                      { instruction: "1 of 2 — 'Governments should invest more in public transport.' Tap the real paraphrase.",
+                        html: dCard('Governments should invest more money in public transport systems.', false, "Almost every word is the question's — adding 'money' and 'systems' is not a paraphrase.", 0) +
+                              dCard('The state ought to put greater funding into buses and trains.', true, '', 0.12) },
+                      { instruction: "2 of 2 — 'Many people believe children spend too much time on screens.' Tap the real paraphrase.",
+                        html: dCard('It is often argued that young people are overly attached to their devices.', true, '', 0) +
+                              dCard('Many people believe children spend a lot of time on screens.', false, "One word swapped — the rest is still the question's sentence.", 0.12) }
+                  ], 'you can hear the difference now');
+              } },
+            { title: "Create: write an introduction", sub: "Two sentences — the AI checks the paraphrase and the thesis.", wm: "06",
+              render(b, btn) {
+                  createStep(b, btn, {
+                      tag: 'Your question',
+                      task: `"<b>Some people think all children should learn a musical instrument at school, while others see it as a waste of time. Discuss both views and give your opinion.</b>" — Write the <b>two-sentence introduction</b>: the question in your own words, then your position.`,
+                      placeholder: 'These days, ... . While ..., I believe ...',
+                      noun: 'introduction',
+                      minWords: 12,
+                      rubric: `The student is practising IELTS Task 2 writing. Question: "Some people think all children should learn a musical instrument at school, while others see it as a waste of time. Discuss both views and give your opinion." They wrote a two-sentence INTRODUCTION. Check three things: (1) sentence 1 paraphrases the question in their own words — copying 4+ words in a row from the question fails; (2) sentence 2 names both sides and shows a clear stance; (3) nothing extra — no examples or body ideas. ${MICRO_RUBRIC_BASE}`,
+                      selfCheck: `Check ①: did you re-say "learn a musical instrument at school" and "waste of time" in new words (e.g. "study music", "not a good use of lesson hours")? Check ②: does sentence 2 name both views AND show your side? Check ③: no examples yet — they belong in the body paragraphs.`
+                  });
+              } },
+            { title: "From plan to essay — you have the whole path", sub: "This is exactly what Practise trains, end to end.", wm: "06",
+              render(b, btn) {
+                  b.innerHTML = `
+                      <div class="focus-card"><span class="focus-tag">The full loop</span>
+                          <p><b>Draw a real question → plan it in 7 minutes → compare with a model → write</b>. In the Write step you'll build the introduction with AI checks — and when you've written a whole essay, it gets marked like an examiner would.</p>
+                      </div>
+                      <div class="focus-card" style="animation-delay:0.2s;"><span class="focus-tag">Remember the order</span>
+                          <p>The introduction is written <b>from the plan</b> — never before it. Plan first, always. That is the method.</p>
                       </div>`;
                   pauseBtn(btn, 800, "Start practising ▶");
-                  btn.onclick = function () { fireConfetti(20); showToast("Method complete — over to you"); chapterSeen[4] = CHAPTERS[4].steps.length; saveProgress(); setTimeout(enterPractise, 400); };
+                  btn.onclick = function () { fireConfetti(20); showToast("Method complete — over to you"); chapterSeen[5] = CHAPTERS[5].steps.length; saveProgress(); setTimeout(enterPractise, 400); };
               } }
         ]}
         ];
@@ -1665,7 +1717,8 @@
         { desc: 'Find the boundary word — and dodge the decoy', min: 4 },
         { desc: 'The two-question test that catches empty reasons', min: 4 },
         { desc: 'Generate and compress a full paragraph', min: 5 },
-        { desc: 'Both sides, your stance, and the conclusion line', min: 4 }
+        { desc: 'Both sides, your stance, and the conclusion line', min: 4 },
+        { desc: 'Turn the plan into an introduction', min: 4 }
     ];
     function renderChapterMap() {
         if (mode === 'practise') pauseTimer();
@@ -1677,7 +1730,7 @@
         el('globalPromptBoxNode').style.display = 'none';
         el('headerWatermark').innerText = '☰';
         el('appStepBadge').innerText = 'Learn the method';
-        el('appStepTitle').innerText = 'Five small chapters';
+        el('appStepTitle').innerText = 'Six small chapters';
         el('appStepSubtitle').innerText = 'Each one is a few minutes with its own drill. Do them in order the first time — return to any of them whenever you need.';
         restartAnimation(el('stageHeaderBlock'));
 
@@ -1921,7 +1974,7 @@
             <div class="home-door" onclick="renderChapterMap()">
                 <span class="door-kicker">Step 1 · ~20 minutes</span>
                 <h4>Learn the method</h4>
-                <p>Five short chapters with a micro-drill in each: why planning wins, decoding, the Loop Test, building paragraphs, and the thesis. Revisit any chapter, any time, from the tabs above.</p>
+                <p>Six short chapters with a micro-drill in each: why planning wins, decoding, the Loop Test, building paragraphs, the thesis — and turning the plan into writing. Revisit any chapter, any time.</p>
                 <span class="door-arrow">→</span>
             </div>
             <div class="home-door" onclick="enterPractise()">
