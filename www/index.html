@@ -2467,7 +2467,7 @@
         if (c.code) {
             return `<div class="class-banner joined">
                 <span class="cb-ico">${ico('check')}</span>
-                <div class="cb-body"><b>Connected to class ${c.code.replace(/</g, '')}</b><span>Your progress is shared with your teacher as ${(c.name || 'Anon').replace(/</g, '')}.</span></div>
+                <div class="cb-body"><b>Connected to class ${c.code.replace(/</g, '')}</b><span style="display:block; margin-top:2px;">Sharing your progress with your teacher as ${(c.name || 'Anon').replace(/</g, '')}.</span></div>
                 <button class="cb-x" onclick="leaveClass()" title="Leave class">×</button>
             </div>`;
         }
@@ -2893,7 +2893,7 @@ Reply with ONLY a valid JSON object - no markdown, no code fences. Keys:
             </div>
             <span class="plan-label">Your notes <span class="pl-hint">- short phrases, arrows and abbreviations are perfect</span></span>
             <div class="plan-scaffold">
-                <div class="ps-row"><span class="ps-label">1 · Boundary <span class="ps-hint">who or what is the essay about?</span></span><textarea class="ps-input" id="ps_boundary" rows="1" placeholder="who or what the essay is about..."></textarea></div>
+                <div class="ps-row"><span class="ps-label">1 · Boundary <span class="ps-hint">who or what is the essay about?</span></span><textarea class="ps-input" id="ps_boundary" rows="1" placeholder="e.g. teenagers · tourism · public transport"></textarea></div>
                 <div class="ps-row"><span class="ps-label">2 · Paragraph 1 - ${p.pillarA.label} <span class="ps-hint">idea / reason / example</span></span><textarea class="ps-input" id="ps_p1" rows="2" placeholder="idea → because... → e.g. ..."></textarea></div>
                 <div class="ps-row"><span class="ps-label">3 · Paragraph 2 - ${p.pillarB.label} <span class="ps-hint">idea / reason / example</span></span><textarea class="ps-input" id="ps_p2" rows="2" placeholder="idea → because... → e.g. ..."></textarea></div>
                 <div class="ps-row"><span class="ps-label">4 · Your position <span class="ps-hint">both sides + where you stand</span></span><textarea class="ps-input" id="ps_thesis" rows="1" placeholder="while ..., I think ..."></textarea></div>
@@ -3098,7 +3098,7 @@ Reply with ONLY a valid JSON object - no markdown, no code fences. Keys:
         fireConfetti(14);
 
         feedbackReceived = true;   // marks attempt closed
-        reportActivity('plan', p.qtype, countChecks());
+        reportActivity('plan', p.qtype, countChecks(), checksDetail());
         const btn = el('masterContinueActionBtn');
         btn.removeAttribute('disabled');
         btn.innerText = '▶ Next: turn the plan into writing';
@@ -3263,13 +3263,13 @@ Clear English for a band 6.5 student. Be honest but kind.`;
         try { localStorage.setItem('examacademy_class', code); localStorage.setItem('examacademy_name', name); } catch (e) {}
     }
     // Quietly send one finished plan or marked essay. Never blocks or breaks the student.
-    function reportActivity(kind, qtype, checks) {
+    function reportActivity(kind, qtype, checks, detail) {
         const c = getClassInfo();
         if (!c.code || !BACKEND_URL) return;
         try {
             fetch(BACKEND_URL.replace(/\/$/, '') + '/api/report', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ code: c.code, name: c.name, kind: kind, qtype: qtype, checks: checks })
+                body: JSON.stringify({ code: c.code, name: c.name, kind: kind, qtype: qtype, checks: checks, detail: detail || null })
             }).catch(() => {});
         } catch (e) {}
     }

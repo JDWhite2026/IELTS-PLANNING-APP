@@ -55,8 +55,10 @@ if (process.env.DATABASE_URL) {
             kind TEXT NOT NULL,
             qtype TEXT,
             checks INTEGER,
+            detail TEXT,
             created_at TIMESTAMPTZ DEFAULT now()
-        )`).then(() => console.log('Dashboard: Postgres ready')).catch(e => console.error('Postgres init error', e.message));
+        )`).then(() => pgPool.query('ALTER TABLE attempts ADD COLUMN IF NOT EXISTS detail TEXT').catch(() => {}))
+          .then(() => console.log('Dashboard: Postgres ready')).catch(e => console.error('Postgres init error', e.message));
     } catch (e) {
         console.error('DATABASE_URL set but "pg" not installed - run npm install. Falling back to memory.');
     }
@@ -66,18 +68,24 @@ const memAttempts = []; // in-memory fallback
 const clean = (s, max) => String(s == null ? '' : s).replace(/[<>]/g, '').trim().slice(0, max);
 
 async function saveAttempt(rec) {
+    // detail: array of 5 booleans (boundary, P1, P2, position, conclusion) - stored as "10110" style string
+    let detailStr = null;
+    if (Array.isArray(rec.detail) && rec.detail.length === 5) {
+        detailStr = rec.detail.map(x => x ? '1' : '0').join('');
+    }
     const row = {
         class_code: clean(rec.code, 24).toUpperCase(),
         name: clean(rec.name, 40) || 'Anon',
         kind: rec.kind === 'essay' ? 'essay' : 'plan',
         qtype: clean(rec.qtype, 40),
-        checks: Math.max(0, Math.min(5, parseInt(rec.checks, 10) || 0))
+        checks: Math.max(0, Math.min(5, parseInt(rec.checks, 10) || 0)),
+        detail: detailStr
     };
     if (!row.class_code) return;
     if (pgPool) {
         await pgPool.query(
-            'INSERT INTO attempts (class_code, name, kind, qtype, checks) VALUES ($1,$2,$3,$4,$5)',
-            [row.class_code, row.name, row.kind, row.qtype, row.checks]
+            'INSERT INTO attempts (class_code, name, kind, qtype, checks, detail) VALUES ($1,$2,$3,$4,$5,$6)',
+            [row.class_code, row.name, row.kind, row.qtype, row.checks, row.detail]
         );
     } else {
         row.created_at = new Date().toISOString();
@@ -88,7 +96,7 @@ async function saveAttempt(rec) {
 async function getClassRows(code) {
     const c = clean(code, 24).toUpperCase();
     if (pgPool) {
-        const r = await pgPool.query('SELECT class_code, name, kind, qtype, checks, created_at FROM attempts WHERE class_code=$1 ORDER BY created_at DESC LIMIT 5000', [c]);
+        const r = await pgPool.query('SELECT class_code, name, kind, qtype, checks, detail, created_at FROM attempts WHERE class_code=$1 ORDER BY created_at DESC LIMIT 5000', [c]);
         return r.rows;
     }
     return memAttempts.filter(a => a.class_code === c).slice().reverse();
@@ -220,26 +228,37 @@ app.post('/api/report', async (req, res) => {
 app.get('/api/class/:code', async (req, res) => {
     try {
         const rows = await getClassRows(req.params.code);
-        const byName = {};
-        let missTotals = [0, 0, 0, 0, 0]; // boundary, P1, P2, position, conclusion — only 'plan' rows carry checks
         const CHECK_NAMES = ['Boundary', 'Paragraph 1', 'Paragraph 2', 'Position', 'Conclusion'];
+        const classMiss = [0, 0, 0, 0, 0];   // times each checklist item was missed, class-wide
+        let classDetailCount = 0;
+        const byName = {};
         rows.forEach(r => {
             const key = r.name || 'Anon';
-            byName[key] = byName[key] || { name: key, plans: 0, essays: 0, checkSum: 0, checkCount: 0, last: r.created_at };
+            byName[key] = byName[key] || { name: key, plans: 0, essays: 0, checkSum: 0, checkCount: 0, miss: [0, 0, 0, 0, 0], detailCount: 0, last: r.created_at };
             const s = byName[key];
             if (r.kind === 'essay') s.essays++;
             else { s.plans++; s.checkSum += (r.checks || 0); s.checkCount++; }
+            if (typeof r.detail === 'string' && r.detail.length === 5) {
+                classDetailCount++; s.detailCount++;
+                for (let i = 0; i < 5; i++) if (r.detail[i] === '0') { classMiss[i]++; s.miss[i]++; }
+            }
             if (r.created_at > s.last) s.last = r.created_at;
         });
+        const weakestName = arr => {
+            const worst = arr.indexOf(Math.max(...arr));
+            return arr[worst] > 0 ? CHECK_NAMES[worst] : null;
+        };
         const students = Object.values(byName).map(s => ({
             name: s.name, plans: s.plans, essays: s.essays,
             avg: s.checkCount ? (s.checkSum / s.checkCount) : null,
+            weakest: s.detailCount ? weakestName(s.miss) : null,
             last: s.last
         })).sort((a, b) => (b.plans + b.essays) - (a.plans + a.essays));
         res.json({
             code: clean(req.params.code, 24).toUpperCase(),
             totalPlans: rows.filter(r => r.kind !== 'essay').length,
             totalEssays: rows.filter(r => r.kind === 'essay').length,
+            classWeakest: classDetailCount ? weakestName(classMiss) : null,
             students
         });
     } catch (e) {
@@ -275,6 +294,8 @@ app.get('/dashboard', (req, res) => {
   tr:last-child td{border-bottom:none}
   .avg-pill{display:inline-block;padding:2px 9px;border-radius:99px;font-weight:700;font-size:.8rem;background:var(--wash);color:var(--deep)}
   .avg-low{background:#faeae6;color:#c2402f}
+  .focus-banner{background:var(--wash);border:1px solid rgba(240,146,59,0.35);border-radius:12px;padding:13px 16px;margin-bottom:16px;font-size:.92rem;line-height:1.5;color:var(--ink)}
+  .focus-banner .fb-label{display:inline-block;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--deep);margin-right:8px}
   .empty{color:var(--mut);text-align:center;padding:30px;background:#fff;border:1px dashed #d8d1c6;border-radius:12px}
   .note{font-size:.78rem;color:var(--mut);margin-top:16px}
 </style></head><body><div class="wrap">
@@ -303,13 +324,18 @@ app.get('/dashboard', (req, res) => {
       const rows = d.students.map(s => {
         const avg = s.avg==null ? '—' : '<span class="avg-pill '+(s.avg<3?'avg-low':'')+'">'+s.avg.toFixed(1)+'/5</span>';
         const when = s.last ? new Date(s.last).toLocaleDateString() : '—';
-        return '<tr><td>'+esc(s.name)+'</td><td class="num">'+s.plans+'</td><td class="num">'+s.essays+'</td><td class="num">'+avg+'</td><td class="num">'+when+'</td></tr>';
+        const weak = s.weakest ? esc(s.weakest) : '—';
+        return '<tr><td>'+esc(s.name)+'</td><td class="num">'+s.plans+'</td><td class="num">'+s.essays+'</td><td class="num">'+avg+'</td><td>'+weak+'</td><td class="num">'+when+'</td></tr>';
       }).join('');
+      const focus = d.classWeakest
+        ? '<div class="focus-banner"><span class="fb-label">Teach next</span>The class most often misses the <b>'+esc(d.classWeakest)+'</b> part of the plan. Worth a quick reteach.</div>'
+        : '';
       el('out').innerHTML =
         '<div class="stats"><div class="stat"><div class="n">'+d.students.length+'</div><div class="l">Students</div></div>'+
         '<div class="stat"><div class="n">'+d.totalPlans+'</div><div class="l">Plans made</div></div>'+
         '<div class="stat"><div class="n">'+d.totalEssays+'</div><div class="l">Essays marked</div></div></div>'+
-        '<table><thead><tr><th>Student</th><th class="num">Plans</th><th class="num">Essays</th><th class="num">Avg checklist</th><th class="num">Last active</th></tr></thead><tbody>'+rows+'</tbody></table>';
+        focus+
+        '<table><thead><tr><th>Student</th><th class="num">Plans</th><th class="num">Essays</th><th class="num">Avg checklist</th><th>Weakest part</th><th class="num">Last active</th></tr></thead><tbody>'+rows+'</tbody></table>';
     }catch(e){ el('out').innerHTML = '<div class="empty">Couldn\\'t load that class - try again.</div>'; }
   }
   function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
