@@ -1699,53 +1699,20 @@
 
         /* ---------- 01 · WHY PLAN ---------- */
         { steps: [
-            { title: "Seven minutes. Five moves.", sub: "The whole method - watch it happen once before you learn it.", wm: "01",
-              render(b, btn) {
-                  const stages = [
-                      ['target', 'Decode the question', '1 min'],
-                      ['layers', 'Build paragraph 1', '2 min'],
-                      ['layers', 'Build paragraph 2', '2 min'],
-                      ['compass', 'Write your thesis', '1 min'],
-                      ['check', 'Note the conclusion', '1 min']
-                  ];
-                  b.innerHTML = `<div class="rail-clock" id="railClock">0:00</div><div class="stage-rail">` +
-                      stages.map((s, i) =>
-                          (i ? `<div class="rail-link" style="--rd:${(i * 1.05 - 0.3).toFixed(2)}s"></div>` : '') +
-                          `<div class="rail-item" style="--rd:${(i * 1.05).toFixed(2)}s"><span class="rail-dot">${ico(s[0])}</span><span class="rail-name">${s[1]}</span><span class="rail-min">${s[2]}</span></div>`
-                      ).join('') +
-                      `</div><div class="rail-total" style="--rd:5.4s">= 7 minutes · ~45 words of notes · half your mark decided</div>
-                       <div class="rail-total" style="--rd:5.9s; color:var(--text-secondary); background:var(--brand-orange-wash); border:1px solid rgba(240,146,59,0.3); border-radius:10px; padding:10px 14px; margin-top:10px;">You'll still have <b>27 minutes for the writing itself</b>, and <b>3 to check it over</b> - don't worry, we'll practise both later.</div>`;
-                  runRailClock();
-                  pauseBtn(btn, 5600);
-              } },
-            { title: "Five question types. One method.", sub: "Everything Task 2 can ask - and why the plan never changes.", wm: "01",
-              render(b, btn) {
-                  b.innerHTML = `
-                      <div class="type-show ts-in" id="typeShowCard">
-                          <span class="ts-badge" id="tsName"></span>
-                          <p class="ts-q" id="tsQ"></p>
-                          <div class="ts-relabel" id="tsRelabel"></div>
-                      </div>
-                      <div class="ts-dots">${TYPE_SHOW.map((_, i) => `<i onclick="typeShowJump(${i})"></i>`).join('')}</div>
-                      <div class="focus-card" style="animation-delay:0.3s;"><p>The plan never changes shape - five lines, every time. Only the <b>two paragraph labels</b> change with the type. You'll learn the method on <b>Discussion</b>; Practise trains the rest, with a short guide the first time you meet each.</p></div>`;
-                  runTypeShowcase();
-                  pauseBtn(btn, 800);
-              } },
-            { title: "Half your mark is decided before you write a word", sub: "Your essay is marked in four parts - two are won while planning.", wm: "01",
+            { title: "Half your mark is decided before you write a single word", sub: "This is the reason strong English still gets stuck at 6.5.", wm: "01",
               render(b, btn) { focusReveal(b, btn, [
                   `<div class="crit-map">
-                      <div class="crit-block cb-plan" style="flex:2;"><span class="cb-pct">50%</span><span class="cb-label">Your plan<br>ideas + order</span></div>
+                      <div class="crit-block cb-plan" style="flex:2;"><span class="cb-pct">50%</span><span class="cb-label">Your plan<br>ideas + structure</span></div>
                       <div class="crit-block cb-lang" style="flex:2;"><span class="cb-pct">50%</span><span class="cb-label">Your language<br>vocabulary + grammar</span></div>
                    </div>`,
-                  stmt('The point', `Two of the four marks - your <b>ideas</b> and their <b>order</b> - are decided while you plan, not while you write. Grammar takes years to improve. This takes today.`),
+                  stmt('Here is the good news', `Grammar takes years to move. But <b>half the marks</b> - your ideas and how you order them - are won in seven minutes of planning, before you write anything. That half is available <b>today</b>.`),
                   expander(`Why this works - the examiner's own words`,
                       stmt('The four parts', `Task Response (your ideas) 25% · Coherence (their order) 25% · Vocabulary 25% · Grammar 25%. The first two are planning decisions.`) +
                       quote('...addresses the task; some parts may be more fully covered than others... ideas may be insufficiently developed', 'Band 6 - Task Response (simplified wording)') +
                       quote('...addresses all parts of the task; presents a clear position throughout; extends and supports main ideas', 'Band 7 - Task Response (simplified wording)') +
-                      stmt('The gap', `<b>All parts</b>. <b>Clear position</b>. <b>Supported ideas</b>. Every one is a planning decision - none is a grammar decision.`) +
-                      stmt('One honest note', `You'll learn the method on the most common question type - "discuss both views". Practise mode covers the other four, with a short guide the first time you meet each.`))
+                      stmt('The gap', `<b>All parts</b>. <b>Clear position</b>. <b>Supported ideas</b>. Every one is a planning decision - none is a grammar decision.`))
               ]); } },
-            { title: "What sinks a 6.5 essay?", sub: "Tap the biggest score-killer.", wm: "01",
+            { title: "What actually keeps an essay at 6.5?", sub: "Have a guess - tap the biggest score-killer.", wm: "01",
               render(b, btn) {
                   gateBtn(btn);
                   b.innerHTML = `
@@ -1753,7 +1720,7 @@
                       <div class="tap-card" data-hint="Slips cost marks, but examiners tolerate them at 6.5." onclick="tapAnswer(this, false)">Small grammar slips</div>
                       <div class="tap-card" style="animation-delay:0.15s;" onclick="tapAnswer(this, true)">Ideas that drift off-topic</div>
                       <div class="tap-card" style="animation-delay:0.3s;" data-hint="Range helps - but ideas decide Task Response." onclick="tapAnswer(this, false)">Not enough uncommon vocabulary</div>
-                      <div class="focus-card reveal-after"><p style="font-size:0.92rem;">Off-topic ideas keep Task Response stuck near band 5–6, however accurate the English. Planning prevents drift before it starts.</p></div>`;
+                      <div class="focus-card reveal-after"><p style="font-size:0.92rem;">Off-topic, thin ideas keep Task Response stuck near band 5-6, however accurate the English. That is a <b>planning</b> problem - and planning fixes it before you write a word.</p></div>`;
               } },
             { title: "Planning is bought time", sub: "Two students. Same question. Same 40 minutes.", wm: "01",
               render(b, btn) { focusReveal(b, btn, [
@@ -1782,7 +1749,26 @@
                       </div>
                    </div>`,
                   stmt('The point', `Both write for the same 27 minutes. The first student decides everything, then just writes. The second decides <b>while</b> writing - gets stuck, starts again, and runs out of time. Planning is not lost time. It is bought time.`)
-              ]); } }
+              ]); } },
+            { title: "So here is the plan: seven minutes, five moves", sub: "Watch it happen once - you'll learn each move properly next.", wm: "01",
+              render(b, btn) {
+                  const stages = [
+                      ['target', 'Decode the question', '1 min'],
+                      ['layers', 'Build paragraph 1', '2 min'],
+                      ['layers', 'Build paragraph 2', '2 min'],
+                      ['compass', 'Write your thesis', '1 min'],
+                      ['check', 'Note the conclusion', '1 min']
+                  ];
+                  b.innerHTML = `<div class="rail-clock" id="railClock">0:00</div><div class="stage-rail">` +
+                      stages.map((s, i) =>
+                          (i ? `<div class="rail-link" style="--rd:${(i * 1.05 - 0.3).toFixed(2)}s"></div>` : '') +
+                          `<div class="rail-item" style="--rd:${(i * 1.05).toFixed(2)}s"><span class="rail-dot">${ico(s[0])}</span><span class="rail-name">${s[1]}</span><span class="rail-min">${s[2]}</span></div>`
+                      ).join('') +
+                      `</div><div class="rail-total" style="--rd:5.4s">= 7 minutes · ~45 words of notes · half your mark decided</div>
+                       <div class="rail-total" style="--rd:5.9s; color:var(--text-secondary); background:var(--brand-orange-wash); border:1px solid rgba(240,146,59,0.3); border-radius:10px; padding:10px 14px; margin-top:10px;">That leaves <b>27 minutes for the writing itself</b> and <b>3 to check it over</b> - we'll practise those too.</div>`;
+                  runRailClock();
+                  pauseBtn(btn, 5600);
+              } }
         ]},
 
         /* ---------- 02 · DECODE ---------- */
@@ -2205,8 +2191,7 @@
     }
     function goHome() {
         if (mode === 'practise') pauseTimer();
-        mode = 'home';
-        renderHome();
+        renderChapterMap();
     }
     function goBack() {
         if (mode !== 'learn' || chIdx < 0) return;
@@ -2346,7 +2331,7 @@
         }
 
         const board = el('visualDisplayBoard');
-        board.innerHTML = hDone + hPractice + `<button class="reset-link" onclick="resetProgress()">↺ Reset all progress</button>`;
+        board.innerHTML = hDone + hPractice + classBanner() + `<button class="reset-link" onclick="resetProgress()">↺ Reset all progress</button>`;
         playEntrance(board);
 
         const btn = el('masterContinueActionBtn');
@@ -2384,55 +2369,12 @@
         const btn = el('masterContinueActionBtn');
         btn.removeAttribute('disabled');
         btn.innerText = 'Begin';
-        btn.onclick = () => { showChrome(true); renderHome(); };
+        btn.onclick = () => { showChrome(true); renderChapterMap(); };
     }
 
     /* ================================================================
        HOME
        ================================================================ */
-    function renderHome() {
-        mode = 'home';
-        showChrome(true);
-        renderNav();
-        setClockVisible(false);
-        el('footerBackBtn').style.display = 'none';
-        el('globalPromptBoxNode').style.display = 'none';
-        el('headerWatermark').innerText = '§';
-        el('appStepBadge').innerText = 'IELTS Task 2 Writing';
-        el('appStepTitle').innerText = 'The 7-Minute Planner';
-        el('appStepSubtitle').innerText = 'Half your writing mark is decided before you write a sentence. Learn the 7-minute planning method once - then practise it on real exam questions, as often as you like.';
-        restartAnimation(el('stageHeaderBlock'));
-
-        const learnedAll = chapterSeen.every((s, i) => CHAPTERS[i] && s >= CHAPTERS[i].steps.length);
-        const board = el('visualDisplayBoard');
-        board.innerHTML = `
-            <div class="home-doors-grid">
-            <div class="home-door door-learn" onclick="renderChapterMap()">
-                <div class="hd-top">
-                    <span class="hd-ico">${ico('layers')}</span>
-                    <div><span class="door-kicker">Step 1 · about 20 minutes</span><h4>Learn the method</h4></div>
-                </div>
-                <p>Six short chapters with a micro-drill in each: why planning wins, decoding, the Loop Test, building paragraphs, the thesis - and turning the plan into writing. Revisit any chapter, any time.</p>
-                <span class="hd-cta">Start learning</span>
-            </div>
-            <div class="home-door door-practise" onclick="enterPractise()">
-                <div class="hd-top">
-                    <span class="hd-ico">${ico('target')}</span>
-                    <div><span class="door-kicker">Step 2 · repeat forever</span><h4>Practise planning</h4></div>
-                </div>
-                <p>Draw a fresh exam question - any of the five types, or bring your own - plan it, get feedback, compare with a model, then turn it into writing. ${learnedAll ? 'You know the method - go.' : 'Best after finishing the chapters.'}</p>
-                <span class="hd-cta">Practise now</span>
-            </div>
-            </div>
-            ${classBanner()}`;
-        playEntrance(board);
-
-        const btn = el('masterContinueActionBtn');
-        btn.innerText = learnedAll ? 'Practise planning ▶' : 'Start learning';
-        btn.removeAttribute('disabled');
-        btn.onclick = () => learnedAll ? enterPractise() : renderChapterMap();
-    }
-
     /* ---------- Class-code banner (opt-in) ---------- */
     function classBanner() {
         const c = getClassInfo();
@@ -2462,12 +2404,12 @@
         if (!code) { el('cbCodeInput').style.borderColor = 'var(--color-error)'; return; }
         setClassInfo(code, name || 'Anon');
         showToast('Connected to class ' + code);
-        renderHome();
+        renderProgress();
     };
     window.leaveClass = function () {
         if (!confirm('Leave this class? Your practice will stop being shared.')) return;
         setClassInfo('', '');
-        renderHome();
+        renderProgress();
     };
 
     /* ================================================================
