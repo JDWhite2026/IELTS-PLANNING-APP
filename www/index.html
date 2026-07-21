@@ -1648,7 +1648,7 @@
               render(b, btn) {
                   b.innerHTML = modelCard(5, -1) + `
                       <div class="focus-card" style="animation-delay:0.4s;"><span class="focus-tag">What happens next</span>
-                          <p>Decode → Loop-test → Build → Preview. The structure never changes; only the topic does. Practise mode draws real prompts of <b>every question type</b> — pick the type your exam worries you about, and a short guide appears the first time you meet a new one.</p>
+                          <p>Practise runs the full loop: <b>draw a real question → plan it in 7 minutes → compare with a model → turn the plan into writing</b>. That last step is where it pays off — you'll write the introduction (and, when you're ready, a whole essay) and get it checked like an examiner would.</p>
                       </div>`;
                   pauseBtn(btn, 800, "Start practising ▶");
                   btn.onclick = function () { fireConfetti(20); showToast("Method complete — over to you"); chapterSeen[4] = CHAPTERS[4].steps.length; saveProgress(); setTimeout(enterPractise, 400); };
@@ -2306,10 +2306,8 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
                 ${BACKEND_URL ? '' : '<button class="peek-btn" onclick="openAISetup()">' + ico('gear') + ' AI</button>'}
             </div>
             <div id="coachWrap"></div>
-            <div id="planFeedbackZone" style="display:none;">
-                <button class="ai-feedback-btn" id="planFeedbackBtn" onclick="requestPlanFeedback()">${ico('spark')} Get examiner feedback on my plan</button>
-                <div id="planFeedbackPanel"></div>
-            </div>`;
+            <button class="ai-feedback-btn" id="planFeedbackBtn" disabled onclick="requestPlanFeedback()">${ico('spark')} Examiner feedback — unlocks at 25 words</button>
+            <div id="planFeedbackPanel"></div>`;
         playEntrance(board);
         // Restore any in-progress notes into the five fields, then wire them up.
         const psMap = parsePlanNotes(studentPlanNotes);
@@ -2376,9 +2374,17 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         setChk('chk_p2', p.pillarB.keywords.some(k => lower.includes(k)));
         setChk('chk_thesis', (p.thesisWords || ['while', 'although', 'whereas', 'however']).some(w => lower.includes(w)));
         setChk('chk_concl', ['concl', 'conclusion', 'restate', 'stance'].some(w => lower.includes(w)));
-        // Feedback appears only once there's a real plan to act on.
-        const zone = el('planFeedbackZone');
-        if (zone) zone.style.display = wc >= 25 ? 'block' : 'none';
+        // Feedback button is always visible, greyed until there's a real plan to mark.
+        const fb = el('planFeedbackBtn');
+        if (fb) {
+            if (wc >= 25) {
+                fb.removeAttribute('disabled');
+                if (fb.innerText.includes('unlocks')) fb.innerHTML = ico('spark') + ' Get examiner feedback on my plan';
+            } else {
+                fb.setAttribute('disabled', 'true');
+                fb.innerHTML = ico('spark') + ' Examiner feedback — unlocks at 25 words (' + wc + ' so far)';
+            }
+        }
         // The compare step unlocks with enough notes — it must not depend on the AI.
         if (pState === 'plan') {
             const cont = el('masterContinueActionBtn');
@@ -2506,14 +2512,16 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
                 <span class="pp-tag">${ico('target')} The question <span class="pp-type">${p.qtype}</span></span>
                 <p class="pp-text">${p.prompt}</p>
             </div>
+            ${expander('See a worked example first',
+                stmt('A question', `"Some people believe universities should focus on teaching practical job skills, while others think they should prioritise pure theoretical research. Discuss both views and give your opinion."`) +
+                `<div class="laser-prompt-frame" style="font-size:0.95rem;">These days, people disagree about whether universities should concentrate on <span class="hl-green">preparing students for work</span> or on <span class="hl-green">pure academic study</span>. <b>While research has its place, I believe job skills matter more.</b></div>` +
+                stmt('Why it works', `Sentence 1 says the question again in <b>new words</b> — "practical job skills" became "preparing students for work". Sentence 2 is the thesis line from the plan, written out: both sides, and a clear side taken. Nothing else — no examples yet.`))}
             <span class="plan-label">Sentence 1 — the question in your own words <span class="pl-hint">don't copy its words</span></span>
             <span class="plan-label" style="margin-top:6px;">Sentence 2 — your position <span class="pl-hint">from your thesis line</span></span>
             <textarea class="console-editor-box" id="introInput" style="min-height:110px;" placeholder="These days, ... . While ..., I believe ...">${studentIntroText}</textarea>
             <div class="console-meta-row"><span id="introWordCount">0 words</span><span>Two sentences is enough</span></div>
-            <div id="introFeedbackZone" style="display:none;">
-                <button class="ai-feedback-btn" id="introFeedbackBtn" onclick="requestIntroFeedback()">${ico('spark')} Check my introduction</button>
-                <div id="introFeedbackPanel"></div>
-            </div>
+            <button class="ai-feedback-btn" id="introFeedbackBtn" disabled onclick="requestIntroFeedback()">${ico('spark')} Check my introduction — unlocks at 12 words</button>
+            <div id="introFeedbackPanel"></div>
             <button class="peek-btn" style="margin-top:16px;" onclick="toggleEssayMark()">${ico('doc')} Written the whole essay? Get it marked</button>
             <div id="essayMarkWrap" style="display:none;">
                 <textarea class="console-editor-box" id="essayInput" style="min-height:200px;" placeholder="Paste or type your full essay here.">${studentEssayText}</textarea>
@@ -2539,8 +2547,16 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         studentIntroText = ii.value;
         const wc = studentIntroText.trim().split(/\s+/).filter(w => w.length > 0).length;
         const c = el('introWordCount'); if (c) c.innerText = wc + ' words';
-        const zone = el('introFeedbackZone');
-        if (zone) zone.style.display = wc >= 12 ? 'block' : 'none';
+        const fb = el('introFeedbackBtn');
+        if (fb) {
+            if (wc >= 12) {
+                fb.removeAttribute('disabled');
+                if (fb.innerText.includes('unlocks')) fb.innerHTML = ico('spark') + ' Check my introduction';
+            } else {
+                fb.setAttribute('disabled', 'true');
+                fb.innerHTML = ico('spark') + ' Check my introduction — unlocks at 12 words (' + wc + ' so far)';
+            }
+        }
     };
     window.requestIntroFeedback = async function () {
         const p = currentPrompt;
