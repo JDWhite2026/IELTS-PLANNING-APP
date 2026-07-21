@@ -414,12 +414,9 @@
         .redraw-row { display: flex; gap: 8px; }
 
         /* ---------- Straight-to-writing shortcut card ---------- */
-        .skip-card { display: flex; align-items: center; gap: 14px; border-radius: 14px; padding: 14px 16px; margin-top: 16px; text-align: left; transition: all 0.2s var(--spring); }
-        .skip-card .sk-ico { width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }
-        .skip-card .sk-body { flex: 1; }
-        .skip-card .sk-title { font-family: var(--font-display); font-size: 0.9rem; font-weight: 800; line-height: 1.25; }
-        .skip-card .sk-sub { font-size: 0.78rem; line-height: 1.45; margin-top: 2px; }
-        .skip-card .sk-arrow { font-family: var(--font-serif); font-size: 1.3rem; flex-shrink: 0; }
+        .skip-write-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 16px; font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; color: var(--brand-orange-deep); background: transparent; border: 1px dashed var(--brand-orange); border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.2s var(--spring); }
+        .skip-write-btn:hover { background: var(--brand-orange-wash); }
+        .skip-write-btn .ico { font-size: 0.95rem; }
 
         /* ---------- Chapter objective (intro) screen ---------- */
         .chapter-intro { animation: zoomFocus 0.6s var(--glide) both; }
@@ -435,19 +432,6 @@
         .ci-list li { display: flex; align-items: flex-start; gap: 11px; padding: 11px 14px; background: #fff; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5; color: var(--text-main); animation: springIn 0.5s var(--spring) both; }
         .ci-list li:nth-child(2) { animation-delay: 0.08s; } .ci-list li:nth-child(3) { animation-delay: 0.16s; }
         .ci-list li .ico { color: var(--brand-orange); flex-shrink: 0; margin-top: 2px; font-size: 1rem; }
-        /* Locked */
-        .skip-card.locked { background: var(--paper-warm); border: 1px dashed var(--line-strong); }
-        .skip-card.locked .sk-ico { background: #fff; border: 1px solid var(--line-strong); color: var(--text-muted); }
-        .skip-card.locked .sk-title { color: var(--text-secondary); }
-        .skip-card.locked .sk-sub { color: var(--text-muted); }
-        /* Unlocked / ready */
-        .skip-card.ready { background: var(--brand-orange-wash); border: 1.5px solid var(--brand-orange); cursor: pointer; }
-        .skip-card.ready:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -16px rgba(240,146,59,0.6); }
-        .skip-card.ready:active { transform: scale(0.99); }
-        .skip-card.ready .sk-ico { background: var(--brand-orange); color: #fff; box-shadow: 0 7px 16px -7px rgba(240,146,59,0.8); }
-        .skip-card.ready .sk-title { color: var(--brand-orange-deep); }
-        .skip-card.ready .sk-sub { color: var(--text-secondary); }
-        .skip-card.ready .sk-arrow { color: var(--brand-orange); }
 
         /* ---------- Relaxed / exam mode toggle ---------- */
         .mode-wrap { background: var(--paper-warm); border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin: 14px 0 4px 0; }
@@ -621,6 +605,10 @@
         .peek-close { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--text-muted); }
 
         .compare-label { font-family: var(--font-display); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.13em; color: var(--text-muted); display: block; margin: 4px 0 8px 2px; }
+        .model-plan-card .mp-plain { font-family: var(--font-body); font-size: 0.72rem; font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--text-muted); }
+        .mp-key { display: flex; align-items: flex-start; gap: 7px; margin-top: 10px; padding: 9px 12px; background: var(--paper-warm); border-radius: 10px; font-size: 0.76rem; line-height: 1.45; color: var(--text-secondary); }
+        .mp-key .ico { color: var(--brand-orange); flex-shrink: 0; margin-top: 1px; }
+        .mp-key b { color: var(--text-main); font-family: var(--font-serif); }
         .model-plan-card { background: #ffffff; border: 1px solid var(--line); border-left: 4px solid var(--brand-orange); border-radius: 12px; padding: 15px 20px; text-align: left; margin-bottom: 10px; animation: zoomFocus 0.8s var(--glide) both; }
         .model-plan-card .note-tag { font-family: var(--font-display); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--brand-orange-deep); display: inline-flex; align-items: center; gap: 6px; margin-bottom: 2px; }
         .model-plan-card .note-tag .ico { font-size: 0.9rem; color: var(--brand-orange); }
@@ -1658,6 +1646,7 @@
         gateBtn(btn, 'Write & check to continue');
         board.innerHTML = `
             <div class="focus-card"><span class="focus-tag">${cfg.tag}</span><p>${cfg.task}</p></div>
+            ${cfg.helper || ''}
             <textarea class="mini-editor" id="createInput" placeholder="${cfg.placeholder}"></textarea>
             <button class="ai-feedback-btn" id="createCheckBtn" disabled onclick="runCreateCheck()">${ico('spark')} Check my ${cfg.noun}</button>
             <div class="help-bar" style="margin-top:10px;">
@@ -1729,7 +1718,7 @@
                       <div class="crit-block cb-plan" style="flex:2;"><span class="cb-pct">50%</span><span class="cb-label">Your plan<br>ideas + structure</span></div>
                       <div class="crit-block cb-lang" style="flex:2;"><span class="cb-pct">50%</span><span class="cb-label">Your language<br>vocabulary + grammar</span></div>
                    </div>`,
-                  stmt('Here is the good news', `Grammar takes years to move. But <b>half the marks</b> - your ideas and how you order them - are won in seven minutes of planning, before you write anything. That half is available <b>today</b>.`),
+                  stmt('Here is the good news', `Your vocabulary and grammar matter too - but they take months to build. Planning is different: it lets you win the <b>other half</b> of the marks from the English you <b>already have</b>, in seven minutes, before you write anything. Learn it once, and you use it in every essay you ever write.`),
                   expander(`Why this works - the examiner's own words`,
                       stmt('The four parts', `Task Response (your ideas) 25% · Coherence (their order) 25% · Vocabulary 25% · Grammar 25%. The first two are planning decisions.`) +
                       quote('...addresses the task; some parts may be more fully covered than others... ideas may be insufficiently developed', 'Band 6 - Task Response (simplified wording)') +
@@ -1750,7 +1739,7 @@
                           <p>One idea per paragraph, in a sensible order, joined with linking words so the reader never gets lost. In short: <b>clear, logical structure</b>.</p>
                       </div>
                    </div>`,
-                  stmt('Why only these two', `These are the marks you win by <b>planning</b>. The other two - Vocabulary and Grammar - come from your English, which takes months or years to build. So this app starts where you can gain the fastest.`)
+                  stmt('Why start here', `Vocabulary and Grammar are worth half your mark too - but they improve slowly, over months. Task Response and Coherence you can win <b>today</b>, with the English you already have, just by planning well. It's the fastest way to lift your band - and once you know it, it's yours for every exam.`)
               ]); } },
             { title: "What actually keeps an essay at 6.5?", sub: "Have a guess - tap the biggest score-killer.", wm: "01",
               render(b, btn) {
@@ -2148,6 +2137,7 @@
                   createStep(b, btn, {
                       tag: 'Your question',
                       task: `"<b>Some people think all children should learn a musical instrument at school, while others see it as a waste of time. Discuss both views and give your opinion.</b>" - Write the <b>two-sentence introduction</b>: the question in your own words, then your position.`,
+                      helper: langIntroHTML(),
                       placeholder: 'These days, ... . While ..., I believe ...',
                       noun: 'introduction',
                       minWords: 12,
@@ -2524,6 +2514,9 @@
         }
     }
 
+    function learnedAllChapters() {
+        return CHAPTERS.length && chapterSeen.every((s, i) => CHAPTERS[i] && s >= CHAPTERS[i].steps.length);
+    }
     function drawPrompt() {
         const typed = typeFilter === 'All' ? PRACTICE_BANK : PRACTICE_BANK.filter(p => p.qtype === typeFilter);
         const base = typed.length ? typed : PRACTICE_BANK;
@@ -2595,16 +2588,9 @@
                 <div class="big-clock" style="font-size:3rem;">${practiceMode === 'exam' ? '7:00' : '–:–'}</div>
                 <div class="clock-sub" style="margin-top:8px; font-size:0.88rem;">${practiceMode === 'exam' ? 'Short notes only - no full sentences. The clock starts when you press the button.' : 'Short notes only - no full sentences. No clock in relaxed mode - learn the moves at your own pace.'}</div>
             </div>
-            ${attempts.some(a => a.checks >= 5)
-                ? `<div class="skip-card ready" onclick="skipToWrite()">
-                       <span class="sk-ico">${ico('pen')}</span>
-                       <div class="sk-body"><div class="sk-title">Skip straight to writing</div><div class="sk-sub">You've earned it - go right to the writing step for this question.</div></div>
-                       <span class="sk-arrow">→</span>
-                   </div>`
-                : `<div class="skip-card locked">
-                       <span class="sk-ico">${ico('lock')}</span>
-                       <div class="sk-body"><div class="sk-title">Straight-to-writing shortcut</div><div class="sk-sub">Complete one full plan - all five parts checked off - and this unlocks, so you can jump straight to writing next time.</div></div>
-                   </div>`}`;
+            ${(learnedAllChapters() && attempts.some(a => a.checks >= 5))
+                ? `<button class="skip-write-btn" onclick="skipToWrite()">${ico('pen')} Skip the plan - write this one straight away →</button>`
+                : ''}`;
         playEntrance(board);
 
         const btn = el('masterContinueActionBtn');
@@ -3077,19 +3063,24 @@ Reply with ONLY a valid JSON object - no markdown, no code fences. Keys:
 
         const board = el('visualDisplayBoard');
         board.innerHTML = `
+            <div class="plan-prompt">
+                <span class="pp-tag">${ico('target')} The question <span class="pp-type">${p.qtype}</span></span>
+                <p class="pp-text">${p.prompt}</p>
+            </div>
             <div class="attempt-strip"><span class="attempt-chip">This plan: <b>${usedStr}</b> · ${countChecks()}/5 checklist${peekedThisAttempt ? ' · peeked' : ''}${coachedThisAttempt ? ' · coached' : ''}</span></div>
             <div class="compare-cols">
             <div><span class="compare-label">Your plan</span>
             <div class="note-pad" style="transform:none;"><div class="note-line" style="font-size:1.35rem; white-space:pre-wrap;">${studentPlanNotes.replace(/</g, '&lt;')}</div></div></div>
             <div><span class="compare-label">A model plan for the same question</span>
             <div class="model-plan-card">
-                <span class="note-tag">${ico('target')} Boundary</span><div class="note-line">${p.model.boundary}</div>
-                <span class="note-tag">${ico('layers')} Paragraph 1</span><div class="note-line">${p.model.p1}</div>
-                <span class="note-tag">${ico('layers')} Paragraph 2</span><div class="note-line">${p.model.p2}</div>
-                <span class="note-tag">${ico('compass')} Thesis</span><div class="note-line">${p.model.thesis}</div>
-                <span class="note-tag">${ico('check')} Conclusion</span><div class="note-line">${p.model.concl}</div>
-            </div></div>
-            </div>`;
+                <span class="note-tag">${ico('target')} Boundary <span class="mp-plain">- who/what it's about</span></span><div class="note-line">${p.model.boundary}</div>
+                <span class="note-tag">${ico('layers')} Paragraph 1 <span class="mp-plain">- ${p.pillarA.label}</span></span><div class="note-line">${p.model.p1}</div>
+                <span class="note-tag">${ico('layers')} Paragraph 2 <span class="mp-plain">- ${p.pillarB.label}</span></span><div class="note-line">${p.model.p2}</div>
+                <span class="note-tag">${ico('compass')} Thesis <span class="mp-plain">- both sides + your side</span></span><div class="note-line">${p.model.thesis}</div>
+                <span class="note-tag">${ico('check')} Conclusion <span class="mp-plain">- restate, nothing new</span></span><div class="note-line">${p.model.concl}</div>
+            </div>
+            <div class="mp-key">${ico('idea')} <span>In these notes: <b>→</b> means "leads to", <b>↑↓</b> mean up/down, <b>eg</b> means "for example".</span></div>
+            </div></div>`;
         playEntrance(board);
         fireConfetti(14);
 
