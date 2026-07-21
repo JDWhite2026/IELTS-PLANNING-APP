@@ -2599,6 +2599,13 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
 
     /* ---------- Write stage: introduction practice + full-essay marking ---------- */
     let studentIntroText = '';
+    let writeFocus = 'guided';   // 'guided' (intro drill) or 'skip' (straight to essay)
+    try { writeFocus = localStorage.getItem('examacademy_wfocus') || 'guided'; } catch (e) {}
+    window.setWriteFocus = function (f) {
+        writeFocus = f;
+        try { localStorage.setItem('examacademy_wfocus', f); } catch (e) {}
+        renderWriteScreen();
+    };
     function renderWriteScreen() {
         pState = 'write';
         const p = currentPrompt;
@@ -2617,9 +2624,12 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
         el('headerWatermark').innerHTML = ico('pen');
         el('appStepBadge').innerText = 'Practise · Write';
         el('appStepTitle').innerText = 'Turn the plan into writing';
-        el('appStepSubtitle').innerText = practiceMode === 'exam'
-            ? 'Exam timing: 27 minutes to write, then 3 to check. Start with the introduction — two sentences, both already in your plan.'
-            : 'The introduction is just two sentences — the question in your own words, then your position. Both are already in your plan.';
+        const guided = writeFocus === 'guided';
+        el('appStepSubtitle').innerText = guided
+            ? (practiceMode === 'exam'
+                ? 'Exam timing: 27 minutes to write, then 3 to check. Start with the introduction — two sentences, both already in your plan.'
+                : 'The introduction is just two sentences — the question in your own words, then your position. Both are already in your plan.')
+            : 'Straight to writing — for when you know the method and just want the practice.';
         restartAnimation(el('stageHeaderBlock'));
 
         const board = el('visualDisplayBoard');
@@ -2628,6 +2638,14 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
                 <span class="pp-tag">${ico('target')} The question <span class="pp-type">${p.qtype}</span></span>
                 <p class="pp-text">${p.prompt}</p>
             </div>
+            <div class="mode-wrap">
+                <span class="mode-title">How do you want to write today?</span>
+                <div class="mode-row">
+                    <button class="mode-chip ${guided ? 'sel' : ''}" onclick="setWriteFocus('guided')"><span class="mc-dot"></span>Guided intro<span class="mc-sub">Build it sentence by sentence</span></button>
+                    <button class="mode-chip ${!guided ? 'sel' : ''}" onclick="setWriteFocus('skip')"><span class="mc-dot"></span>Just let me write<span class="mc-sub">Skip to a full essay</span></button>
+                </div>
+            </div>
+            ${guided ? `
             ${expander('See a worked example first',
                 stmt('A question', `"Some people believe universities should focus on teaching practical job skills, while others think they should prioritise pure theoretical research. Discuss both views and give your opinion."`) +
                 `<div class="laser-prompt-frame" style="font-size:0.95rem;">These days, people disagree about whether universities should concentrate on <span class="hl-green">preparing students for work</span> or on <span class="hl-green">pure academic study</span>. <b>While research has its place, I believe job skills matter more.</b></div>` +
@@ -2644,7 +2662,12 @@ Reply with ONLY a valid JSON object — no markdown, no code fences. Keys:
                 <div class="console-meta-row"><span id="essayWordCount">0 words</span><span>Task 2 needs 250+</span></div>
                 <button class="ai-feedback-btn" id="essayFeedbackBtn" disabled onclick="requestEssayFeedback()">${ico('spark')} Mark my essay</button>
                 <div id="essayFeedbackPanel"></div>
-            </div>`;
+            </div>` : `
+            <span class="plan-label">Your full essay</span>
+            <textarea class="console-editor-box" id="essayInput" style="min-height:280px;" placeholder="Write your essay here, from your plan above.">${studentEssayText}</textarea>
+            <div class="console-meta-row"><span id="essayWordCount">0 words</span><span>Task 2 needs 250+</span></div>
+            <button class="ai-feedback-btn" id="essayFeedbackBtn" disabled onclick="requestEssayFeedback()">${ico('spark')} Mark my essay</button>
+            <div id="essayFeedbackPanel"></div>`}`;
         playEntrance(board);
 
         const ii = el('introInput');
